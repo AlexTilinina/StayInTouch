@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_xsmall">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_xlarge">22sp</dimen>
+    <dimen name="text_xxlarge">24sp</dimen>
+    <dimen name="text_xxxlarge">32sp</dimen>
+
+    <dimen name="margin_xsmall">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_xxlarge">52dp</dimen>
+
+    <dimen name="padding_xsmall">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_xlarge">32dp</dimen>
+    <dimen name="padding_xxlarge">52dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>
