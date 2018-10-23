@@ -5,9 +5,64 @@
              android:layout_height="match_parent"
              tools:context=".ProfileFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="test123"/>
+    <ImageView
+        android:id="@+id/iv_profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/profile_image"/>
 
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextDark"
+        android:textSize="@dimen/text_xlarge"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_toEndOf="@id/iv_profile_image"
+        tools:text="Name Username"/>
+
+    <TextView
+        android:id="@+id/tv_email_fix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextDark"
+        android:layout_below="@id/iv_profile_image"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:textSize="@dimen/text_large"
+        android:text="@string/prompt_email"/>
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_profile_image"
+        android:layout_toEndOf="@id/tv_email_fix"
+        android:textSize="@dimen/text_large"
+        tools:text="Email@test.com"/>
+    
+    <TextView
+        android:id="@+id/tv_tags_fix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_email_fix"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:textSize="@dimen/text_large"
+        android:textColor="@color/colorTextDark"
+        android:text="@string/promt_tags"/>
+    
+    <TextView
+        android:id="@+id/tv_tags_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tags_fix"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:textSize="@dimen/text_medium"
+        tools:text="tags tags 123"/>
 </RelativeLayout>
