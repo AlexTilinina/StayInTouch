@@ -10,7 +10,9 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import ru.kpfu.itis.stayintouch.R
+import ru.kpfu.itis.stayintouch.ui.answers.AnswersFragment
 import ru.kpfu.itis.stayintouch.ui.news.NewsFragment
+import ru.kpfu.itis.stayintouch.ui.recommend.RecommendFragment
 
 
 class MainActivity : MvpAppCompatActivity() {
@@ -18,7 +20,7 @@ class MainActivity : MvpAppCompatActivity() {
     companion object {
         const val NEWS_FRAGMENT_TAG = "NewsFragment"
         const val RECOMMENDATION_FRAGMENT_TAG = "RecommendFragment"
-        const val ANSWERS_FRAGMNET_TAG = "AnswersFragment"
+        const val ANSWERS_FRAGMENT_TAG = "AnswersFragment"
         const val PROFILE_FRAGMENT_TAG = "ProfileFragment"
     }
 
@@ -43,20 +45,24 @@ class MainActivity : MvpAppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val currentFrag = supportFragmentManager.findFragmentByTag(NEWS_FRAGMENT_TAG)
-        return if (currentFrag != null && currentFrag.isVisible) {
+        var currentFrag = supportFragmentManager.findFragmentByTag(NEWS_FRAGMENT_TAG)
+        if (currentFrag != null && currentFrag.isVisible) {
             menuInflater.inflate(R.menu.toolbar_create_post_menu, menu)
-            true
-        } else {
-            super.onCreateOptionsMenu(menu)
-            true
         }
+        currentFrag = supportFragmentManager.findFragmentByTag(RECOMMENDATION_FRAGMENT_TAG)
+        if (currentFrag != null && currentFrag.isVisible) {
+            menuInflater.inflate(R.menu.toolbar_search_menu, menu)
+        }
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             action_create_post -> {
                 //TODO окно создания поста
+            }
+            action_search -> {
+                //TODO теги
             }
         }
         return true
@@ -101,9 +107,9 @@ class MainActivity : MvpAppCompatActivity() {
                         .replace(
                             R.id.container,
                             AnswersFragment.newInstance(),
-                            ANSWERS_FRAGMNET_TAG
+                            ANSWERS_FRAGMENT_TAG
                         )
-                        .addToBackStack(ANSWERS_FRAGMNET_TAG)
+                        .addToBackStack(ANSWERS_FRAGMENT_TAG)
                         .commit()
                 }
                 nav_profile -> {

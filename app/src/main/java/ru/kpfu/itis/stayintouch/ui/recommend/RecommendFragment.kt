@@ -1,4 +1,4 @@
-package ru.kpfu.itis.stayintouch.ui.news
+package ru.kpfu.itis.stayintouch.ui.recommend
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,21 +9,27 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.fragment_recommend.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Post
+import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.ui.post.PostAdapter
 
-class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
+class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
 
     @InjectPresenter
-    lateinit var presenter: NewsFragmentPresenter
+    lateinit var presenter: RecommendFragmentPresenter
 
     companion object {
 
         fun newInstance(): Fragment {
-            return NewsFragment()
+            return RecommendFragment()
         }
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun changeLoadingState(isLoading: Boolean) {
@@ -39,10 +45,16 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
         recycler_view.layoutManager = LinearLayoutManager(activity)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun setTags(tags: List<Tag>) {
+        recycler_view.adapter = RecommendAdapter(tags)
+        recycler_view.layoutManager = LinearLayoutManager(activity)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         presenter.init()
-        this.activity?.toolbar?.title = resources.getString(R.string.nav_news)
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        this.activity?.toolbar?.title = resources.getString(R.string.nav_recommend)
+        return inflater.inflate(R.layout.fragment_recommend, container, false)
     }
 
 }

@@ -22,7 +22,7 @@
         android:layout_marginTop="@dimen/margin_xlarge"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_toEndOf="@id/iv_profile_image"
-        android:text="@string/prompt_name"/>
+        android:text="@string/prompt_username"/>
 
     <TextView
         android:id="@+id/tv_email_fix"
@@ -43,7 +43,7 @@
         android:layout_below="@id/iv_profile_image"
         android:layout_toEndOf="@id/tv_email_fix"
         android:textSize="@dimen/text_large"
-        tools:text="Email@test.com"/>
+        android:text="Email@test.com"/>
     
     <TextView
         android:id="@+id/tv_tags_fix"
@@ -64,5 +64,5 @@
         android:layout_below="@id/tv_tags_fix"
         android:layout_marginStart="@dimen/margin_medium"
         android:textSize="@dimen/text_medium"
-        tools:text="tags tags 123"/>
+        android:text="tags tags 123"/>
 </RelativeLayout>

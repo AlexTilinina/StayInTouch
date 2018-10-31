@@ -1,4 +1,4 @@
-package ru.kpfu.itis.stayintouch.ui.news
+package ru.kpfu.itis.stayintouch.ui.post
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,21 +8,21 @@ import kotlinx.android.synthetic.main.item_post.view.*
 import ru.kpfu.itis.stayintouch.R.layout.item_post
 import ru.kpfu.itis.stayintouch.model.Post
 
-class NewsAdapter(private val news: List<Post>, private val fragment: NewsFragment) :
-    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class PostAdapter(private val news: List<Post>) :
+    RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
-    class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    class PostViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(item_post, parent, false)
-        return NewsViewHolder(view)
+        return PostViewHolder(view)
     }
 
     override fun getItemCount(): Int = news.size
 
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.itemView.iv_author_image //TODO подгрузка картинки
         val username = "${news[position].author?.name} ${news[position].author?.surname}"
         holder.itemView.tv_author_name.text = username
@@ -40,6 +40,4 @@ class NewsAdapter(private val news: List<Post>, private val fragment: NewsFragme
         }
         holder.itemView.tv_tags.text = tags
     }
-
-
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_author_image"
+        android:layout_width="@dimen/profile_image_size_small"
+        android:layout_height="@dimen/profile_image_size_small"
+        android:layout_margin="@dimen/margin_medium"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/profile_image"/>
+
+    <TextView
+        android:id="@+id/tv_author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_author_image"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:textColor="@color/colorTextLink"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_medium"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/prompt_username"/>
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_below="@id/iv_author_image"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:textSize="@dimen/text_medium"
+        android:textColor="@color/colorTextDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test data for post sfdgdfgdfgdfsg dfgfd dfas fsdafsd fsafsdaf fdsafsdafsdf sdfsdafsdfsdf sdfsdfsdfsdfsadfsda sdfsdafsdafsdafas fasdfasdfas fasgadfgsdfhhgf"/>
+
+    <View
+        android:layout_below="@id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#7b7b7b"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp" />
+</RelativeLayout>

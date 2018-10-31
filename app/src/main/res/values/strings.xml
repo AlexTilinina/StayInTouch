@@ -19,11 +19,13 @@
     <string name="nav_answers">Answers</string>
     <string name="nav_profile">Profile</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile_image">Profile image</string>
     <string name="prompt_tags">Tags</string>
     <string name="prompt_username">Name Username</string>
     <string name="prompt_commentaries">Commentaries</string>
     <string name="add_event_to_calendar">Add event to calendar</string>
     <string name="create_post">Create post</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="my_comments">My comments</string>
+    <string name="answers">Answers</string>
 </resources>
