@@ -1,13 +1,12 @@
-package ru.kpfu.itis.stayintouch
+package ru.kpfu.itis.stayintouch.ui
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.kpfu.itis.stayintouch.R
 
 class ProfileFragment : Fragment() {
 

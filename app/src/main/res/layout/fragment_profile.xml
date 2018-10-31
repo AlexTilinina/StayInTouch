@@ -3,12 +3,12 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".ProfileFragment">
+             tools:context=".ui.ProfileFragment">
 
     <ImageView
         android:id="@+id/iv_profile_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/profile_image_size_medium"
+        android:layout_height="@dimen/profile_image_size_medium"
         android:layout_margin="@dimen/margin_medium"
         android:src="@mipmap/ic_launcher"
         android:contentDescription="@string/profile_image"/>
@@ -22,7 +22,7 @@
         android:layout_marginTop="@dimen/margin_xlarge"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_toEndOf="@id/iv_profile_image"
-        tools:text="Name Username"/>
+        android:text="@string/prompt_name"/>
 
     <TextView
         android:id="@+id/tv_email_fix"
@@ -55,7 +55,7 @@
         android:layout_marginEnd="@dimen/margin_medium"
         android:textSize="@dimen/text_large"
         android:textColor="@color/colorTextDark"
-        android:text="@string/promt_tags"/>
+        android:text="@string/prompt_tags"/>
     
     <TextView
         android:id="@+id/tv_tags_list"
