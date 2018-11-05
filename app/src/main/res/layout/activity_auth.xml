@@ -55,15 +55,6 @@
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"/>
         </android.support.design.widget.TextInputLayout>
-<!--
-        <TextView
-            android:id="@+id/tv_reset_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_forgot_password"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent"/>-->
 
         <Button
             android:id="@+id/btn_sign_in"
@@ -73,34 +64,33 @@
             android:paddingStart="@dimen/padding_xxlarge"
             android:paddingEnd="@dimen/padding_xxlarge"
             android:background="@color/colorPrimary"
-            android:text="@string/btn_sign_in"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:text="@string/btn_sign_in"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
+
+        <Button
+            android:id="@+id/btn_sign_up"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:paddingStart="@dimen/padding_xxlarge"
+            android:paddingEnd="@dimen/padding_xxlarge"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:text="@string/btn_sign_up"/>
 
-            <Button
-                android:id="@+id/btn_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:background="@color/colorPrimary"
-                android:text="@string/btn_sign_up"
-                android:textColor="@android:color/white"/>
+        <Button
+            android:id="@+id/btn_sign_in_other_way"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:paddingStart="@dimen/padding_xxlarge"
+            android:paddingEnd="@dimen/padding_xxlarge"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:text="@string/sign_in_another_way"/>
 
-         <!--   <Button
-                android:id="@+id/btn_sign_in_vk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_small"
-                android:background="@color/colorPrimary"
-                android:text="@string/vk"
-                android:textColor="@android:color/white"/>-->
-        </LinearLayout>
+
     </LinearLayout>
 
     <ProgressBar

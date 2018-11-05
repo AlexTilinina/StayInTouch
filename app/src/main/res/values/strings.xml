@@ -37,4 +37,6 @@
     <string name="error_empty_name">Enter name</string>
     <string name="error_empty_surname">Enter surname</string>
     <string name="log_out">Log out</string>
+    <string name="sign_in_another_way">Sign in another way</string>
+    <string name="google">Google</string>
 </resources>

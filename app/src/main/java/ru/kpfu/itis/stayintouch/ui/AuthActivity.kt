@@ -80,6 +80,9 @@ class AuthActivity : MvpAppCompatActivity() {
                     error.printStackTrace()
                 })
         }
+        btn_sign_in_other_way.setOnClickListener {
+            AuthOtherWayActivity.create(this)
+        }
     }
 
     private fun setLoadingState(isLoading: Boolean) {
