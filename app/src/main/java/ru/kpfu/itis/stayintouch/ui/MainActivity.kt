@@ -1,5 +1,7 @@
 package ru.kpfu.itis.stayintouch.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,15 +15,19 @@ import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.ui.answers.AnswersFragment
 import ru.kpfu.itis.stayintouch.ui.news.NewsFragment
 import ru.kpfu.itis.stayintouch.ui.recommend.RecommendFragment
+import ru.kpfu.itis.stayintouch.utils.ANSWERS_FRAGMENT_TAG
+import ru.kpfu.itis.stayintouch.utils.NEWS_FRAGMENT_TAG
+import ru.kpfu.itis.stayintouch.utils.PROFILE_FRAGMENT_TAG
+import ru.kpfu.itis.stayintouch.utils.RECOMMENDATION_FRAGMENT_TAG
 
 
 class MainActivity : MvpAppCompatActivity() {
 
     companion object {
-        const val NEWS_FRAGMENT_TAG = "NewsFragment"
-        const val RECOMMENDATION_FRAGMENT_TAG = "RecommendFragment"
-        const val ANSWERS_FRAGMENT_TAG = "AnswersFragment"
-        const val PROFILE_FRAGMENT_TAG = "ProfileFragment"
+        fun create(context: Context){
+            val intent = Intent(context, MainActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,15 +75,10 @@ class MainActivity : MvpAppCompatActivity() {
     }
 
     private fun initListeners() {
-       /* btn_sign_in.setOnClickListener {
-            val intent = Intent(this, AuthActivity::class.java)
-            startActivity(intent)
-        }*/
         bottom_navigation.setOnNavigationItemSelectedListener {
             invalidateOptionsMenu()
             when (it.itemId) {
                 nav_news -> {
-                    //todo новости
                     supportFragmentManager
                         .beginTransaction()
                         .replace(
@@ -89,7 +90,6 @@ class MainActivity : MvpAppCompatActivity() {
                         .commit()
                 }
                 nav_recommend -> {
-                    //todo рекомендашки
                     supportFragmentManager
                         .beginTransaction()
                         .replace(
@@ -101,7 +101,6 @@ class MainActivity : MvpAppCompatActivity() {
                         .commit()
                 }
                 nav_answers -> {
-                    //todo ответики и поиск
                     supportFragmentManager
                         .beginTransaction()
                         .replace(
@@ -113,7 +112,6 @@ class MainActivity : MvpAppCompatActivity() {
                         .commit()
                 }
                 nav_profile -> {
-                    //todo профиль
                     supportFragmentManager
                         .beginTransaction()
                         .replace(

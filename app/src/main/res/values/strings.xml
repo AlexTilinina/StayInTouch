@@ -28,4 +28,13 @@
     <string name="subscribe">Subscribe</string>
     <string name="my_comments">My comments</string>
     <string name="answers">Answers</string>
+
+    <string name="error_empty_email">Enter email!</string>
+    <string name="error_empty_password">Enter password!</string>
+    <string name="error_different_passwords">Passwords are different</string>
+    <string name="error_short_password">Password is too short!</string>
+    <string name="error_wrong_email">Invalid email!</string>
+    <string name="error_empty_name">Enter name</string>
+    <string name="error_empty_surname">Enter surname</string>
+    <string name="log_out">Log out</string>
 </resources>

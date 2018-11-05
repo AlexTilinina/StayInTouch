@@ -9,6 +9,7 @@
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
         android:text="#Tag"
+        android:lines="1"
         android:textSize="@dimen/text_medium"
         android:layout_centerVertical="true"
         android:textColor="@color/colorTextLink"
