@@ -8,4 +8,6 @@
     <color name="inactiveButton">#eeeeee</color>
     <color name="colorTextDark">#424242</color>
     <color name="colorTextLink">#1565c0</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlackTransparent">#32000000</color>
 </resources>

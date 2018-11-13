@@ -39,4 +39,10 @@
     <string name="log_out">Log out</string>
     <string name="sign_in_another_way">Sign in another way</string>
     <string name="google">Google</string>
+    <string name="empty_news">You don\'t have any news with your tags yet</string>
+    <string name="title">Title</string>
+    <string name="location">Location</string>
+    <string name="description">Description</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

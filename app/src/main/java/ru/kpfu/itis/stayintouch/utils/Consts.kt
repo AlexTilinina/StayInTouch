@@ -17,3 +17,5 @@ const val CODE_3 = "3"
 const val CODE_1_TEXT = "Server is not responding"
 const val CODE_2_TEXT = "Invalid e-mail or password"
 const val CODE_3_TEXT = "E-mail already taken"
+
+const val COUNT_OF_ELEMENTS = 20

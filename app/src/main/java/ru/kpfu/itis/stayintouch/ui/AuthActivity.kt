@@ -80,8 +80,11 @@ class AuthActivity : MvpAppCompatActivity() {
                     error.printStackTrace()
                 })
         }
-        btn_sign_in_other_way.setOnClickListener {
-            AuthOtherWayActivity.create(this)
+        btn_sign_in_google.setOnClickListener {
+            //TODO гугловский виджет
+        }
+        btn_sign_in_vk.setOnClickListener {
+            //TODO вкшный виджет
         }
     }
 

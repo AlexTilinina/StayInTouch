@@ -2,33 +2,41 @@ package ru.kpfu.itis.stayintouch.ui.news
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import ru.kpfu.itis.stayintouch.model.Post
-import ru.kpfu.itis.stayintouch.model.Tag
-import ru.kpfu.itis.stayintouch.model.User
+import ru.kpfu.itis.stayintouch.service.ServiceFactory
+import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
+import java.util.ArrayList
 
 @InjectViewState
 class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
 
-    fun init() {
-        //TODO сервисы
-        notifyDataLoaded(addTestData())
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        loadPosts()
     }
 
-    fun notifyDataLoaded(news: List<Post>) {
-        viewState.changeLoadingState(false)
-        viewState.setNews(news)
+    fun loadPosts(){
+        //TODO сгрузить с профиля список тегов
+        ServiceFactory.providePostServiceMock()
+            .getPostsByTagIds(testTagsList(), 0)
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .doAfterTerminate(viewState::checkIfEmpty)
+            .subscribe(viewState::showPosts, viewState::handleError)
     }
 
-    fun addTestData() : List<Post> {
-        val user = User("4", "Name", "Surname")
-        val tag = Tag("4", "Azaza")
-        val tagList = ArrayList<Tag>()
-        tagList.add(tag)
-        val testPost: Post = Post(user, "test", null, tagList)
-        val postList = ArrayList<Post>()
-        for (i in 0..9)
-            postList.add(testPost)
-        return postList
+    fun loadNextElements(page: Int) {
+        ServiceFactory.providePostServiceMock()
+            .getPostsByTagIds(testTagsList(), COUNT_OF_ELEMENTS * page)
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::loadMoreItems, viewState::handleError)
     }
 
+    fun testTagsList(): List<Int> {
+        val tagList = ArrayList<Int>()
+        tagList.add(1)
+        tagList.add(2)
+        tagList.add(4)
+        return tagList
+    }
 }

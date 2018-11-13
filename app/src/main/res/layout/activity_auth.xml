@@ -79,16 +79,35 @@
             android:textColor="@android:color/white"
             android:text="@string/btn_sign_up"/>
 
-        <Button
-            android:id="@+id/btn_sign_in_other_way"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:paddingStart="@dimen/padding_xxlarge"
-            android:paddingEnd="@dimen/padding_xxlarge"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:text="@string/sign_in_another_way"/>
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_sign_in_vk"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:paddingStart="@dimen/padding_xlarge"
+                android:paddingEnd="@dimen/padding_xlarge"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:text="@string/vk"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btn_sign_in_google"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:paddingStart="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:text="@string/google"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
 
 
     </LinearLayout>

@@ -1,8 +1,13 @@
 package ru.kpfu.itis.stayintouch.ui
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
+import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -30,6 +35,7 @@ class MainActivity : MvpAppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,6 +43,12 @@ class MainActivity : MvpAppCompatActivity() {
         Fabric.with(this, Crashlytics())
         initListeners()
         setSupportActionBar(toolbar)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
+            != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            val permissions = arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
+            requestPermissions(permissions, 0)
+        }
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -45,7 +57,6 @@ class MainActivity : MvpAppCompatActivity() {
                     NewsFragment.newInstance(),
                     NEWS_FRAGMENT_TAG
                 )
-                .addToBackStack(NEWS_FRAGMENT_TAG)
                 .commit()
         }
     }
@@ -86,7 +97,6 @@ class MainActivity : MvpAppCompatActivity() {
                             NewsFragment.newInstance(),
                             NEWS_FRAGMENT_TAG
                         )
-                        .addToBackStack(NEWS_FRAGMENT_TAG)
                         .commit()
                 }
                 nav_recommend -> {
@@ -97,7 +107,6 @@ class MainActivity : MvpAppCompatActivity() {
                             RecommendFragment.newInstance(),
                             RECOMMENDATION_FRAGMENT_TAG
                         )
-                        .addToBackStack(RECOMMENDATION_FRAGMENT_TAG)
                         .commit()
                 }
                 nav_answers -> {
@@ -108,7 +117,6 @@ class MainActivity : MvpAppCompatActivity() {
                             AnswersFragment.newInstance(),
                             ANSWERS_FRAGMENT_TAG
                         )
-                        .addToBackStack(ANSWERS_FRAGMENT_TAG)
                         .commit()
                 }
                 nav_profile -> {
@@ -119,7 +127,6 @@ class MainActivity : MvpAppCompatActivity() {
                             ProfileFragment.newInstance(),
                             PROFILE_FRAGMENT_TAG
                         )
-                        .addToBackStack(PROFILE_FRAGMENT_TAG)
                         .commit()
                 }
             }

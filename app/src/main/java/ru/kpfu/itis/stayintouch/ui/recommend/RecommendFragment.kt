@@ -41,7 +41,7 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
     }
 
     override fun setNews(news: List<Post>) {
-        recycler_view.adapter = PostAdapter(news)
+        recycler_view.adapter = PostAdapter(news.toMutableList())
         recycler_view.layoutManager = LinearLayoutManager(activity)
     }
 

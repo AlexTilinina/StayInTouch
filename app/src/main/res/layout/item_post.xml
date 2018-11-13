@@ -81,8 +81,9 @@
                 android:src="@drawable/ic_comments"
                 android:background="@null"
                 android:contentDescription="@string/prompt_commentaries"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="@dimen/padding_medium"
+                android:paddingBottom="@dimen/padding_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -93,8 +94,9 @@
                 android:background="@null"
                 android:layout_below="@id/tv_tags"
                 android:layout_toEndOf="@id/btn_comments"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="@dimen/padding_medium"
+                android:paddingBottom="@dimen/padding_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
