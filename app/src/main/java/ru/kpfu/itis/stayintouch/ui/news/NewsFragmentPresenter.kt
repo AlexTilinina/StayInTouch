@@ -2,6 +2,7 @@ package ru.kpfu.itis.stayintouch.ui.news
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import ru.kpfu.itis.stayintouch.repository.PostRepository
 import ru.kpfu.itis.stayintouch.service.ServiceFactory
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 import java.util.ArrayList
@@ -16,7 +17,7 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
 
     fun loadPosts(){
         //TODO сгрузить с профиля список тегов
-        ServiceFactory.providePostServiceMock()
+        PostRepository
             .getPostsByTagIds(testTagsList(), 0)
             .doOnSubscribe(viewState::setLoading)
             .doAfterTerminate(viewState::setNotLoading)
@@ -25,7 +26,7 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
     }
 
     fun loadNextElements(page: Int) {
-        ServiceFactory.providePostServiceMock()
+        PostRepository
             .getPostsByTagIds(testTagsList(), COUNT_OF_ELEMENTS * page)
             .doOnSubscribe(viewState::setLoading)
             .doAfterTerminate(viewState::setNotLoading)

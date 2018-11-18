@@ -17,6 +17,7 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import ru.kpfu.itis.stayintouch.R
+import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.ui.answers.AnswersFragment
 import ru.kpfu.itis.stayintouch.ui.news.NewsFragment
 import ru.kpfu.itis.stayintouch.ui.recommend.RecommendFragment
@@ -29,7 +30,8 @@ import ru.kpfu.itis.stayintouch.utils.RECOMMENDATION_FRAGMENT_TAG
 class MainActivity : MvpAppCompatActivity() {
 
     companion object {
-        fun create(context: Context){
+
+        fun create(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
@@ -45,8 +47,7 @@ class MainActivity : MvpAppCompatActivity() {
         setSupportActionBar(toolbar)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
             != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            val permissions = arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
+                val permissions = arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
             requestPermissions(permissions, 0)
         }
         if (savedInstanceState == null) {
@@ -76,7 +77,7 @@ class MainActivity : MvpAppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             action_create_post -> {
-                //TODO окно создания поста
+                CreatePostActivity.create(this);
             }
             action_search -> {
                 //TODO теги

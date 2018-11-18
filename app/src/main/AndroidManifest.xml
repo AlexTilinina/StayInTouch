@@ -3,8 +3,10 @@
           package="ru.kpfu.itis.stayintouch">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR"> </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"> </uses-permission>
+    <uses-permission android:name="android.permission.READ_CALENDAR">
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR">
+    </uses-permission>
 
     <application
         android:allowBackup="true"
@@ -30,6 +32,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.CreatePostActivity">
         </activity>
     </application>
 

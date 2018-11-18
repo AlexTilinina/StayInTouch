@@ -57,7 +57,7 @@ class RegistrationActivity : MvpAppCompatActivity() {
                 it_password.error = getString(string.error_empty_password)
                 return@setOnClickListener
             }
-            if (password.length < 6) {
+            if (password.length < 8) {
                 it_password.error = getString(string.error_short_password)
                 return@setOnClickListener
             }

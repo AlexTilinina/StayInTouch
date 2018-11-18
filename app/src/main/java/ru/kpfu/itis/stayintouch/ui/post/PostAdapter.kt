@@ -1,6 +1,7 @@
 package ru.kpfu.itis.stayintouch.ui.post
 
-import android.content.Context
+import android.content.Intent
+import android.provider.CalendarContract
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,6 @@ import kotlinx.android.synthetic.main.item_post.view.*
 import ru.kpfu.itis.stayintouch.R.layout.item_post
 import ru.kpfu.itis.stayintouch.model.Post
 import java.util.*
-
-
 
 class PostAdapter(private val news: MutableList<Post>) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
@@ -50,10 +49,10 @@ class PostAdapter(private val news: MutableList<Post>) :
             //TODO экран с постом
         }
         holder.itemView.tv_date.setOnClickListener {
-            createPopupWindow(news[position])
+            addToCalendar(news[position])
         }
         holder.itemView.btn_event.setOnClickListener {
-            createPopupWindow(news[position])
+            addToCalendar(news[position])
         }
     }
 
@@ -80,7 +79,18 @@ class PostAdapter(private val news: MutableList<Post>) :
         notifyDataSetChanged()
     }
 
-    private fun createPopupWindow(item: Post) {
-        CalendarPopup().popup(parent.context, parent, item)
+    private fun addToCalendar(item: Post) {
+        val intent = Intent(Intent.ACTION_INSERT)
+        intent.type = "vnd.android.cursor.item/event"
+        intent.putExtra(CalendarContract.Events.TITLE, "Stay in touch event")
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, item.text)
+
+        intent.putExtra(
+            CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+            item.date?.timeInMillis
+        )
+
+        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)
+        parent.context.startActivity(intent);
     }
 }

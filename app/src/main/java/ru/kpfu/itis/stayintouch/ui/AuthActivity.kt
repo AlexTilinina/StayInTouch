@@ -65,7 +65,10 @@ class AuthActivity : MvpAppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
                     when (result.code){
-                        CODE_200 -> {setLoggedInState(true)}
+                        CODE_200 -> {
+                            setStringPreference(this, USER_ID, result.userId)
+                            setLoggedInState(true)
+                        }
                         CODE_1 -> {
                             setLoadingState(false)
                             Toast.makeText(this, CODE_1_TEXT, Toast.LENGTH_LONG).show()
@@ -110,6 +113,16 @@ class AuthActivity : MvpAppCompatActivity() {
         if (preferences != null) {
             val editor = preferences.edit()
             editor.putBoolean(key, value)
+            return editor.commit()
+        }
+        return false
+    }
+
+    private fun setStringPreference(context: Context, key: String, value: String?): Boolean {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        if (preferences != null) {
+            val editor = preferences.edit()
+            editor.putString(key, value)
             return editor.commit()
         }
         return false

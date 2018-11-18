@@ -3,7 +3,8 @@ package ru.kpfu.itis.stayintouch.model
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Post(var author: User? = null,
+class Post(var id: Int? = null,
+           var author: User? = null,
            var text: String = "",
            var date: GregorianCalendar? = null,
            //Приложения

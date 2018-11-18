@@ -3,15 +3,15 @@ package ru.kpfu.itis.stayintouch.service
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.kpfu.itis.stayintouch.service.mock.AuthServiceMock
-import ru.kpfu.itis.stayintouch.service.mock.PostServiceMock
-import ru.kpfu.itis.stayintouch.service.mock.SignUpServiceMock
+import ru.kpfu.itis.stayintouch.service.mock.*
 
 object ServiceFactory {
 
-    private val authService: AuthService = buildRetrofit().create(AuthService::class.java)
-    private val signUpService: SignUpService = buildRetrofit().create(SignUpService::class.java)
-    private val postService: PostService = buildRetrofit().create(PostService::class.java)
+    private val authService = buildRetrofit().create(AuthService::class.java)
+    private val signUpService = buildRetrofit().create(SignUpService::class.java)
+    private val postService = buildRetrofit().create(PostService::class.java)
+    private val tagService = buildRetrofit().create(TagService::class.java)
+    private val userService = buildRetrofit().create(UserService::class.java)
 
     fun provideAuthService(): AuthService {
         return authService
@@ -25,6 +25,14 @@ object ServiceFactory {
         return postService
     }
 
+    fun provideTagService() : TagService {
+        return tagService
+    }
+
+    fun provideUserService() : UserService {
+        return userService
+    }
+
     fun provideAuthServiceMock(): AuthServiceMock {
         return AuthServiceMock()
     }
@@ -35,6 +43,14 @@ object ServiceFactory {
 
     fun providePostServiceMock(): PostServiceMock {
         return PostServiceMock()
+    }
+
+    fun provideTagServiceMock() : TagServiceMock {
+        return TagServiceMock()
+    }
+
+    fun provideUserServiceMock() : UserServiceMock {
+        return UserServiceMock()
     }
 
     private fun buildRetrofit(): Retrofit {
