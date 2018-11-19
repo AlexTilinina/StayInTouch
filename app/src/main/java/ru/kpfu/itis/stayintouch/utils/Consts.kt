@@ -9,6 +9,7 @@ const val PROFILE_FRAGMENT_TAG = "ProfileFragment"
 
 const val SHARED_PREFERENCES_LOGGED = "logged"
 const val USER_ID = "user_id"
+const val POST = "post"
 
 const val CODE_200 = "200"
 const val CODE_1 = "1"

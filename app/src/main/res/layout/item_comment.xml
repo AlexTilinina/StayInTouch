@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -27,18 +28,38 @@
 
     <TextView
         android:id="@+id/tv_text"
-        android:layout_below="@id/iv_author_image"
-        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_author_image"
+        android:layout_below="@id/tv_author_name"
+        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_small"
         android:textSize="@dimen/text_medium"
         android:textColor="@color/colorTextDark"
+        tools:text="test data for post sfdgdfgdfgdfsg dfgfd dfas fsdafsd fsafsdaf fdsafsdafsdf sdfsdafsdfsdf sdfsdfsdfsdfsadfsda sdfsdafsdafsdafas fasdfasdfas fasgadfgsdfhhgf"/>
+
+    <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test data for post sfdgdfgdfgdfsg dfgfd dfas fsdafsd fsafsdaf fdsafsdafsdf sdfsdafsdfsdf sdfsdfsdfsdfsadfsda sdfsdafsdafsdafas fasdfasdfas fasgadfgsdfhhgf"/>
+        android:layout_toEndOf="@id/iv_author_image"
+        android:layout_below="@id/tv_text"
+        android:layout_marginBottom="@dimen/margin_small"
+        tools:text="10 10 2018"/>
+
+    <TextView
+        android:id="@+id/tv_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_date"
+        android:layout_below="@id/tv_text"
+        android:layout_marginStart="@dimen/margin_small"
+        android:textColor="@color/colorTextLink"
+        android:text="@string/answer"/>
 
     <View
-        android:layout_below="@id/tv_text"
+        android:layout_below="@id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#7b7b7b"

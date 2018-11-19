@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Post
-import ru.kpfu.itis.stayintouch.ui.post.PostAdapter
+import ru.kpfu.itis.stayintouch.ui.adapter.PostAdapter
 
 class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
 

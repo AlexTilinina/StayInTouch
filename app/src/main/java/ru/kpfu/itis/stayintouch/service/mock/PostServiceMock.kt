@@ -1,7 +1,6 @@
 package ru.kpfu.itis.stayintouch.service.mock
 
 import io.reactivex.Single
-import retrofit2.http.Query
 import ru.kpfu.itis.stayintouch.model.CreatePostResponse
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.Tag
@@ -11,12 +10,12 @@ import java.util.*
 
 class PostServiceMock {
 
-    fun getPostsByTagIds(@Query("tag") tags: List<Int>, offset: Int) : Single<List<Post>> {
+    fun getPostsByTagIds(tags: List<Int>, offset: Int) : Single<List<Post>> {
         val user = User("4", "Name", "Surname")
         val tag = Tag("4", "Azaza")
         val tagList = ArrayList<Tag>()
         tagList.add(tag)
-        val testPost = Post(null, user, "$offset test", GregorianCalendar(), tagList)
+        val testPost = Post(2, user, "$offset test", GregorianCalendar(), null, tagList)
         val postList = ArrayList<Post>()
         for (i in 0..COUNT_OF_ELEMENTS)
             postList.add(testPost)

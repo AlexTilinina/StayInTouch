@@ -13,6 +13,10 @@
         android:inputType="textMultiLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@null"
+        android:lines="5"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"
         android:hint="@string/type_your_text_here"/>
 
     <EditText
@@ -21,8 +25,11 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_your_tags_here"
         android:inputType="text"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"
+        android:background="@null"
         android:layout_below="@id/et_text"/>
 
     <ImageButton

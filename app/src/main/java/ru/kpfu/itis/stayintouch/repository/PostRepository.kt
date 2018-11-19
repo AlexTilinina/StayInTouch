@@ -8,7 +8,7 @@ import ru.kpfu.itis.stayintouch.service.ServiceFactory
 
 object PostRepository {
 
-    fun getPostsByTagIds(@Query("tag") tags: List<Int>, offset: Int) : Single<List<Post>> {
+    fun getPostsByTagIds(tags: List<Int>, offset: Int) : Single<List<Post>> {
         return ServiceFactory.providePostServiceMock().getPostsByTagIds(tags, offset)
     }
 

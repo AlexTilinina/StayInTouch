@@ -9,7 +9,7 @@ import ru.kpfu.itis.stayintouch.model.Comment
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface AnswersFragmentView : MvpView {
 
-    fun setComments(comments : List<Comment>)
+    fun setComments(comments : MutableList<Comment>)
 
     fun changeLoadingState(isLoading: Boolean)
 

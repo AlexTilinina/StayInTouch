@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.fragment_recommend.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.Tag
-import ru.kpfu.itis.stayintouch.ui.post.PostAdapter
+import ru.kpfu.itis.stayintouch.ui.adapter.PostAdapter
+import ru.kpfu.itis.stayintouch.ui.adapter.RecommendAdapter
 
 class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
 

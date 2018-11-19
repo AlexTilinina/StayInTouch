@@ -7,7 +7,7 @@ import ru.kpfu.itis.stayintouch.service.ServiceFactory
 
 object TagRepository {
 
-    fun getTagsByText(@Query("tag") text: String) : Single<Tag> {
+    fun getTagsByText(text: String) : Single<Tag> {
         return ServiceFactory.provideTagServiceMock().getTagsByText(text)
     }
 }

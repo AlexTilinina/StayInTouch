@@ -32,4 +32,6 @@
 
     <dimen name="profile_image_size_small">48dp</dimen>
     <dimen name="profile_image_size_medium">96dp</dimen>
+
+    <dimen name="button_image_size_small">32dp</dimen>
 </resources>

@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.model.User
+import java.util.*
 
 @InjectViewState
 class AnswersFragmentPresenter : MvpPresenter<AnswersFragmentView>() {
@@ -13,14 +14,14 @@ class AnswersFragmentPresenter : MvpPresenter<AnswersFragmentView>() {
         notifyDataLoaded(addTestData())
     }
 
-    fun notifyDataLoaded(comments: List<Comment>) {
+    fun notifyDataLoaded(comments: MutableList<Comment>) {
         viewState.changeLoadingState(false)
         viewState.setComments(comments)
     }
 
-    fun addTestData() : List<Comment> {
+    fun addTestData() : MutableList<Comment> {
         val user = User("4", "Name", "Surname")
-        val comment = Comment("2", user, "test text 1234")
+        val comment = Comment("2", user, "test text 1234", GregorianCalendar())
         val comments = ArrayList<Comment>()
         for (i in 0..9)
             comments.add(comment)

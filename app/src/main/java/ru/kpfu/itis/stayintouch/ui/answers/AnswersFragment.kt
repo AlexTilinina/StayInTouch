@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_answers.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Comment
-import ru.kpfu.itis.stayintouch.ui.post.CommentAdapter
+import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
 
 class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
 
@@ -26,7 +26,7 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         }
     }
 
-    override fun setComments(comments: List<Comment>) {
+    override fun setComments(comments: MutableList<Comment>) {
         recycler_view.adapter = CommentAdapter(comments)
         recycler_view.layoutManager = LinearLayoutManager(activity)
     }
@@ -39,15 +39,9 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         //TODO открыть пост с комментами
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         presenter.init()
         this.activity?.toolbar?.title = resources.getString(R.string.nav_answers)
         return inflater.inflate(R.layout.fragment_answers, container, false)
     }
-
 }

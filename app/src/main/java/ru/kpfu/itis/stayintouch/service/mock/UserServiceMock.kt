@@ -6,7 +6,7 @@ import ru.kpfu.itis.stayintouch.model.User
 
 class UserServiceMock {
 
-    fun getUserById(@Query("id") id: String) : Single<User> {
+    fun getUserById(id: String) : Single<User> {
         return Single.just(User(id, "Name", "Username", null))
     }
 }

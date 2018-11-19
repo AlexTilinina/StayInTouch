@@ -12,6 +12,7 @@ object ServiceFactory {
     private val postService = buildRetrofit().create(PostService::class.java)
     private val tagService = buildRetrofit().create(TagService::class.java)
     private val userService = buildRetrofit().create(UserService::class.java)
+    private val commentService = buildRetrofit().create(CommentService::class.java)
 
     fun provideAuthService(): AuthService {
         return authService
@@ -33,6 +34,10 @@ object ServiceFactory {
         return userService
     }
 
+    fun provideCommentService() : CommentService {
+        return commentService
+    }
+
     fun provideAuthServiceMock(): AuthServiceMock {
         return AuthServiceMock()
     }
@@ -51,6 +56,10 @@ object ServiceFactory {
 
     fun provideUserServiceMock() : UserServiceMock {
         return UserServiceMock()
+    }
+
+    fun provideCommentServiceMock() : CommentServiceMock {
+        return CommentServiceMock()
     }
 
     private fun buildRetrofit(): Retrofit {

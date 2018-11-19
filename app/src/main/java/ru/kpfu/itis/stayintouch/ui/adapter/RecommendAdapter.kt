@@ -1,4 +1,4 @@
-package ru.kpfu.itis.stayintouch.ui.recommend
+package ru.kpfu.itis.stayintouch.ui.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

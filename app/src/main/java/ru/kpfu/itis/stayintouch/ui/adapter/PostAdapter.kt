@@ -1,14 +1,16 @@
-package ru.kpfu.itis.stayintouch.ui.post
+package ru.kpfu.itis.stayintouch.ui.adapter
 
 import android.content.Intent
 import android.provider.CalendarContract
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_post.view.*
 import ru.kpfu.itis.stayintouch.R.layout.item_post
 import ru.kpfu.itis.stayintouch.model.Post
+import ru.kpfu.itis.stayintouch.ui.post.PostActivity
 import java.util.*
 
 class PostAdapter(private val news: MutableList<Post>) :
@@ -35,6 +37,11 @@ class PostAdapter(private val news: MutableList<Post>) :
         if (news[position].date != null) {
             val date = news[position].date
             val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(Calendar.YEAR)}"
+            holder.itemView.tv_post_date.text = dateText
+        }
+        if (news[position].dateEvent != null) {
+            val date = news[position].dateEvent
+            val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(Calendar.YEAR)}"
             holder.itemView.tv_date.text = dateText
         } else {
             holder.itemView.tv_date.visibility = View.GONE
@@ -45,8 +52,11 @@ class PostAdapter(private val news: MutableList<Post>) :
             tags += "#${tag.tag} "
         }
         holder.itemView.tv_tags.text = tags
+        holder.itemView.btn_comments.setOnClickListener {
+            PostActivity.create(parent.context, news[position])
+        }
         holder.itemView.setOnClickListener {
-            //TODO экран с постом
+            PostActivity.create(parent.context, news[position])
         }
         holder.itemView.tv_date.setOnClickListener {
             addToCalendar(news[position])
@@ -87,7 +97,7 @@ class PostAdapter(private val news: MutableList<Post>) :
 
         intent.putExtra(
             CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-            item.date?.timeInMillis
+            item.dateEvent?.timeInMillis
         )
 
         intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)

@@ -26,7 +26,7 @@ class RecommendFragmentPresenter : MvpPresenter<RecommendFragmentView>() {
         val tagList = ArrayList<Tag>()
         tagList.add(tag1)
         tagList.add(tag2)
-        val testPost: Post = Post(null, user, "Test data for post text", null, tagList)
+        val testPost = Post(null, user, "Test data for post text", null, null, tagList)
         val postList = ArrayList<Post>()
         for (i in 0..9)
             postList.add(testPost)
