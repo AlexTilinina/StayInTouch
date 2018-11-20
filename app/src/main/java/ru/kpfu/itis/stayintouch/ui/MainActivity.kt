@@ -17,14 +17,10 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import ru.kpfu.itis.stayintouch.R
-import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.ui.answers.AnswersFragment
 import ru.kpfu.itis.stayintouch.ui.news.NewsFragment
 import ru.kpfu.itis.stayintouch.ui.recommend.RecommendFragment
-import ru.kpfu.itis.stayintouch.utils.ANSWERS_FRAGMENT_TAG
-import ru.kpfu.itis.stayintouch.utils.NEWS_FRAGMENT_TAG
-import ru.kpfu.itis.stayintouch.utils.PROFILE_FRAGMENT_TAG
-import ru.kpfu.itis.stayintouch.utils.RECOMMENDATION_FRAGMENT_TAG
+import ru.kpfu.itis.stayintouch.utils.*
 
 
 class MainActivity : MvpAppCompatActivity() {

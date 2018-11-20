@@ -6,6 +6,7 @@ const val NEWS_FRAGMENT_TAG = "NewsFragment"
 const val RECOMMENDATION_FRAGMENT_TAG = "RecommendFragment"
 const val ANSWERS_FRAGMENT_TAG = "AnswersFragment"
 const val PROFILE_FRAGMENT_TAG = "ProfileFragment"
+const val ANSWER_COMMENT_DIALOG_TAG = "AnswerCommentDialog"
 
 const val SHARED_PREFERENCES_LOGGED = "logged"
 const val USER_ID = "user_id"

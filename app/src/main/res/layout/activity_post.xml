@@ -126,6 +126,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:hint="@string/enter_comment"
+            android:gravity="top|start"
             android:lines="2"
             android:inputType="textMultiLine"
             android:layout_weight="4"

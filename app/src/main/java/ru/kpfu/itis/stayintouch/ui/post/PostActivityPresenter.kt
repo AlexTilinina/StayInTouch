@@ -1,6 +1,5 @@
 package ru.kpfu.itis.stayintouch.ui.post
 
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.kpfu.itis.stayintouch.repository.CommentRepository

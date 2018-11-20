@@ -11,7 +11,6 @@ import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_create_post.*
 import kotlinx.android.synthetic.main.activity_post.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Comment
@@ -30,7 +29,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
     lateinit var post: Post
     var isLoading = false
-    var adapter = CommentAdapter(ArrayList())
+    var adapter = CommentAdapter(ArrayList(), fragmentManager)
 
     companion object {
 

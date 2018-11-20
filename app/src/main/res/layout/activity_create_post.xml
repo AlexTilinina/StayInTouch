@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:lines="5"
+        android:gravity="top|start"
         android:paddingTop="@dimen/padding_small"
         android:paddingBottom="@dimen/padding_small"
         android:hint="@string/type_your_text_here"/>
@@ -24,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_your_tags_here"
+        android:gravity="top|start"
         android:inputType="text"
         android:paddingTop="@dimen/padding_small"
         android:paddingBottom="@dimen/padding_small"

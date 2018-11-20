@@ -3,7 +3,6 @@ package ru.kpfu.itis.stayintouch.ui.news
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import ru.kpfu.itis.stayintouch.repository.PostRepository
-import ru.kpfu.itis.stayintouch.service.ServiceFactory
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 import java.util.ArrayList
 

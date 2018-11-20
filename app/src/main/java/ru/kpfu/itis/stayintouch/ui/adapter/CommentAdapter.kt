@@ -1,5 +1,6 @@
 package ru.kpfu.itis.stayintouch.ui.adapter
 
+import android.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,11 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_comment.view.*
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.R.layout.item_comment
+import ru.kpfu.itis.stayintouch.ui.post.AnswerCommentDialog
+import ru.kpfu.itis.stayintouch.utils.ANSWER_COMMENT_DIALOG_TAG
 import java.util.*
 
-class CommentAdapter(private val comments: MutableList<Comment>) :
+class CommentAdapter(private val comments: MutableList<Comment>, private val fragmentManager: FragmentManager? = null) :
     RecyclerView.Adapter<CommentAdapter.CommentViewHolder>(){
 
     class CommentViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
@@ -32,6 +35,13 @@ class CommentAdapter(private val comments: MutableList<Comment>) :
                 "${date.get(Calendar.MONTH).plus(1)}." +
                 "${date.get(Calendar.YEAR)}"
         holder.itemView.tv_date.text = dateText
+        holder.itemView.tv_answer.setOnClickListener {
+            comments[position].postId?.let { it1 ->
+                AnswerCommentDialog
+                    .newInstance(it1)
+                    .show(fragmentManager, ANSWER_COMMENT_DIALOG_TAG)
+            }
+        }
     }
 
     fun add(value: Comment) {
