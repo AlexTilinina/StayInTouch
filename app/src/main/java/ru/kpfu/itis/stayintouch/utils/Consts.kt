@@ -1,6 +1,7 @@
 package ru.kpfu.itis.stayintouch.utils
 
 const val EMAIL_REGEX = "^((\\w[^\\W]+)[.\\-]?)+@(([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\" + ".[0-9]{1,3})|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+const val PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&#])[A-Za-z\\d@\$!%*?&#]{8,}\$"
 
 const val NEWS_FRAGMENT_TAG = "NewsFragment"
 const val RECOMMENDATION_FRAGMENT_TAG = "RecommendFragment"
@@ -11,6 +12,8 @@ const val ANSWER_COMMENT_DIALOG_TAG = "AnswerCommentDialog"
 const val SHARED_PREFERENCES_LOGGED = "logged"
 const val USER_ID = "user_id"
 const val POST = "post"
+const val TOKEN = "token"
+const val SHARED_PREFS = "Shared_prefs"
 
 const val CODE_200 = "200"
 const val CODE_1 = "1"

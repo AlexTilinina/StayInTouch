@@ -20,7 +20,7 @@ class AnswersFragmentPresenter : MvpPresenter<AnswersFragmentView>() {
     }
 
     fun addTestData() : MutableList<Comment> {
-        val user = User("4", "Name", "Surname")
+        val user = User(4, "Name", "Surname")
         val comment = Comment("2", user, "test text 1234", GregorianCalendar())
         val comments = ArrayList<Comment>()
         for (i in 0..9)

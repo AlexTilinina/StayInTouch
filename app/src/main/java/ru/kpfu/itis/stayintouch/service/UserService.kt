@@ -1,12 +1,14 @@
 package ru.kpfu.itis.stayintouch.service
 
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 import ru.kpfu.itis.stayintouch.model.User
 
 interface UserService {
 
-    @GET("users/user")
-    fun getUserById(@Query("id") id: String) : Single<User>
+    @GET("api/users/{id}/")
+    fun getUserById(@Header("Authorization") token: String, @Path("id") id: String) : Single<User>
+
+    @GET("auth/get-current-user/")
+    fun getCurrentUser(@Header("Authorization") token: String): Single<User>
 }

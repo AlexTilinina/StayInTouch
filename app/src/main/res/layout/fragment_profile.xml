@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".ui.ProfileFragment">
+             tools:context=".ui.profile.ProfileFragment">
 
     <ImageView
         android:id="@+id/iv_profile_image"
@@ -12,6 +12,12 @@
         android:layout_margin="@dimen/margin_medium"
         android:src="@mipmap/ic_launcher"
         android:contentDescription="@string/profile_image"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
     <TextView
         android:id="@+id/tv_username"
@@ -69,11 +75,11 @@
     <Button
         android:id="@+id/btn_log_out"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_tags_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_small"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:text="@string/log_out"
         android:textColor="@android:color/white"/>

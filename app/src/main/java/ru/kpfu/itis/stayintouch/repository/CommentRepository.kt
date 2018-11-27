@@ -1,7 +1,6 @@
 package ru.kpfu.itis.stayintouch.repository
 
 import io.reactivex.Single
-import retrofit2.http.Path
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.service.ServiceFactory
 

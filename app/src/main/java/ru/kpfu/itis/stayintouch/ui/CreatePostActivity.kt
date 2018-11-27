@@ -40,7 +40,7 @@ class CreatePostActivity : AppCompatActivity() {
             for (tag in tagsText){
                 tags.add(TagRepository.getTagsByText(tag).blockingGet())
             }
-            val post = Post(null, UserRepository.getCurrentUser(this), text, GregorianCalendar(), null, tags)
+            val post = Post(null, UserRepository.getCurrentUser(this).blockingGet(), text, GregorianCalendar(), null, tags)
             PostRepository.createPost(post)
             //TODO добавление в список постов юзера
             MainActivity.create(this)

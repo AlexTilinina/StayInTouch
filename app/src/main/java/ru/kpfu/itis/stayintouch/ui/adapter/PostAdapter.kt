@@ -30,7 +30,7 @@ class PostAdapter(private val news: MutableList<Post>) :
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.itemView.iv_author_image //TODO подгрузка картинки
-        val username = "${news[position].author?.name} ${news[position].author?.surname}"
+        val username = "${news[position].author?.first_name} ${news[position].author?.last_name}"
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = news[position].text
         if (news[position].date != null) {

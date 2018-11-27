@@ -51,10 +51,6 @@ class AuthActivity : MvpAppCompatActivity() {
                 it_password.error = getString(string.error_empty_password)
                 return@setOnClickListener
             }
-            if (password.length < 6) {
-                it_password.error = getString(string.error_short_password)
-                return@setOnClickListener
-            }
             if (!email.matches(EMAIL_REGEX.toRegex())) {
                 it_email.error = getString(string.error_wrong_email)
                 return@setOnClickListener
@@ -64,10 +60,11 @@ class AuthActivity : MvpAppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
-                    when (result.code){
+                    setStringPreference(TOKEN, result.token)
+                    setLoggedInState(true)
+                    /*when (result.code){
                         CODE_200 -> {
-                            setStringPreference(this, USER_ID, result.userId)
-                            setLoggedInState(true)
+
                         }
                         CODE_1 -> {
                             setLoadingState(false)
@@ -77,7 +74,7 @@ class AuthActivity : MvpAppCompatActivity() {
                             setLoadingState(false)
                             Toast.makeText(this, CODE_2_TEXT, Toast.LENGTH_LONG).show()
                         }
-                    }
+                    }*/
                 }, { error ->
                     Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
                     error.printStackTrace()
@@ -102,14 +99,14 @@ class AuthActivity : MvpAppCompatActivity() {
     }
 
     private fun setLoggedInState(isLogged: Boolean) {
-        setBooleanPreference(applicationContext, SHARED_PREFERENCES_LOGGED, isLogged)
+        setBooleanPreference(SHARED_PREFERENCES_LOGGED, isLogged)
         if (isLogged) {
             MainActivity.create(this)
         }
     }
 
-    private fun setBooleanPreference(context: Context, key: String, value: Boolean): Boolean {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private fun setBooleanPreference(key: String, value: Boolean): Boolean {
+        val preferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         if (preferences != null) {
             val editor = preferences.edit()
             editor.putBoolean(key, value)
@@ -118,8 +115,8 @@ class AuthActivity : MvpAppCompatActivity() {
         return false
     }
 
-    private fun setStringPreference(context: Context, key: String, value: String?): Boolean {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private fun setStringPreference(key: String, value: String?): Boolean {
+        val preferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         if (preferences != null) {
             val editor = preferences.edit()
             editor.putString(key, value)

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_registration.*
 import ru.kpfu.itis.stayintouch.*
 import ru.kpfu.itis.stayintouch.R.string
+import ru.kpfu.itis.stayintouch.repository.RegistrationRepository
 import ru.kpfu.itis.stayintouch.service.ServiceFactory
 import ru.kpfu.itis.stayintouch.utils.*
 
@@ -32,6 +34,7 @@ class RegistrationActivity : MvpAppCompatActivity() {
 
     fun initClickListeners(){
         btn_sign_up.setOnClickListener {
+            val username = et_username.text.toString()
             val name = et_name.text.toString()
             val surname = et_surname.text.toString()
             val email = et_email.text.toString()
@@ -39,6 +42,9 @@ class RegistrationActivity : MvpAppCompatActivity() {
             val password2 = et_password2.text.toString()
 
             SoftKeyboardHelper.hideKeyboard(this, currentFocus)
+            if (TextUtils.isEmpty(username)) {
+                it_username.error = getString(string.error_empty_username)
+            }
             if (TextUtils.isEmpty(name)) {
                 it_name.error = getString(string.error_empty_name)
             }
@@ -57,25 +63,26 @@ class RegistrationActivity : MvpAppCompatActivity() {
                 it_password.error = getString(string.error_empty_password)
                 return@setOnClickListener
             }
-            if (password.length < 8) {
-                it_password.error = getString(string.error_short_password)
+            if (!password.matches(PASSWORD_REGEX.toRegex())) {
+                it_password.error = getString(string.error_wrong_password)
                 return@setOnClickListener
             }
             if (!TextUtils.equals(password, password2)) {
                 it_password2.error = getString(string.error_different_passwords)
                 return@setOnClickListener
             }
-            ServiceFactory.provideSignUpServiceMock().registration(name, surname, null, email, password)
+            RegistrationRepository.registration(username, name, surname, email, password, password2)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
-                    when (result.code){
-                        CODE_200 -> AuthActivity.create(this, false)
+                    AuthActivity.create(this, false)
+                    /*when (result.code){
+                        CODE_200 ->
                         CODE_1 -> Toast.makeText(this,
                             CODE_1_TEXT, Toast.LENGTH_LONG).show()
                         CODE_3 -> Toast.makeText(this,
                             CODE_3_TEXT, Toast.LENGTH_LONG).show()
-                    }
+                    }*/
 
                 }, { error ->
                     Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()

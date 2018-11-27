@@ -27,7 +27,7 @@ class CommentAdapter(private val comments: MutableList<Comment>, private val fra
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         holder.itemView.iv_author_image //TODO подгрузка картинки
-        val username = "${comments[position].author?.name} ${comments[position].author?.surname}"
+        val username = "${comments[position].author?.first_name} ${comments[position].author?.last_name}"
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = comments[position].text
         val date = comments[position].date

@@ -19,6 +19,7 @@ import io.fabric.sdk.android.Fabric
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.ui.answers.AnswersFragment
 import ru.kpfu.itis.stayintouch.ui.news.NewsFragment
+import ru.kpfu.itis.stayintouch.ui.profile.ProfileFragment
 import ru.kpfu.itis.stayintouch.ui.recommend.RecommendFragment
 import ru.kpfu.itis.stayintouch.utils.*
 

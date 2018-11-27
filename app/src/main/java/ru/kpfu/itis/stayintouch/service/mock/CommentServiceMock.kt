@@ -2,8 +2,10 @@ package ru.kpfu.itis.stayintouch.service.mock
 
 import io.reactivex.Single
 import ru.kpfu.itis.stayintouch.model.Comment
+import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.model.User
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CommentServiceMock {
 
@@ -14,7 +16,7 @@ class CommentServiceMock {
 
     fun getCommentsByPostId(postId: Int, offset: Int) : Single<List<Comment>> {
         val comments = ArrayList<Comment>()
-        val user = User("4", "Name", "Surname")
+        val user = User(4, "Name", "Surname")
         val comment = Comment("3", user, "$offset: test 124 342423432", GregorianCalendar(), postId)
         for (i in 0..20)
             comments.add(comment)

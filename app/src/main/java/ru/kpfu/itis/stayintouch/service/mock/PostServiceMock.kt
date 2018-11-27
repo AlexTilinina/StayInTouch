@@ -11,7 +11,7 @@ import java.util.*
 class PostServiceMock {
 
     fun getPostsByTagIds(tags: List<Int>, offset: Int) : Single<List<Post>> {
-        val user = User("4", "Name", "Surname")
+        val user = User(4, "Name", "Surname")
         val tag = Tag("4", "Azaza")
         val tagList = ArrayList<Tag>()
         tagList.add(tag)
