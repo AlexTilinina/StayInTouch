@@ -36,28 +36,8 @@ object ServiceFactory {
         return userService
     }
 
-    fun provideCommentService() : CommentService {
-        return commentService
-    }
-
-    fun provideAuthServiceMock(): AuthServiceMock {
-        return AuthServiceMock()
-    }
-
-    fun provideSignUpServiceMock(): SignUpServiceMock {
-        return SignUpServiceMock()
-    }
-
-    fun providePostServiceMock(): PostServiceMock {
-        return PostServiceMock()
-    }
-
     fun provideTagServiceMock() : TagServiceMock {
         return TagServiceMock()
-    }
-
-    fun provideUserServiceMock() : UserServiceMock {
-        return UserServiceMock()
     }
 
     fun provideCommentServiceMock() : CommentServiceMock {

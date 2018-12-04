@@ -7,6 +7,6 @@ import ru.kpfu.itis.stayintouch.model.Tag
 
 interface TagService {
 
-    @GET("tags")
+    @GET("api/tags/")
     fun getTagsByText(@Query("tag") text: String) : Single<Tag>
 }

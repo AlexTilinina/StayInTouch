@@ -1,5 +1,6 @@
 package ru.kpfu.itis.stayintouch.ui.news
 
+import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,10 +17,11 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
         loadPosts()
     }
 
+    @SuppressLint("CheckResult")
     fun loadPosts(){
         //TODO сгрузить с профиля список тегов
         PostRepository
-            .getPostsByTagIds(testTagsList(), 0)
+            .getNews(0)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)
@@ -28,9 +30,10 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
             .subscribe(viewState::showPosts, viewState::handleError)
     }
 
+    @SuppressLint("CheckResult")
     fun loadNextElements(page: Int) {
         PostRepository
-            .getPostsByTagIds(testTagsList(), COUNT_OF_ELEMENTS * page)
+            .getNews(COUNT_OF_ELEMENTS * page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)

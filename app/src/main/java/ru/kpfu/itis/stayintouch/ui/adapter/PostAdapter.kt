@@ -33,8 +33,8 @@ class PostAdapter(private val news: MutableList<Post>) :
         val username = "${news[position].author?.first_name} ${news[position].author?.last_name}"
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = news[position].text
-        if (news[position].date != null) {
-            val date = news[position].date
+        if (news[position].created != null) {
+            val date = news[position].getDateCreated()
             val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(Calendar.YEAR)}"
             holder.itemView.tv_post_date.text = dateText
         }

@@ -12,6 +12,8 @@ import ru.kpfu.itis.stayintouch.utils.TOKEN
 
 object AuthRepository {
 
+    lateinit var token: String
+
     fun login(email: String, password: String) : Single<AuthResponse> {
         return if (email.contains("@")) {
             ServiceFactory.provideAuthService()
@@ -20,12 +22,12 @@ object AuthRepository {
             .login(LoginRequestUsername(email, password))
     }
 
-    fun getToken(context: Context) : String {
+    fun setToken(context: Context) {
         val preferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        return "JWT ${preferences.getString(TOKEN, "")}"
+        token = "JWT ${preferences.getString(TOKEN, "")}"
     }
 
-    fun refreshToken(context: Context) : Single<Token> {
+    fun refreshToken(context: Context): Single<Token> {
         val preferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         return ServiceFactory.provideAuthService()
             .refreshToken(Token(preferences.getString(TOKEN, "")))

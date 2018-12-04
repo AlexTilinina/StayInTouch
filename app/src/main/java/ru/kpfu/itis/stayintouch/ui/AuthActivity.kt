@@ -61,6 +61,7 @@ class AuthActivity : MvpAppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
                     setStringPreference(TOKEN, result.token)
+                    AuthRepository.setToken(this)
                     setLoggedInState(true)
                     /*when (result.code){
                         CODE_200 -> {

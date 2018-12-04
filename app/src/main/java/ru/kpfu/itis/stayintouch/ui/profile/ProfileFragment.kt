@@ -43,10 +43,10 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         val username = "${user.first_name} ${user.last_name}"
         tv_username.text = username
         tv_email.text = user.email
-        if (user.profile?.tags != null) {
-            if (user.profile?.tags?.isNotEmpty() == true) {
+        if (user.profile?.tags_list != null) {
+            if (user.profile?.tags_list?.isNotEmpty() == true) {
                 var tags = ""
-                for (tag: Tag in user.profile?.tags!!) {
+                for (tag: Tag in user.profile?.tags_list!!) {
                     tags += "#${tag.tag} "
                 }
                 tv_tags_list.text = tags
@@ -64,10 +64,24 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
 
     override fun setLoading(disposable: Disposable) {
         progress_bar.visibility = View.VISIBLE
+        iv_profile_image.visibility = View.GONE
+        tv_username.visibility = View.GONE
+        tv_email_fix.visibility = View.GONE
+        tv_email.visibility = View.GONE
+        tv_tags_fix.visibility = View.GONE
+        tv_tags_list.visibility = View.GONE
+        btn_log_out.visibility = View.GONE
     }
 
     override fun setNotLoading() {
         progress_bar.visibility = View.GONE
+        iv_profile_image.visibility = View.VISIBLE
+        tv_username.visibility = View.VISIBLE
+        tv_email_fix.visibility = View.VISIBLE
+        tv_email.visibility = View.VISIBLE
+        tv_tags_fix.visibility = View.VISIBLE
+        tv_tags_list.visibility = View.VISIBLE
+        btn_log_out.visibility = View.VISIBLE
     }
 
     @ProvidePresenter

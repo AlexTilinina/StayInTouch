@@ -4,9 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_create_post.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Post
+import ru.kpfu.itis.stayintouch.model.PostCreate
 import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.repository.PostRepository
 import ru.kpfu.itis.stayintouch.repository.TagRepository
@@ -40,10 +45,17 @@ class CreatePostActivity : AppCompatActivity() {
             for (tag in tagsText){
                 tags.add(TagRepository.getTagsByText(tag).blockingGet())
             }
-            val post = Post(null, UserRepository.getCurrentUser(this).blockingGet(), text, GregorianCalendar(), null, tags)
+            val post = PostCreate(text = text)
             PostRepository.createPost(post)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    progress_bar.visibility = View.VISIBLE
+                }
+                .doAfterSuccess {
+                    MainActivity.create(this)
+                }
             //TODO добавление в список постов юзера
-            MainActivity.create(this)
         }
     }
 }

@@ -49,7 +49,7 @@
         android:layout_below="@id/iv_profile_image"
         android:layout_toEndOf="@id/tv_email_fix"
         android:textSize="@dimen/text_large"
-        android:text="Email@test.com"/>
+        tools:text="Email@test.com"/>
     
     <TextView
         android:id="@+id/tv_tags_fix"
@@ -70,7 +70,7 @@
         android:layout_below="@id/tv_tags_fix"
         android:layout_marginStart="@dimen/margin_medium"
         android:textSize="@dimen/text_medium"
-        android:text="tags tags 123"/>
+        tools:text="tags tags 123"/>
 
     <Button
         android:id="@+id/btn_log_out"

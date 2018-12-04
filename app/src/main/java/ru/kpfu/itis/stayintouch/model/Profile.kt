@@ -6,6 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class Profile (val id: Int,
                val user: Int,
-               val tags: List<Tag>,
+               //TODO изменить название на tags
+               val tags_list: List<Tag>,
                val photo_url: String? = ""
     ) : Parcelable

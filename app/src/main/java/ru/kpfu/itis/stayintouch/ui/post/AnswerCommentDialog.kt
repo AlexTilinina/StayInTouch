@@ -44,7 +44,7 @@ class AnswerCommentDialog : DialogFragment() {
                 if (editText.text.toString().isNotEmpty()) {
                     val comment = Comment(
                         "",
-                        UserRepository.getCurrentUser(context).blockingGet(),
+                        UserRepository.getCurrentUser().blockingGet(),
                         editText.text.toString(),
                         GregorianCalendar(),
                         postId

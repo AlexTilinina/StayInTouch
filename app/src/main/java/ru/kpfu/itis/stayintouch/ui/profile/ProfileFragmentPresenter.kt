@@ -18,7 +18,7 @@ class ProfileFragmentPresenter(val context: Context?) : MvpPresenter<ProfileFrag
     private fun loadUser() {
         context?.let {
             UserRepository
-                .getCurrentUser(it)
+                .getCurrentUser()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(viewState::setLoading)

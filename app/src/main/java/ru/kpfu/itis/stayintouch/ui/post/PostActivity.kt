@@ -87,8 +87,8 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         val name = "${post.author?.first_name} ${post.author?.last_name}"
         tv_author_name.text = name
         tv_text.text = post.text
-        if (post.date != null) {
-            val date = post.date
+        if (post.created != null) {
+            val date = post.getDateCreated()
             val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
                 Calendar.YEAR)}"
             tv_post_date.text = dateText
@@ -132,7 +132,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             addToCalendar(post)
         }
         btn_send.setOnClickListener {
-            val comment = Comment("", UserRepository.getCurrentUser(this).blockingGet(), et_comment.text.toString(), GregorianCalendar(), post.id)
+            val comment = Comment("", UserRepository.getCurrentUser().blockingGet(), et_comment.text.toString(), GregorianCalendar(), post.id)
             et_comment.text.clear()
             post.id?.let { it1 -> CommentRepository.createComment(it1, comment) }
             //TODO scroll к последнему комменту

@@ -9,9 +9,9 @@ import ru.kpfu.itis.stayintouch.model.Comment
 
 interface CommentService {
 
-    @POST("news/{postId}/comment")
+    @POST("api/news/{postId}/comment")
     fun createComment(@Path("postId") postId: Int, @Query("comment") comment: Comment) : Single<Comment>
 
-    @GET("news/{postId}/comments")
+    @GET("api/news/{postId}/comments")
     fun getCommentsByPostId(@Path("postId") postId: Int, @Query("offset") offset: Int) : Single<List<Comment>>
 }

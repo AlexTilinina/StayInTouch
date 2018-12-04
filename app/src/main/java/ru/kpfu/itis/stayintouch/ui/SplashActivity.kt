@@ -1,6 +1,5 @@
 package ru.kpfu.itis.stayintouch.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
                     setStringPreference(TOKEN, result.token)
+                    AuthRepository.setToken(this)
                     MainActivity.create(this)
                 }, { error ->
                     AuthActivity.create(this, false)

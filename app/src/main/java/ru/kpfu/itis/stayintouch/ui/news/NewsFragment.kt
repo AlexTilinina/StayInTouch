@@ -58,6 +58,7 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
     }
 
     override fun handleError(error: Throwable) {
+        error.printStackTrace()
         Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
 
