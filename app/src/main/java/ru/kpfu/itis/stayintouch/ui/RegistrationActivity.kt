@@ -76,14 +76,6 @@ class RegistrationActivity : MvpAppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe ({ result ->
                     AuthActivity.create(this, false)
-                    /*when (result.code){
-                        CODE_200 ->
-                        CODE_1 -> Toast.makeText(this,
-                            CODE_1_TEXT, Toast.LENGTH_LONG).show()
-                        CODE_3 -> Toast.makeText(this,
-                            CODE_3_TEXT, Toast.LENGTH_LONG).show()
-                    }*/
-
                 }, { error ->
                     Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
                     error.printStackTrace()
