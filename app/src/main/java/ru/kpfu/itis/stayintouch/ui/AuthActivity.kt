@@ -78,6 +78,7 @@ class AuthActivity : MvpAppCompatActivity() {
                     }*/
                 }, { error ->
                     Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    setLoadingState(false)
                     error.printStackTrace()
                 })
         }
