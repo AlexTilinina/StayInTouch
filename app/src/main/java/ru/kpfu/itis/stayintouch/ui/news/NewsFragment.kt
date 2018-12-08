@@ -34,11 +34,7 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
 
     override fun changeLoadingState(isLoading: Boolean) {
         this.isLoading = isLoading
-        if (isLoading) {
-            progress_bar.visibility = View.VISIBLE
-        } else {
-            progress_bar.visibility = View.GONE
-        }
+        swipe_refresh_layout.isRefreshing = isLoading
     }
 
     override fun showPosts(posts: List<Post>) {
@@ -78,6 +74,13 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecycler()
+        initSwipeRefreshLayout()
+    }
+
+    private fun initSwipeRefreshLayout() {
+        swipe_refresh_layout.setOnRefreshListener {
+            presenter.loadPosts()
+        }
     }
 
     private fun initRecycler() {
