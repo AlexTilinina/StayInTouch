@@ -14,7 +14,7 @@ class Post(var id: Int? = null,
            var dateEvent: GregorianCalendar? = null,
            //Приложения
            var tags: List<Tag> = ArrayList(),
-           var comments: List<Comment> = ArrayList()
+           var comments: List<Comment>? = ArrayList()
 ) : Parcelable {
 
     fun getDateCreated() : GregorianCalendar {

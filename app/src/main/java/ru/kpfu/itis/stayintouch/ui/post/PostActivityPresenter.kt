@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.kpfu.itis.stayintouch.repository.CommentRepository
+import ru.kpfu.itis.stayintouch.repository.PostRepository
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 
 @InjectViewState
@@ -19,13 +20,20 @@ class PostActivityPresenter : MvpPresenter<PostActivityView>()  {
     }
 
     fun loadComments(){
-        CommentRepository
-            .getCommentsByPostId(postId, 0)
+        PostRepository
+            .getPostById(postId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)
             .doAfterTerminate(viewState::setNotLoading)
             .subscribe(viewState::showComments, viewState::handleError)
+     /*   CommentRepository
+            .getCommentsByPostId(postId, 0)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::showComments, viewState::handleError)*/
     }
 
     fun loadNextElements(page: Int) {

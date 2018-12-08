@@ -5,10 +5,11 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import io.reactivex.disposables.Disposable
 import ru.kpfu.itis.stayintouch.model.Comment
+import ru.kpfu.itis.stayintouch.model.Post
 
 interface PostActivityView : MvpView {
 
-    fun showComments(posts: List<Comment>)
+    fun showComments(post: Post)
 
     fun changeLoadingState(isLoading: Boolean)
 

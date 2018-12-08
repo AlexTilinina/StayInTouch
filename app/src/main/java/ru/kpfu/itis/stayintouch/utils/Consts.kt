@@ -11,6 +11,7 @@ const val ANSWER_COMMENT_DIALOG_TAG = "AnswerCommentDialog"
 
 const val SHARED_PREFERENCES_LOGGED = "logged"
 const val USER_ID = "user_id"
+const val POST_ID = "post_id"
 const val POST = "post"
 const val TOKEN = "token"
 const val SHARED_PREFS = "Shared_prefs"

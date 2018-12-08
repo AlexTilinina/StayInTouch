@@ -49,8 +49,8 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         initComments()
     }
 
-    override fun showComments(comments: List<Comment>) {
-        adapter.changeDataSet(comments)
+    override fun showComments(post: Post) {
+        post.comments?.let { adapter.changeDataSet(it) }
     }
 
     override fun changeLoadingState(isLoading: Boolean) {

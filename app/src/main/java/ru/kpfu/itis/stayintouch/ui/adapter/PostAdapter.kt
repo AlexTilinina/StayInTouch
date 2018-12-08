@@ -78,7 +78,7 @@ class PostAdapter(private val news: MutableList<Post>) :
         }
         var tags = ""
         for (tag in news[position].tags) {
-            tags += "#${tag.tag} "
+            tags += "${tag.tag} "
         }
         holder.itemView.tv_tags.text = tags
         holder.itemView.btn_comments.setOnClickListener {

@@ -14,4 +14,8 @@ object PostRepository {
     fun createPost(post: PostCreate) : Single<Post> {
         return ServiceFactory.providePostService().createPost(AuthRepository.token, post)
     }
+
+    fun getPostById(id: Int) : Single<Post> {
+        return ServiceFactory.providePostService().getPostById(AuthRepository.token, id)
+    }
 }
