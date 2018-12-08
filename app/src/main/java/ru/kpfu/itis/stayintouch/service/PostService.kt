@@ -12,4 +12,7 @@ interface PostService {
 
     @POST("api/news/")
     fun createPost(@Header("Authorization") token: String, @Body post: PostCreate) : Single<Post>
+
+    @GET("api/news/{id}")
+    fun getPostById(@Header("Authorization") token: String, @Path("id") id: Int) : Single<Post>
 }
