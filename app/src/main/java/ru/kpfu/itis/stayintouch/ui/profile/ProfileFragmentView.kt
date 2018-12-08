@@ -18,4 +18,6 @@ interface ProfileFragmentView: MvpView {
     fun setLoading(disposable: Disposable)
 
     fun setNotLoading()
+
+    fun makeEditableInvisible()
 }

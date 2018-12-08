@@ -54,4 +54,6 @@
     <string name="enter_comment">Enter comment</string>
     <string name="send">Send</string>
     <string name="username">Username</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="error_empty">Some fields are empty!</string>
 </resources>

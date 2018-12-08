@@ -17,10 +17,11 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_centerInParent="true"/>
 
     <TextView
-        android:id="@+id/tv_username"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorTextDark"
@@ -28,7 +29,40 @@
         android:layout_marginTop="@dimen/margin_xlarge"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_toEndOf="@id/iv_profile_image"
-        android:text="@string/prompt_username"/>
+        tools:text="@string/prompt_name"/>
+
+    <TextView
+        android:id="@+id/tv_surname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextDark"
+        android:textSize="@dimen/text_xlarge"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_toEndOf="@id/tv_name"
+        tools:text="@string/prompt_surname"/>
+
+    <EditText
+        android:id="@+id/et_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:textSize="@dimen/text_xlarge"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_toEndOf="@id/iv_profile_image"/>
+
+    <EditText
+        android:id="@+id/et_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:textSize="@dimen/text_xlarge"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_toEndOf="@id/et_first_name"/>
 
     <TextView
         android:id="@+id/tv_email_fix"
@@ -50,6 +84,16 @@
         android:layout_toEndOf="@id/tv_email_fix"
         android:textSize="@dimen/text_large"
         tools:text="Email@test.com"/>
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:visibility="gone"
+        android:layout_below="@id/iv_profile_image"
+        android:layout_toEndOf="@id/tv_email_fix"
+        android:textSize="@dimen/text_large"/>
     
     <TextView
         android:id="@+id/tv_tags_fix"
@@ -82,5 +126,18 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:text="@string/log_out"
+        android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:text="@string/ok"
+        android:visibility="gone"
         android:textColor="@android:color/white"/>
 </RelativeLayout>

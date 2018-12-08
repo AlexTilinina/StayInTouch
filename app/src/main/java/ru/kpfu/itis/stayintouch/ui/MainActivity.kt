@@ -68,6 +68,10 @@ class MainActivity : MvpAppCompatActivity() {
         if (currentFrag != null && currentFrag.isVisible) {
             menuInflater.inflate(R.menu.toolbar_search_menu, menu)
         }
+        currentFrag = supportFragmentManager.findFragmentByTag(PROFILE_FRAGMENT_TAG)
+        if (currentFrag != null && currentFrag.isVisible) {
+            menuInflater.inflate(R.menu.toolbar_edit_profile_menu, menu)
+        }
         return true
     }
 
@@ -78,6 +82,12 @@ class MainActivity : MvpAppCompatActivity() {
             }
             action_search -> {
                 //TODO теги
+            }
+            action_edit_profile -> {
+                (supportFragmentManager
+                    .findFragmentByTag(PROFILE_FRAGMENT_TAG)
+                        as ProfileFragment)
+                    .editProfile()
             }
         }
         return true

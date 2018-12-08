@@ -5,10 +5,11 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import ru.kpfu.itis.stayintouch.model.UserPatch
 import ru.kpfu.itis.stayintouch.repository.UserRepository
 
 @InjectViewState
-class ProfileFragmentPresenter(val context: Context?) : MvpPresenter<ProfileFragmentView>() {
+class ProfileFragmentPresenter : MvpPresenter<ProfileFragmentView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -16,14 +17,23 @@ class ProfileFragmentPresenter(val context: Context?) : MvpPresenter<ProfileFrag
     }
 
     private fun loadUser() {
-        context?.let {
-            UserRepository
-                .getCurrentUser()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(viewState::setLoading)
-                .doAfterTerminate(viewState::setNotLoading)
-                .subscribe(viewState::loadUser, viewState::handleError)
-        }
+        UserRepository
+            .getCurrentUser()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::loadUser, viewState::handleError)
+    }
+
+    fun editProfile(name: String, surname: String, email: String) {
+        UserRepository
+            .editProfile(UserPatch(name, surname, email))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .doAfterTerminate(viewState::makeEditableInvisible)
+            .subscribe(viewState::loadUser, viewState::handleError)
     }
 }

@@ -40,12 +40,4 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
             .doAfterTerminate(viewState::setNotLoading)
             .subscribe(viewState::loadMoreItems, viewState::handleError)
     }
-
-    fun testTagsList(): List<Int> {
-        val tagList = ArrayList<Int>()
-        tagList.add(1)
-        tagList.add(2)
-        tagList.add(4)
-        return tagList
-    }
 }
