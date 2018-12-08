@@ -89,13 +89,43 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         tv_text.text = post.text
         if (post.created != null) {
             val date = post.getDateCreated()
-            val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
+            val hour =  if (date.get(Calendar.HOUR_OF_DAY) + 3 > 23) {
+                date.get(Calendar.HOUR_OF_DAY) + 3 - 24
+            } else {
+                date.get(Calendar.HOUR_OF_DAY) + 3
+            }
+            val hourString = if (hour < 10) {
+                "0$hour"
+            } else {
+                "$hour"
+            }
+            val minute = if (date.get(Calendar.MINUTE) < 10) {
+                "0${date.get(Calendar.MINUTE)}"
+            } else {
+                "${date.get(Calendar.MINUTE)}"
+            }
+            val dateText = "$hourString:$minute ${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH).plus(1)}.${date.get(
                 Calendar.YEAR)}"
             tv_post_date.text = dateText
         }
         if (post.dateEvent != null) {
             val date = post.dateEvent
-            val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
+            val hour =  if (date?.get(Calendar.HOUR_OF_DAY)?.plus(3) ?: 0 > 23) {
+                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3 - 24
+            } else {
+                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3
+            }
+            val hourString = if (hour < 10) {
+                "0$hour"
+            } else {
+                "$hour"
+            }
+            val minute = if (date?.get(Calendar.MINUTE) ?: 0 < 10) {
+                "0${date?.get(Calendar.MINUTE)}"
+            } else {
+                "${date?.get(Calendar.MINUTE)}"
+            }
+            val dateText = "$hourString:$minute ${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
                 Calendar.YEAR)}"
             tv_date.text = dateText
         } else {

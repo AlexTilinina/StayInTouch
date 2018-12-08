@@ -35,12 +35,42 @@ class PostAdapter(private val news: MutableList<Post>) :
         holder.itemView.tv_text.text = news[position].text
         if (news[position].created != null) {
             val date = news[position].getDateCreated()
-            val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(Calendar.YEAR)}"
+            val hour =  if (date.get(Calendar.HOUR_OF_DAY) + 3 > 23) {
+                date.get(Calendar.HOUR_OF_DAY) + 3 - 24
+            } else {
+                date.get(Calendar.HOUR_OF_DAY) + 3
+            }
+            val hourString = if (hour < 10) {
+                "0$hour"
+            } else {
+                "$hour"
+            }
+            val minute = if (date.get(Calendar.MINUTE) < 10) {
+                "0${date.get(Calendar.MINUTE)}"
+            } else {
+                "${date.get(Calendar.MINUTE)}"
+            }
+            val dateText = "$hourString:$minute ${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH).plus(1)}.${date.get(Calendar.YEAR)}"
             holder.itemView.tv_post_date.text = dateText
         }
         if (news[position].dateEvent != null) {
             val date = news[position].dateEvent
-            val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(Calendar.YEAR)}"
+            val hour =  if (date?.get(Calendar.HOUR_OF_DAY)?.plus(3) ?: 0 > 23) {
+                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3 - 24
+            } else {
+                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3
+            }
+            val hourString = if (hour < 10) {
+                "0$hour"
+            } else {
+                "$hour"
+            }
+            val minute = if (date?.get(Calendar.MINUTE) ?: 0 < 10) {
+                "0${date?.get(Calendar.MINUTE)}"
+            } else {
+                "${date?.get(Calendar.MINUTE)}"
+            }
+            val dateText = "$hourString:$minute ${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(Calendar.YEAR)}"
             holder.itemView.tv_date.text = dateText
         } else {
             holder.itemView.tv_date.visibility = View.GONE
