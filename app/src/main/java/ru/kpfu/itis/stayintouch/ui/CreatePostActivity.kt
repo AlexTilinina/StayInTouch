@@ -4,18 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_create_post.*
 import ru.kpfu.itis.stayintouch.R
-import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.PostCreate
 import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.repository.PostRepository
 import ru.kpfu.itis.stayintouch.repository.TagRepository
-import ru.kpfu.itis.stayintouch.repository.UserRepository
 import java.util.*
 
 class CreatePostActivity : AppCompatActivity() {
@@ -55,6 +52,7 @@ class CreatePostActivity : AppCompatActivity() {
                 .doAfterSuccess {
                     MainActivity.create(this)
                 }
+                .subscribe()
             //TODO добавление в список постов юзера
         }
     }
