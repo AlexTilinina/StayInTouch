@@ -7,14 +7,13 @@ import ru.kpfu.itis.stayintouch.service.ServiceFactory
 
 object RegistrationRepository {
 
-    fun registration(username: String,
-                     name: String,
+    fun registration(name: String,
                      surname: String,
                      email: String,
                      password: String,
                      password2: String
     ): Single<AuthResponse> {
         return ServiceFactory.provideSignUpService()
-            .registration(RegistrationRequest(username, name, surname, email, password, password2))
+            .registration(RegistrationRequest(email.split("@")[0], name, surname, email, password, password2))
     }
 }

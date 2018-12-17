@@ -10,8 +10,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_auth.*
 import ru.kpfu.itis.stayintouch.R.string
-import android.preference.PreferenceManager
 import android.widget.Toast
+import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.*
 import ru.kpfu.itis.stayintouch.repository.AuthRepository
 import ru.kpfu.itis.stayintouch.utils.*
@@ -77,9 +77,16 @@ class AuthActivity : MvpAppCompatActivity() {
                         }
                     }*/
                 }, { error ->
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    if (error is HttpException) {
+                        if (error.code() == CODE_400) {
+                            if (error.response().errorBody()?.string()?.contains(LOGIN_DATA_ERROR) == true){
+                                Toast.makeText(this, LOGIN_DATA_ERROR_TEXT, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    }
                     setLoadingState(false)
-                    error.printStackTrace()
                 })
         }
         btn_sign_in_google.setOnClickListener {

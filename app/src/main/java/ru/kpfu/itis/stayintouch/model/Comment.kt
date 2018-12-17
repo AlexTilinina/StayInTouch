@@ -9,5 +9,5 @@ class Comment(
     var id: String = "",
     var author: User? = null,
     var text: String = "",
-    var date: GregorianCalendar,
+    var date: GregorianCalendar?,
     var postId: Int? = null) : Parcelable

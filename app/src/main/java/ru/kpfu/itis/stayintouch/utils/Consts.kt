@@ -16,13 +16,13 @@ const val POST = "post"
 const val TOKEN = "token"
 const val SHARED_PREFS = "Shared_prefs"
 
-const val CODE_200 = "200"
-const val CODE_1 = "1"
-const val CODE_2 = "2"
-const val CODE_3 = "3"
+const val CODE_400 = 400
 
 const val CODE_1_TEXT = "Server is not responding"
-const val CODE_2_TEXT = "Invalid e-mail or password"
-const val CODE_3_TEXT = "E-mail already taken"
+const val LOGIN_DATA_ERROR_TEXT = "Invalid e-mail or password"
+const val SIGN_UP_EMAIL_EXISTS_ERROR_TEXT = "E-mail already taken"
+
+const val LOGIN_DATA_ERROR = "Unable to log in with provided credentials"
+const val SIGN_UP_EMAIL_EXISTS_ERROR = "A user is already registered with this e-mail address"
 
 const val COUNT_OF_ELEMENTS = 20

@@ -10,6 +10,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_registration.*
+import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.*
 import ru.kpfu.itis.stayintouch.R.string
 import ru.kpfu.itis.stayintouch.repository.RegistrationRepository
@@ -20,7 +21,7 @@ class RegistrationActivity : MvpAppCompatActivity() {
 
     companion object {
 
-        fun create(context: Context){
+        fun create(context: Context) {
             val intent = Intent(context, RegistrationActivity::class.java)
             context.startActivity(intent)
         }
@@ -32,9 +33,8 @@ class RegistrationActivity : MvpAppCompatActivity() {
         initClickListeners()
     }
 
-    fun initClickListeners(){
+    fun initClickListeners() {
         btn_sign_up.setOnClickListener {
-            val username = et_username.text.toString()
             val name = et_name.text.toString()
             val surname = et_surname.text.toString()
             val email = et_email.text.toString()
@@ -42,9 +42,6 @@ class RegistrationActivity : MvpAppCompatActivity() {
             val password2 = et_password2.text.toString()
 
             SoftKeyboardHelper.hideKeyboard(this, currentFocus)
-            if (TextUtils.isEmpty(username)) {
-                it_username.error = getString(string.error_empty_username)
-            }
             if (TextUtils.isEmpty(name)) {
                 it_name.error = getString(string.error_empty_name)
             }
@@ -71,14 +68,20 @@ class RegistrationActivity : MvpAppCompatActivity() {
                 it_password2.error = getString(string.error_different_passwords)
                 return@setOnClickListener
             }
-            RegistrationRepository.registration(username, name, surname, email, password, password2)
+            RegistrationRepository.registration(name, surname, email, password, password2)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe ({ result ->
+                .subscribe({ result ->
                     AuthActivity.create(this, false)
                 }, { error ->
-                    Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
-                    error.printStackTrace()
+                    if (error is HttpException) {
+                        if (error.code() == CODE_400) {
+                            if (error.response().errorBody()?.string()?.contains(SIGN_UP_EMAIL_EXISTS_ERROR) == true)
+                                Toast.makeText(this, SIGN_UP_EMAIL_EXISTS_ERROR_TEXT, Toast.LENGTH_LONG).show()
+                        }
+                    } else {
+                        Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    }
                 })
         }
     }
