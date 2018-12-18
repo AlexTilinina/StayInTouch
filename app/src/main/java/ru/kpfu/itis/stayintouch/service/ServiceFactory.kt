@@ -36,6 +36,10 @@ object ServiceFactory {
         return userService
     }
 
+    fun provideCommentService() : CommentService {
+        return commentService
+    }
+
     fun provideTagServiceMock() : TagServiceMock {
         return TagServiceMock()
     }

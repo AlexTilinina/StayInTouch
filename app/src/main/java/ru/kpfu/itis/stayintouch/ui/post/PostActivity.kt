@@ -15,8 +15,7 @@ import kotlinx.android.synthetic.main.activity_post.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.model.Post
-import ru.kpfu.itis.stayintouch.repository.CommentRepository
-import ru.kpfu.itis.stayintouch.repository.UserRepository
+import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 import ru.kpfu.itis.stayintouch.utils.POST
@@ -44,6 +43,13 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
         post = intent.extras.get(POST) as Post
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        /*toolbar.title = "Post"
+        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }*/
         initPost()
         initOnClickListeners()
         initComments()
@@ -68,6 +74,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
     override fun handleError(error: Throwable) {
         Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+        error.printStackTrace()
     }
 
     override fun setLoading(disposable: Disposable) {
@@ -80,6 +87,10 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
     override fun getPostId() {
         post.id?.let { presenter.setPostId(it) }
+    }
+
+    override fun addItem(comment: Comment) {
+        adapter.add(comment)
     }
 
     private fun initPost() {
@@ -162,11 +173,15 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             addToCalendar(post)
         }
         btn_send.setOnClickListener {
-            val comment = Comment("", UserRepository.getCurrentUser().blockingGet(), et_comment.text.toString(), GregorianCalendar(), post.id)
-            et_comment.text.clear()
-            post.id?.let { it1 -> CommentRepository.createComment(it1, comment) }
-            //TODO scroll к последнему комменту
+            presenter.getUserToCreateComment()
         }
+    }
+
+    override fun createComment(user: User) {
+        val comment = Comment("", user, et_comment.text.toString(), GregorianCalendar(), post.id)
+        et_comment.text.clear()
+        post.id?.let { it1 -> presenter.createComment(it1, comment) }
+        //TODO scroll к последнему комменту
     }
 
     private fun initComments() {

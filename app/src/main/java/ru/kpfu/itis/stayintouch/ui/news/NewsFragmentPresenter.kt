@@ -19,7 +19,6 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
 
     @SuppressLint("CheckResult")
     fun loadPosts(){
-        //TODO сгрузить с профиля список тегов
         PostRepository
             .getNews(0)
             .subscribeOn(Schedulers.io())

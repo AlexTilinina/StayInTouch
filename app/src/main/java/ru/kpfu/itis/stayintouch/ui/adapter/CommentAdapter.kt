@@ -31,12 +31,16 @@ class CommentAdapter(private val comments: MutableList<Comment>, private val fra
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = comments[position].text
         val date = comments[position].date
-        val dateText = "${date?.get(Calendar.DAY_OF_MONTH)}." +
-                "${date?.get(Calendar.MONTH)?.plus(1)}." +
-                "${date?.get(Calendar.YEAR)}"
-        holder.itemView.tv_date.text = dateText
+        if (date != null) {
+            val dateText = "${date.get(Calendar.DAY_OF_MONTH)}." +
+                    "${date.get(Calendar.MONTH).plus(1)}." +
+                    "${date.get(Calendar.YEAR)}"
+            holder.itemView.tv_date.text = dateText
+        } else {
+            holder.itemView.tv_date.visibility = View.GONE
+        }
         holder.itemView.tv_answer.setOnClickListener {
-            comments[position].postId?.let { it1 ->
+            comments[position].news_commented?.let { it1 ->
                 AnswerCommentDialog
                     .newInstance(it1)
                     .show(fragmentManager, ANSWER_COMMENT_DIALOG_TAG)

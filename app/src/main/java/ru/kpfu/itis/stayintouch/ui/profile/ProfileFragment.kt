@@ -42,10 +42,10 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         tv_name.text = user.first_name
         tv_surname.text = user.last_name
         tv_email.text = user.email
-        if (user.profile?.tags_list != null) {
-            if (user.profile?.tags_list?.isNotEmpty() == true) {
+        if (user.profile?.tags != null) {
+            if (user.profile?.tags?.isNotEmpty() == true) {
                 var tags = ""
-                for (tag: Tag in user.profile?.tags_list!!) {
+                for (tag: Tag in user.profile?.tags!!) {
                     tags += "${tag.tag} "
                 }
                 tv_tags_list.text = tags

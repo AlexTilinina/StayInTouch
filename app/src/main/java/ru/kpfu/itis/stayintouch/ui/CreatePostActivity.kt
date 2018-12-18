@@ -28,7 +28,14 @@ class CreatePostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_post)
-        initOnClickListeners();
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        /*toolbar.title = "Create post"
+        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }*/
+        initOnClickListeners()
     }
 
     private fun initOnClickListeners() {
@@ -53,7 +60,6 @@ class CreatePostActivity : AppCompatActivity() {
                     MainActivity.create(this)
                 }
                 .subscribe()
-            //TODO добавление в список постов юзера
         }
     }
 }

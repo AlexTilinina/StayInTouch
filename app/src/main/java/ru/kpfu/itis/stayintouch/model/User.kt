@@ -11,5 +11,5 @@ class User(var id: Int?,
            var email: String = "",
            var profile: Profile? = null,
            var news: List<Post>? = ArrayList(),
-           var comments: List<Int>? = ArrayList()
+           var comments: List<Comment>? = ArrayList()
     ) : Parcelable

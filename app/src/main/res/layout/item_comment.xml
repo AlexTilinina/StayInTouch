@@ -59,7 +59,7 @@
         android:text="@string/answer"/>
 
     <View
-        android:layout_below="@id/tv_date"
+        android:layout_below="@id/tv_answer"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#7b7b7b"

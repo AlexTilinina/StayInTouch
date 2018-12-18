@@ -10,4 +10,5 @@ class Comment(
     var author: User? = null,
     var text: String = "",
     var date: GregorianCalendar?,
-    var postId: Int? = null) : Parcelable
+    var news_commented: Int? = null,
+    var like_counter: Int? = null) : Parcelable

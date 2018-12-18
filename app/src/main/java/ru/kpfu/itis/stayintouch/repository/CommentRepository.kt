@@ -7,7 +7,7 @@ import ru.kpfu.itis.stayintouch.service.ServiceFactory
 object CommentRepository {
 
     fun createComment(postId: Int, comment: Comment) : Single<Comment> {
-        return ServiceFactory.provideCommentServiceMock().createComment(postId, comment)
+        return ServiceFactory.provideCommentService().createComment(AuthRepository.token, postId, comment)
     }
 
     fun getCommentsByPostId(postId: Int, offset: Int) : Single<List<Comment>> {

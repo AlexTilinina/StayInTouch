@@ -1,6 +1,5 @@
 package ru.kpfu.itis.stayintouch.ui.profile
 
-import android.content.Context
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers

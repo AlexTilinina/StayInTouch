@@ -34,8 +34,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.CreatePostActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.kpfu.itis.stayintouch.ui.MainActivity" />
         </activity>
         <activity android:name=".ui.post.PostActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.kpfu.itis.stayintouch.ui.MainActivity" />
         </activity>
     </application>
 

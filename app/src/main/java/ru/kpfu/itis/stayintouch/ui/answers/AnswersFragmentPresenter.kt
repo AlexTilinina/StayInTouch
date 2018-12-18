@@ -15,7 +15,7 @@ class AnswersFragmentPresenter : MvpPresenter<AnswersFragmentView>() {
     }
 
     fun notifyDataLoaded(comments: MutableList<Comment>) {
-        viewState.changeLoadingState(false)
+        viewState.setNotLoading()
         viewState.setComments(comments)
     }
 

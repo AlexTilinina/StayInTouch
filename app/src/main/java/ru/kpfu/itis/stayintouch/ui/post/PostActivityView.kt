@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import io.reactivex.disposables.Disposable
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.model.Post
+import ru.kpfu.itis.stayintouch.model.User
 
 interface PostActivityView : MvpView {
 
@@ -23,4 +24,8 @@ interface PostActivityView : MvpView {
     fun setNotLoading()
 
     fun getPostId()
+
+    fun createComment(user: User)
+
+    fun addItem(comment: Comment)
 }
