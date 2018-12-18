@@ -45,11 +45,6 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         post = intent.extras.get(POST) as Post
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        /*toolbar.title = "Post"
-        toolbar.setNavigationIcon(R.drawable.ic_back)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }*/
         initPost()
         initOnClickListeners()
         initComments()
@@ -145,7 +140,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         }
         var tags = ""
         for (tag in post.tags) {
-            tags += "#${tag.tag} "
+            tags += "#${tag.name} "
         }
         tv_tags.text = tags
     }

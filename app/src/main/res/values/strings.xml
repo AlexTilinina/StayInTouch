@@ -25,7 +25,8 @@
     <string name="prompt_commentaries">Commentaries</string>
     <string name="add_event_to_calendar">Add event to calendar</string>
     <string name="create_post">Create post</string>
-    <string name="subscribe">Subscribe</string>
+    <string name="subscribe">+ Subscribe</string>
+    <string name="unsubscribe">- Unsubscribe</string>
     <string name="my_comments">My comments</string>
     <string name="answers">Answers</string>
 

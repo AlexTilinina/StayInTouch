@@ -7,6 +7,6 @@ import ru.kpfu.itis.stayintouch.model.Tag
 class TagServiceMock {
 
     fun getTagsByText(text: String) : Single<Tag> {
-        return Single.just(Tag("2", text))
+        return Single.just(Tag(2, text))
     }
 }

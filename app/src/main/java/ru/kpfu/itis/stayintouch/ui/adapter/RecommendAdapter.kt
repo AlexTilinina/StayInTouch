@@ -19,7 +19,7 @@ class RecommendAdapter(private val tags: List<Tag>) : RecyclerView.Adapter<Recom
     override fun getItemCount(): Int = tags.size
 
     override fun onBindViewHolder(holder: RecommendViewHolder, position: Int) {
-        holder.itemView.tv_tag.text = tags[position].tag
+        holder.itemView.tv_tag.text = tags[position].name
     }
 
     class RecommendViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)

@@ -30,11 +30,6 @@ class CreatePostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_post)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        /*toolbar.title = "Create post"
-        toolbar.setNavigationIcon(R.drawable.ic_back)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }*/
         initOnClickListeners()
     }
 

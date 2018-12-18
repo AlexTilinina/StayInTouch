@@ -2,6 +2,7 @@ package ru.kpfu.itis.stayintouch.ui.profile
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.AuthActivity
+import ru.kpfu.itis.stayintouch.ui.adapter.TagAdapter
 
 class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
 
@@ -44,9 +46,12 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         tv_email.text = user.email
         if (user.profile?.tags != null) {
             if (user.profile?.tags?.isNotEmpty() == true) {
+                val manager = LinearLayoutManager(context)
+                recycler_view.adapter = TagAdapter(user.profile?.tags as MutableList<Tag>, false)
+                recycler_view.layoutManager = manager
                 var tags = ""
                 for (tag: Tag in user.profile?.tags!!) {
-                    tags += "${tag.tag} "
+                    tags += "${tag.name} "
                 }
                 tv_tags_list.text = tags
             } else {
@@ -74,11 +79,11 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         et_last_name.visibility = View.GONE
         et_email.visibility = View.GONE
         btn_ok.visibility = View.GONE
+        recycler_view.visibility = View.GONE
 
         tv_name.visibility = View.VISIBLE
         tv_surname.visibility = View.VISIBLE
         tv_email.visibility = View.VISIBLE
-        tv_tags_fix.visibility = View.VISIBLE
         tv_tags_list.visibility = View.VISIBLE
         btn_log_out.visibility = View.VISIBLE
     }
@@ -88,6 +93,7 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         et_last_name.visibility = View.VISIBLE
         et_email.visibility = View.VISIBLE
         btn_ok.visibility = View.VISIBLE
+        recycler_view.visibility = View.VISIBLE
 
         et_first_name.setText(tv_name.text)
         et_last_name.setText(tv_surname.text)
@@ -96,7 +102,6 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         tv_name.visibility = View.GONE
         tv_surname.visibility = View.GONE
         tv_email.visibility = View.GONE
-        tv_tags_fix.visibility = View.GONE
         tv_tags_list.visibility = View.GONE
         btn_log_out.visibility = View.GONE
     }

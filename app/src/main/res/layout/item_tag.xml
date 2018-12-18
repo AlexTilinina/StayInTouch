@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="@dimen/margin_small"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_tag"
-        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_medium"
         android:text="#Tag"
         android:lines="1"
@@ -20,6 +21,15 @@
         android:id="@+id/btn_subscribe"
         android:text="@string/subscribe"
         android:background="@null"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_unsubscribe"
+        android:text="@string/unsubscribe"
+        android:background="@null"
+        android:visibility="gone"
         android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
