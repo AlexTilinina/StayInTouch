@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recommend.*
 import ru.kpfu.itis.stayintouch.R
@@ -33,8 +34,12 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
         super.onCreate(savedInstanceState)
     }
 
-    override fun changeLoadingState(isLoading: Boolean) {
-        //TODO отображение прогресс бара в зависимости от наличия данных
+    override fun setLoading(disposable: Disposable) {
+        progress_bar.visibility = View.VISIBLE
+    }
+
+    override fun setNotLoading() {
+        progress_bar.visibility = View.GONE
     }
 
     override fun showDetails(position: Int) {

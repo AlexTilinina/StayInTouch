@@ -63,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#7b7b7b"
+        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp" />
 </RelativeLayout>

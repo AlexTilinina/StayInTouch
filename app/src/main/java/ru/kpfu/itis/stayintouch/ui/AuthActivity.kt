@@ -16,7 +16,6 @@ import ru.kpfu.itis.stayintouch.*
 import ru.kpfu.itis.stayintouch.repository.AuthRepository
 import ru.kpfu.itis.stayintouch.utils.*
 
-
 class AuthActivity : MvpAppCompatActivity() {
 
     companion object {
@@ -63,25 +62,17 @@ class AuthActivity : MvpAppCompatActivity() {
                     setStringPreference(TOKEN, result.token)
                     AuthRepository.setToken(this)
                     setLoggedInState(true)
-                    /*when (result.code){
-                        CODE_200 -> {
-
-                        }
-                        CODE_1 -> {
-                            setLoadingState(false)
-                            Toast.makeText(this, CODE_1_TEXT, Toast.LENGTH_LONG).show()
-                        }
-                        CODE_2 -> {
-                            setLoadingState(false)
-                            Toast.makeText(this, CODE_2_TEXT, Toast.LENGTH_LONG).show()
-                        }
-                    }*/
                 }, { error ->
                     if (error is HttpException) {
                         if (error.code() == CODE_400) {
                             if (error.response().errorBody()?.string()?.contains(LOGIN_DATA_ERROR) == true){
-                                Toast.makeText(this, LOGIN_DATA_ERROR_TEXT, Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, getString(R.string.error_login_data),
+                                    Toast.LENGTH_LONG).show()
                             }
+                        }
+                        if (error.code() == CODE_500) {
+                            Toast.makeText(this, getString(R.string.error_server_not_responding),
+                                Toast.LENGTH_LONG).show()
                         }
                     } else {
                         Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()

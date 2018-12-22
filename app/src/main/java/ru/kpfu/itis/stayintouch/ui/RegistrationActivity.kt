@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +13,6 @@ import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.*
 import ru.kpfu.itis.stayintouch.R.string
 import ru.kpfu.itis.stayintouch.repository.RegistrationRepository
-import ru.kpfu.itis.stayintouch.service.ServiceFactory
 import ru.kpfu.itis.stayintouch.utils.*
 
 class RegistrationActivity : MvpAppCompatActivity() {
@@ -77,7 +75,8 @@ class RegistrationActivity : MvpAppCompatActivity() {
                     if (error is HttpException) {
                         if (error.code() == CODE_400) {
                             if (error.response().errorBody()?.string()?.contains(SIGN_UP_EMAIL_EXISTS_ERROR) == true)
-                                Toast.makeText(this, SIGN_UP_EMAIL_EXISTS_ERROR_TEXT, Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, getString(R.string.error_email_exists),
+                                    Toast.LENGTH_LONG).show()
                         }
                     } else {
                         Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()

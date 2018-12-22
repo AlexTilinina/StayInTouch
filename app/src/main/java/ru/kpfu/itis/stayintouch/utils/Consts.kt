@@ -17,10 +17,7 @@ const val TOKEN = "token"
 const val SHARED_PREFS = "Shared_prefs"
 
 const val CODE_400 = 400
-
-const val CODE_1_TEXT = "Server is not responding"
-const val LOGIN_DATA_ERROR_TEXT = "Invalid e-mail or password"
-const val SIGN_UP_EMAIL_EXISTS_ERROR_TEXT = "E-mail already taken"
+const val CODE_500 = 500
 
 const val LOGIN_DATA_ERROR = "Unable to log in with provided credentials"
 const val SIGN_UP_EMAIL_EXISTS_ERROR = "A user is already registered with this e-mail address"

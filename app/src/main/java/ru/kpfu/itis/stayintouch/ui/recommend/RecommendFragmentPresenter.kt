@@ -15,7 +15,6 @@ class RecommendFragmentPresenter : MvpPresenter<RecommendFragmentView>() {
     }
 
     fun notifyDataLoaded(news: List<Post>) {
-        viewState.changeLoadingState(false)
         viewState.setNews(news)
     }
 

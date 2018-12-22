@@ -5,7 +5,7 @@
     <string name="btn_forgot_password">Forgot password?</string>
     <string name="or">or</string>
     <string name="click_to_sign_up">Press to sign up!</string>
-    <string name="prompt_email">E-mail</string>
+    <string name="prompt_email" translatable="false">E-mail</string>
     <string name="prompt_password">Password</string>
     <string name="login">Login</string>
     <string name="btn_sign_up">Sign Up</string>
@@ -21,7 +21,7 @@
 
     <string name="profile_image">Profile image</string>
     <string name="prompt_tags">Tags</string>
-    <string name="prompt_username">Name Username</string>
+    <string name="prompt_username" translatable="false">Name Username</string>
     <string name="prompt_commentaries">Commentaries</string>
     <string name="add_event_to_calendar">Add event to calendar</string>
     <string name="create_post">Create post</string>
@@ -38,14 +38,17 @@
     <string name="error_wrong_email">Invalid email!</string>
     <string name="error_empty_name">Enter name</string>
     <string name="error_empty_surname">Enter surname</string>
+    <string name="error_login_data">Invalid e-mail or password</string>
+    <string name="error_email_exists">E-mail already taken</string>
+    <string name="error_server_not_responding">Server is not responding</string>
     <string name="log_out">Log out</string>
     <string name="sign_in_another_way">Sign in another way</string>
-    <string name="google">Google</string>
+    <string name="google" translatable="false">Google</string>
     <string name="empty_news">You don\'t have any news with your tags yet</string>
     <string name="title">Title</string>
     <string name="location">Location</string>
     <string name="description">Description</string>
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="cancel">Cancel</string>
     <string name="type_your_text_here">Type your text here</string>
     <string name="enter_your_tags_here">Enter your tags here</string>
