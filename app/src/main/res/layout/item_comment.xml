@@ -5,12 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#7b7b7b"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp" />
+
     <ImageView
         android:id="@+id/iv_author_image"
         android:layout_width="@dimen/profile_image_size_small"
         android:layout_height="@dimen/profile_image_size_small"
         android:layout_margin="@dimen/margin_medium"
         android:src="@mipmap/ic_launcher"
+        android:layout_below="@id/view_divider"
         android:contentDescription="@string/profile_image"/>
 
     <TextView
@@ -57,13 +67,4 @@
         android:layout_below="@id/tv_text"
         android:textColor="@color/colorTextLink"
         android:text="@string/answer"/>
-
-    <View
-        android:layout_below="@id/tv_answer"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#7b7b7b"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp" />
 </RelativeLayout>

@@ -120,22 +120,6 @@
                 android:paddingEnd="@dimen/padding_medium"
                 android:paddingBottom="@dimen/padding_small"/>
 
-            <View
-                android:layout_below="@id/btn_comments"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#7b7b7b"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"/>
-
-            <View
-                android:layout_below="@id/btn_comments"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#7b7b7b"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"/>
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_comments"
                 android:layout_below="@id/btn_comments"
@@ -151,6 +135,14 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </ScrollView>
+
+    <View
+        android:layout_above="@id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#7b7b7b"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
 
     <LinearLayout
         android:id="@+id/linear_layout"
