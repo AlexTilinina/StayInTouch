@@ -1,13 +1,11 @@
 package ru.kpfu.itis.stayintouch.ui.news
 
-import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.kpfu.itis.stayintouch.repository.PostRepository
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
-import java.util.ArrayList
 
 @InjectViewState
 class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
@@ -17,7 +15,6 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
         loadPosts()
     }
 
-    @SuppressLint("CheckResult")
     fun loadPosts(){
         PostRepository
             .getNews(0)
@@ -29,7 +26,6 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
             .subscribe(viewState::showPosts, viewState::handleError)
     }
 
-    @SuppressLint("CheckResult")
     fun loadNextElements(page: Int) {
         PostRepository
             .getNews(COUNT_OF_ELEMENTS * page)

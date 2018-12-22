@@ -15,12 +15,15 @@ import kotlinx.android.synthetic.main.fragment_answers.*
 import kotlinx.android.synthetic.main.fragment_answers.view.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Comment
+import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
 
 class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
 
     @InjectPresenter
     lateinit var presenter: AnswersFragmentPresenter
+    var myComments: MutableList<Comment> = ArrayList()
+    var answers: MutableList<Comment> = ArrayList()
 
     companion object {
 
@@ -29,9 +32,16 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         }
     }
 
-    override fun setComments(comments: MutableList<Comment>) {
-        recycler_view.adapter = CommentAdapter(comments)
+    override fun showMyComments(user: User) {
+        if (user.comments != null) {
+            myComments = user.comments?.toMutableList()!!
+        }
+        recycler_view.adapter = CommentAdapter(myComments)
         recycler_view.layoutManager = LinearLayoutManager(activity)
+    }
+
+    override fun showAnswers() {
+        //TODO ответы
     }
 
     override fun setLoading(disposable: Disposable) {
@@ -58,10 +68,10 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         view.btns_segmented.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 view.btn_my_comments.id -> {
-
+                    recycler_view.adapter = CommentAdapter(myComments)
                 }
                 view.btn_answers.id -> {
-                    //TODO ответы
+                    recycler_view.adapter = CommentAdapter(answers)
                 }
             }
         }

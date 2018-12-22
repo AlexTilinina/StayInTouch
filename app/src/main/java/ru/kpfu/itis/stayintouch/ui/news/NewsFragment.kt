@@ -102,7 +102,8 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= 20) {
                         isLoading = true
-                        presenter.loadNextElements(++currentPage)
+                        //TODO добавить подгрузку новых постов, когда появится API
+                        //presenter.loadNextElements(++currentPage)
                     }
                 }
             }
