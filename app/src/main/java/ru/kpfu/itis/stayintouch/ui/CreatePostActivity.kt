@@ -42,7 +42,7 @@ class CreatePostActivity : AppCompatActivity() {
             val tagsText = et_tag.text.toString().split(" ")
             val tags = ArrayList<Tag>()
             for (tag in tagsText){
-                tags.add(TagRepository.getTagsByText(tag).blockingGet())
+                //tags.add(TagRepository.getTags().blockingGet())
             }
             val post = PostCreate(text = text)
             PostRepository.createPost(post)

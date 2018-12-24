@@ -11,6 +11,10 @@ object PostRepository {
         return ServiceFactory.providePostService().getNews(AuthRepository.token, offset)
     }
 
+    fun getAllPosts() : Single<List<Post>> {
+        return ServiceFactory.providePostService().getAllPosts(AuthRepository.token)
+    }
+
     fun createPost(post: PostCreate) : Single<Post> {
         return ServiceFactory.providePostService().createPost(AuthRepository.token, post)
     }

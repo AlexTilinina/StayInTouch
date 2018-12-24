@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.kpfu.itis.stayintouch.R.id.*
@@ -22,6 +23,8 @@ import ru.kpfu.itis.stayintouch.ui.news.NewsFragment
 import ru.kpfu.itis.stayintouch.ui.profile.ProfileFragment
 import ru.kpfu.itis.stayintouch.ui.recommend.RecommendFragment
 import ru.kpfu.itis.stayintouch.utils.*
+import android.support.v4.view.MenuItemCompat.getActionView
+
 
 
 class MainActivity : MvpAppCompatActivity() {
@@ -81,7 +84,16 @@ class MainActivity : MvpAppCompatActivity() {
                 CreatePostActivity.create(this);
             }
             action_search -> {
-                //TODO теги
+                (item.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String): Boolean {
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String): Boolean {
+                        return false
+                    }
+                })
+                //TODO поиск
             }
             action_edit_profile -> {
                 (supportFragmentManager

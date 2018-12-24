@@ -30,11 +30,12 @@ class PostAdapter(private val news: MutableList<Post>) :
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.itemView.iv_author_image //TODO подгрузка картинки
-        val username = "${news[position].author?.first_name} ${news[position].author?.last_name}"
+        val post = news[position]
+        val username = "${post.author?.first_name} ${post.author?.last_name}"
         holder.itemView.tv_author_name.text = username
-        holder.itemView.tv_text.text = news[position].text
-        if (news[position].created != null) {
-            val date = news[position].getDateCreated()
+        holder.itemView.tv_text.text = post.text
+        if (post.created != null) {
+            val date = post.getDateCreated()
             val hour =  if (date.get(Calendar.HOUR_OF_DAY) + 3 > 23) {
                 date.get(Calendar.HOUR_OF_DAY) + 3 - 24
             } else {
@@ -53,8 +54,8 @@ class PostAdapter(private val news: MutableList<Post>) :
             val dateText = "$hourString:$minute ${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH).plus(1)}.${date.get(Calendar.YEAR)}"
             holder.itemView.tv_post_date.text = dateText
         }
-        if (news[position].dateEvent != null) {
-            val date = news[position].dateEvent
+        if (post.dateEvent != null) {
+            val date = post.dateEvent
             val hour =  if (date?.get(Calendar.HOUR_OF_DAY)?.plus(3) ?: 0 > 23) {
                 (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3 - 24
             } else {
@@ -77,21 +78,21 @@ class PostAdapter(private val news: MutableList<Post>) :
             holder.itemView.btn_event.visibility = View.GONE
         }
         var tags = ""
-        for (tag in news[position].tags) {
+        for (tag in post.tags) {
             tags += "${tag.name} "
         }
         holder.itemView.tv_tags.text = tags
         holder.itemView.btn_comments.setOnClickListener {
-            PostActivity.create(parent.context, news[position])
+            post.id?.let { it1 -> PostActivity.create(parent.context, it1) }
         }
         holder.itemView.setOnClickListener {
-            PostActivity.create(parent.context, news[position])
+            post.id?.let { it1 -> PostActivity.create(parent.context, it1) }
         }
         holder.itemView.tv_date.setOnClickListener {
-            addToCalendar(news[position])
+            addToCalendar(post)
         }
         holder.itemView.btn_event.setOnClickListener {
-            addToCalendar(news[position])
+            addToCalendar(post)
         }
     }
 

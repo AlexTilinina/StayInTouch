@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">Stay In Touch</string>
-    <string name="title_sign_in">Sign in</string>
-    <string name="btn_sign_in">Sign in</string>
+    <string name="app_name" translatable="false">Stay In Touch</string>
+    <string name="sign_in">Sign in</string>
     <string name="btn_forgot_password">Forgot password?</string>
     <string name="or">or</string>
     <string name="click_to_sign_up">Press to sign up!</string>
@@ -28,7 +27,6 @@
     <string name="subscribe">+ Subscribe</string>
     <string name="unsubscribe">- Unsubscribe</string>
     <string name="my_comments">My comments</string>
-    <string name="answers">Answers</string>
 
     <string name="error_empty_username">Enter username!</string>
     <string name="error_empty_email">Enter email!</string>
@@ -60,4 +58,5 @@
     <string name="username">Username</string>
     <string name="edit_profile">Edit profile</string>
     <string name="error_empty">Some fields are empty!</string>
+    <string name="search_hint">Search</string>
 </resources>

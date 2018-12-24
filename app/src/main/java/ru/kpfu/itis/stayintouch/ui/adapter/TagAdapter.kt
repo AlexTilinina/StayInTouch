@@ -24,7 +24,8 @@ class TagAdapter(private val tags: MutableList<Tag>, private var subscr: Boolean
     override fun getItemCount(): Int = tags.size
 
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
-        holder.itemView.tv_tag.text = tags[position].name
+        val tag = tags[position]
+        holder.itemView.tv_tag.text = tag.name
         if (subscr) {
             holder.itemView.btn_subscribe.visibility = View.VISIBLE
             holder.itemView.btn_unsubscribe.visibility = View.GONE
@@ -34,18 +35,18 @@ class TagAdapter(private val tags: MutableList<Tag>, private var subscr: Boolean
         }
         holder.itemView.btn_subscribe.setOnClickListener {
             TagRepository
-                .subscribeToTag(tags[position].id)
+                .subscribeToTag(tag.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { remove(tags[position]) }
+                .doOnSubscribe { remove(tag) }
                 .subscribe()
         }
         holder.itemView.btn_unsubscribe.setOnClickListener {
             TagRepository
-                .unsubscribeFromTag(tags[position].id)
+                .unsubscribeFromTag(tag.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { remove(tags[position]) }
+                .doOnSubscribe { remove(tag) }
                 .subscribe()
         }
     }

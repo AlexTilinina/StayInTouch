@@ -18,17 +18,17 @@ class PostActivityPresenter : MvpPresenter<PostActivityView>()  {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.getPostId()
-        loadComments()
+        initPost()
     }
 
-    fun loadComments(){
+    fun initPost(){
         PostRepository
             .getPostById(postId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)
             .doAfterTerminate(viewState::setNotLoading)
-            .subscribe(viewState::showComments, viewState::handleError)
+            .subscribe(viewState::initPost, viewState::handleError)
     }
 
     fun loadNextElements(page: Int) {

@@ -30,6 +30,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <ImageView
                 android:id="@+id/iv_author_image"
                 android:layout_width="@dimen/profile_image_size_small"
@@ -124,14 +130,6 @@
                 android:id="@+id/rv_comments"
                 android:layout_below="@id/btn_comments"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_below="@id/btn_comments"
-                android:layout_marginTop="@dimen/margin_large"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </ScrollView>

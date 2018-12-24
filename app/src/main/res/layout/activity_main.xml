@@ -26,17 +26,6 @@
         android:layout_marginBottom="?attr/actionBarSize"
         android:layout_marginTop="?attr/actionBarSize"/>
 
-    <!--<Button
-        android:id="@+id/btn_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:paddingStart="@dimen/padding_xxlarge"
-        android:paddingEnd="@dimen/padding_xxlarge"
-        android:background="@color/colorPrimary"
-        android:text="@string/btn_sign_in"
-        android:textColor="@android:color/white"/>-->
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -44,7 +33,5 @@
         android:layout_gravity="bottom"
         android:background="@color/lightGray"
         app:menu="@menu/bottom_navigation_menu">
-
     </android.support.design.widget.BottomNavigationView>
-
 </android.support.design.widget.CoordinatorLayout>

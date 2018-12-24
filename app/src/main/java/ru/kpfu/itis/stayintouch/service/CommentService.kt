@@ -11,4 +11,7 @@ interface CommentService {
 
     @GET("api/news/{postId}/comments")
     fun getCommentsByPostId(@Path("postId") postId: Int, @Query("offset") offset: Int) : Single<List<Comment>>
+
+    @GET("api/comments/my")
+    fun getMyComments(@Header("Authorization") token: String) : Single<List<Comment>>
 }

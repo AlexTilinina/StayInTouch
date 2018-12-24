@@ -18,7 +18,7 @@ import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
-import ru.kpfu.itis.stayintouch.utils.POST
+import ru.kpfu.itis.stayintouch.utils.POST_ID
 import java.util.*
 
 class PostActivity : MvpAppCompatActivity(), PostActivityView {
@@ -27,14 +27,15 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     lateinit var presenter: PostActivityPresenter
 
     lateinit var post: Post
+    var postId = 0
     var isLoading = false
-    var adapter = CommentAdapter(ArrayList(), fragmentManager)
+    var adapter = CommentAdapter(ArrayList(), fragmentManager = fragmentManager)
 
     companion object {
 
-        fun create(context: Context, post: Post) {
+        fun create(context: Context, postId: Int) {
             val intent = Intent(context, PostActivity::class.java)
-            intent.putExtra(POST, post)
+            intent.putExtra(POST_ID, postId)
             context.startActivity(intent)
         }
     }
@@ -42,15 +43,16 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
-        post = intent.extras.get(POST) as Post
+        postId = intent.extras.getInt(POST_ID)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initPost()
         initOnClickListeners()
         initComments()
     }
 
-    override fun showComments(post: Post) {
+    override fun initPost(post: Post) {
+        this.post = post
+        initPost()
         post.comments?.let { adapter.changeDataSet(it) }
     }
 
@@ -81,7 +83,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     }
 
     override fun getPostId() {
-        post.id?.let { presenter.setPostId(it) }
+        presenter.setPostId(postId)
     }
 
     override fun addItem(comment: Comment) {
@@ -139,6 +141,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             btn_event.visibility = View.GONE
         }
         var tags = ""
+        //TODO выпадающий список с тегами
         for (tag in post.tags) {
             tags += "#${tag.name} "
         }
@@ -198,7 +201,8 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
                         && firstVisibleItemPosition >= 0
                         && totalItemCount >= COUNT_OF_ELEMENTS) {
                         isLoading = true
-                        presenter.loadNextElements(++currentPage)
+                        //TODO сделать когда появится API
+                        //presenter.loadNextElements(++currentPage)
                     }
                 }
             }

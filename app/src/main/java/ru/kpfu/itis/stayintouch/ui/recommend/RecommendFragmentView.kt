@@ -1,6 +1,7 @@
 package ru.kpfu.itis.stayintouch.ui.recommend
 
 import com.arellomobile.mvp.MvpView
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import io.reactivex.disposables.Disposable
@@ -12,6 +13,9 @@ interface RecommendFragmentView : MvpView {
     fun setLoading(disposable: Disposable)
 
     fun setNotLoading()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun handleError(error: Throwable)
 
     @StateStrategyType(SkipStrategy::class)
     fun showDetails(position: Int)

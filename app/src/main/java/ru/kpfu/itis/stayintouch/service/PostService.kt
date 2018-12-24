@@ -7,8 +7,11 @@ import ru.kpfu.itis.stayintouch.model.PostCreate
 
 interface PostService {
 
-    @GET("api/news/")
+    @GET("api/feed")
     fun getNews(@Header("Authorization") token: String, @Query("offset") offset: Int) : Single<List<Post>>
+
+    @GET("api/news/")
+    fun getAllPosts(@Header("Authorization") token: String) : Single<List<Post>>
 
     @POST("api/news/")
     fun createPost(@Header("Authorization") token: String, @Body post: PostCreate) : Single<Post>

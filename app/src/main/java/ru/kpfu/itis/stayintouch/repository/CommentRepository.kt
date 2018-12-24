@@ -10,6 +10,10 @@ object CommentRepository {
         return ServiceFactory.provideCommentService().createComment(AuthRepository.token, postId, comment)
     }
 
+    fun getMyComments() : Single<List<Comment>> {
+        return ServiceFactory.provideCommentService().getMyComments(AuthRepository.token)
+    }
+
     fun getCommentsByPostId(postId: Int, offset: Int) : Single<List<Comment>> {
         return ServiceFactory.provideCommentServiceMock().getCommentsByPostId(postId, offset)
     }

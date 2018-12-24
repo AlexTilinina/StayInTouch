@@ -10,7 +10,7 @@ import ru.kpfu.itis.stayintouch.model.Tag
 interface TagService {
 
     @GET("api/tags/")
-    fun getTagsByText(@Query("tag") text: String) : Single<Tag>
+    fun getTags(@Header("Authorization") token: String) : Single<List<Tag>>
 
     @GET("api/tags/{id}/sub")
     fun subscribeToTag(@Header("Authorization") token: String, @Path("id") id: Int) : Single<Tag>

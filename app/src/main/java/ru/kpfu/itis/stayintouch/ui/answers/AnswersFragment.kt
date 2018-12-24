@@ -32,11 +32,9 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         }
     }
 
-    override fun showMyComments(user: User) {
-        if (user.comments != null) {
-            myComments = user.comments?.toMutableList()!!
-        }
-        recycler_view.adapter = CommentAdapter(myComments)
+    override fun showMyComments(comments : List<Comment>) {
+        myComments = comments.toMutableList()
+        recycler_view.adapter = CommentAdapter(myComments, context)
         recycler_view.layoutManager = LinearLayoutManager(activity)
     }
 
@@ -65,13 +63,13 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         presenter.init()
         this.activity?.toolbar?.title = resources.getString(R.string.nav_answers)
         val view = inflater.inflate(R.layout.fragment_answers, container, false)
-        view.btns_segmented.setOnCheckedChangeListener { group, checkedId ->
+        view.btns_segmented.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 view.btn_my_comments.id -> {
-                    recycler_view.adapter = CommentAdapter(myComments)
+                    recycler_view.adapter = CommentAdapter(myComments, context)
                 }
                 view.btn_answers.id -> {
-                    recycler_view.adapter = CommentAdapter(answers)
+                    recycler_view.adapter = CommentAdapter(answers, context)
                 }
             }
         }

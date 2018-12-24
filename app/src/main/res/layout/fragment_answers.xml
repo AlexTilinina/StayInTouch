@@ -29,7 +29,7 @@
             android:id="@+id/btn_answers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/answers"
+            android:text="@string/nav_answers"
             style="@style/RadioButton" />
     </info.hoang8f.android.segmented.SegmentedGroup>
 
@@ -46,5 +46,4 @@
         tools:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
 </RelativeLayout>

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Stay In Touch</string>
-    <string name="title_sign_in">Вход</string>
-    <string name="btn_sign_in">Вход</string>
+    <string name="sign_in">Вход</string>
     <string name="btn_forgot_password">Забыли пароль?</string>
     <string name="or">или</string>
     <string name="click_to_sign_up">Нажмите, чтобы зарегистрироваться</string>
@@ -26,7 +24,6 @@
     <string name="subscribe">Подписаться</string>
     <string name="unsubscribe">Отписаться</string>
     <string name="my_comments">Мои комментарии</string>
-    <string name="answers">Ответы</string>
     <string name="error_empty_username">Введите юзернейм</string>
     <string name="error_empty_email">Введите e-mail</string>
     <string name="error_empty_password">Введите пароль</string>
@@ -55,4 +52,5 @@
     <string name="username">Юзернейм</string>
     <string name="edit_profile">Редактировать профиль</string>
     <string name="error_empty">Заполнены не все поля</string>
+    <string name="search_hint">Поиск</string>
 </resources>

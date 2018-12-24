@@ -7,12 +7,11 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import io.reactivex.disposables.Disposable
 import ru.kpfu.itis.stayintouch.model.Comment
-import ru.kpfu.itis.stayintouch.model.User
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface AnswersFragmentView : MvpView {
 
-    fun showMyComments(user: User)
+    fun showMyComments(comments: List<Comment>)
 
     fun showAnswers()
 

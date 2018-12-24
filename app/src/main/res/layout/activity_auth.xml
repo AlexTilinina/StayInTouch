@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
-            android:text="@string/title_sign_in"
+            android:text="@string/sign_in"
             android:textSize="@dimen/text_xxlarge"
             android:textStyle="bold"/>
 
@@ -65,8 +65,7 @@
             android:paddingEnd="@dimen/padding_xxlarge"
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
-            android:text="@string/btn_sign_in"/>
-
+            android:text="@string/sign_in"/>
 
         <Button
             android:id="@+id/btn_sign_up"
@@ -107,9 +106,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-
-
-
     </LinearLayout>
 
     <ProgressBar
@@ -119,6 +115,4 @@
         android:layout_gravity="center"
         android:visibility="gone"
         tools:visibility="visible"/>
-
-
 </android.support.design.widget.CoordinatorLayout>

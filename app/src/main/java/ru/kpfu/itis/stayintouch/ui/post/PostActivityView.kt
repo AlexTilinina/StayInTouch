@@ -10,8 +10,6 @@ import ru.kpfu.itis.stayintouch.model.User
 
 interface PostActivityView : MvpView {
 
-    fun showComments(post: Post)
-
     fun changeLoadingState(isLoading: Boolean)
 
     fun loadMoreItems(items: List<Comment>)
@@ -24,6 +22,8 @@ interface PostActivityView : MvpView {
     fun setNotLoading()
 
     fun getPostId()
+
+    fun initPost(post: Post)
 
     fun createComment(user: User)
 
