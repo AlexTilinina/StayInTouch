@@ -55,4 +55,5 @@
     <string name="search_hint">Поиск</string>
     <string name="error_empty_tags">Введите теги</string>
     <string name="error_empty_text">Введите текст поста</string>
+    <string name="show_expanded_tags_list">Показать расширенный список тегов</string>
 </resources>

@@ -33,6 +33,12 @@ class MainActivity : MvpAppCompatActivity() {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
+
+        fun create(context: Context, tag: String) {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(SEARCH, tag)
+            context.startActivity(intent)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -44,15 +50,27 @@ class MainActivity : MvpAppCompatActivity() {
         initListeners()
         setSupportActionBar(toolbar)
         checkPermissions()
-        if (savedInstanceState == null) {
+        if (intent.extras != null) {
+            val searchQuery = intent.extras.getString(SEARCH)
             supportFragmentManager
                 .beginTransaction()
                 .replace(
                     R.id.container,
-                    NewsFragment.newInstance(),
-                    NEWS_FRAGMENT_TAG
+                    RecommendFragment.newInstance(searchQuery),
+                    RECOMMENDATION_FRAGMENT_TAG
                 )
                 .commit()
+        } else {
+            if (savedInstanceState == null) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(
+                        R.id.container,
+                        NewsFragment.newInstance(),
+                        NEWS_FRAGMENT_TAG
+                    )
+                    .commit()
+            }
         }
     }
 

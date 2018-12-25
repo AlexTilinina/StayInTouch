@@ -18,10 +18,17 @@ import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
+import ru.kpfu.itis.stayintouch.ui.adapter.TagAdapter
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 import ru.kpfu.itis.stayintouch.utils.POST_ID
 import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_SMALL
 import java.util.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.support.v4.view.ViewCompat.animate
+import android.R.attr.translationY
+
+
 
 class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
@@ -33,6 +40,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     var postId = 0
     var isLoading = false
     var adapter = CommentAdapter(ArrayList(), fragmentManager = fragmentManager)
+    var tagsShown = false
 
     companion object {
 
@@ -56,6 +64,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     override fun initPost(post: Post) {
         this.post = post
         initPost()
+        initTags()
         post.comments?.let { adapter.changeDataSet(it) }
     }
 
@@ -114,7 +123,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         tv_text.text = post.text
         if (post.created != null) {
             val date = post.getDateCreated()
-            val hour =  if (date.get(Calendar.HOUR_OF_DAY) + 3 > 23) {
+            val hour = if (date.get(Calendar.HOUR_OF_DAY) + 3 > 23) {
                 date.get(Calendar.HOUR_OF_DAY) + 3 - 24
             } else {
                 date.get(Calendar.HOUR_OF_DAY) + 3
@@ -129,13 +138,15 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             } else {
                 "${date.get(Calendar.MINUTE)}"
             }
-            val dateText = "$hourString:$minute ${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH).plus(1)}.${date.get(
-                Calendar.YEAR)}"
+            val dateText =
+                "$hourString:$minute ${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH).plus(1)}.${date.get(
+                    Calendar.YEAR
+                )}"
             tv_post_date.text = dateText
         }
         if (post.dateEvent != null) {
             val date = post.dateEvent
-            val hour =  if (date?.get(Calendar.HOUR_OF_DAY)?.plus(3) ?: 0 > 23) {
+            val hour = if (date?.get(Calendar.HOUR_OF_DAY)?.plus(3) ?: 0 > 23) {
                 (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3 - 24
             } else {
                 (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3
@@ -150,8 +161,10 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             } else {
                 "${date?.get(Calendar.MINUTE)}"
             }
-            val dateText = "$hourString:$minute ${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
-                Calendar.YEAR)}"
+            val dateText =
+                "$hourString:$minute ${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
+                    Calendar.YEAR
+                )}"
             tv_date.text = dateText
         } else {
             tv_date.visibility = View.GONE
@@ -201,6 +214,36 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         btn_send.setOnClickListener {
             createComment()
         }
+        btn_show_tags.setOnClickListener {
+            if (!tagsShown) {
+                btn_show_tags.setImageResource(R.drawable.ic_drop_down_up)
+                rv_tags.visibility = View.VISIBLE
+                rv_tags.alpha = 0f
+                rv_tags.animate()
+                    .alpha(1f)
+                    .setListener(null)
+            } else {
+                btn_show_tags.setImageResource(R.drawable.ic_drop_down)
+                rv_tags.animate()
+                    .alpha(0f)
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            rv_tags.visibility = View.GONE
+                        }
+                    })
+            }
+            tagsShown = !tagsShown
+        }
+    }
+
+    private fun initTags() {
+        val tags = post.tags
+        for (tag in tags) {
+            tag.subscr = !user.profile?.tags?.contains(tag)!!
+        }
+        rv_tags.adapter = TagAdapter(tags.toMutableList(), this)
+        rv_tags.layoutManager = LinearLayoutManager(this)
     }
 
     private fun createComment() {
@@ -215,7 +258,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         rv_comments.adapter = adapter
         rv_comments.layoutManager = manager
         rv_comments.setHasFixedSize(true)
-        rv_comments.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        rv_comments.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             var currentPage = 0
 
@@ -227,7 +270,8 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
                 if (!isLoading) {
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                         && firstVisibleItemPosition >= 0
-                        && totalItemCount >= COUNT_OF_ELEMENTS) {
+                        && totalItemCount >= COUNT_OF_ELEMENTS
+                    ) {
                         isLoading = true
                         //TODO сделать когда появится API
                         //presenter.loadNextElements(++currentPage)

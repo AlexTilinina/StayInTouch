@@ -1,5 +1,6 @@
 package ru.kpfu.itis.stayintouch.ui.adapter
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,12 @@ import kotlinx.android.synthetic.main.item_tag.view.*
 import ru.kpfu.itis.stayintouch.R.layout.item_tag
 import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.repository.TagRepository
+import ru.kpfu.itis.stayintouch.ui.MainActivity
 
-class TagAdapter(private val tags: MutableList<Tag>, private var subscr: Boolean) : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
+class TagAdapter(
+    private val tags: MutableList<Tag>,
+    private val context: Context? = null
+) : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
 
     class TagViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
@@ -26,28 +31,49 @@ class TagAdapter(private val tags: MutableList<Tag>, private var subscr: Boolean
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
         val tag = tags[position]
         holder.itemView.tv_tag.text = tag.name
-        if (subscr) {
+        if (tag.subscr) {
             holder.itemView.btn_subscribe.visibility = View.VISIBLE
             holder.itemView.btn_unsubscribe.visibility = View.GONE
         } else {
             holder.itemView.btn_subscribe.visibility = View.GONE
             holder.itemView.btn_unsubscribe.visibility = View.VISIBLE
         }
+        if (context != null) {
+            holder.itemView.setOnClickListener {
+                MainActivity.create(context, tag.name)
+            }
+        }
         holder.itemView.btn_subscribe.setOnClickListener {
             TagRepository
                 .subscribeToTag(tag.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { remove(tag) }
-                .subscribe()
+                .doOnSubscribe {
+                    holder.itemView.btn_subscribe.visibility = View.GONE
+                    holder.itemView.progress_bar.visibility = View.VISIBLE
+                }
+                .doAfterTerminate {
+                    holder.itemView.progress_bar.visibility = View.GONE
+                }
+                .subscribe { t1, t2 ->
+                    holder.itemView.btn_unsubscribe.visibility = View.VISIBLE
+                }
         }
         holder.itemView.btn_unsubscribe.setOnClickListener {
             TagRepository
                 .unsubscribeFromTag(tag.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { remove(tag) }
-                .subscribe()
+                .doOnSubscribe {
+                    holder.itemView.btn_unsubscribe.visibility = View.GONE
+                    holder.itemView.progress_bar.visibility = View.VISIBLE
+                }
+                .doAfterTerminate {
+                    holder.itemView.progress_bar.visibility = View.GONE
+                }
+                .subscribe { t1, t2 ->
+                    holder.itemView.btn_subscribe.visibility = View.VISIBLE
+                }
         }
     }
 

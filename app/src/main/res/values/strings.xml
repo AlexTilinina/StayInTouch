@@ -61,4 +61,5 @@
     <string name="error_empty_tags">Enter some tags</string>
     <string name="error_empty_text">Enter some text</string>
     <string name="search_hint">Search</string>
+    <string name="show_expanded_tags_list">Show expanded tags list</string>
 </resources>

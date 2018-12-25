@@ -33,6 +33,7 @@
             <ProgressBar
                 android:id="@+id/progress_bar"
                 android:layout_centerInParent="true"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -82,7 +83,7 @@
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_tags"
+                android:layout_below="@id/rv_tags"
                 android:textSize="@dimen/text_medium"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_medium"
@@ -98,17 +99,37 @@
                 android:textColor="@color/colorTextLink"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_large"
                 android:layout_below="@id/tv_text"
                 tools:text="#tag1 #tag2 #test123"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/tv_tags"/>
+
+            <ImageButton
+                android:id="@+id/btn_show_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/tv_text"
+                android:layout_alignWithParentIfMissing="true"
+                android:src="@drawable/ic_drop_down"
+                android:background="@null"
+                android:contentDescription="@string/show_expanded_tags_list"/>
 
             <ImageButton
                 android:id="@+id/btn_comments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_tags"
+                android:layout_below="@id/rv_tags"
                 android:src="@drawable/ic_comments"
                 android:background="@null"
                 android:contentDescription="@string/prompt_commentaries"
+                android:layout_alignWithParentIfMissing="true"
                 android:paddingStart="@dimen/padding_medium"
                 android:paddingEnd="@dimen/padding_medium"
                 android:paddingBottom="@dimen/padding_small"/>
@@ -120,7 +141,9 @@
                 android:contentDescription="@string/add_event_to_calendar"
                 android:src="@drawable/ic_event"
                 android:background="@null"
-                android:layout_below="@id/tv_tags"
+                android:layout_below="@id/rv_tags"
+                android:visibility="gone"
+                android:layout_alignWithParentIfMissing="true"
                 android:layout_toEndOf="@id/btn_comments"
                 android:paddingStart="@dimen/padding_medium"
                 android:paddingEnd="@dimen/padding_medium"

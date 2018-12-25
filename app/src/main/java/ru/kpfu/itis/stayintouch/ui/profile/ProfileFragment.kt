@@ -69,7 +69,13 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         if (user.profile?.tags != null) {
             if (user.profile?.tags?.isNotEmpty() == true) {
                 val manager = LinearLayoutManager(context)
-                recycler_view.adapter = TagAdapter(user.profile?.tags as MutableList<Tag>, false)
+                var userTags = user.profile?.tags
+                if (userTags != null) {
+                    for (tag in userTags) {
+                        tag.subscr = false
+                    }
+                }
+                recycler_view.adapter = TagAdapter(userTags as MutableList<Tag>)
                 recycler_view.layoutManager = manager
                 var tags = ""
                 for (tag: Tag in user.profile?.tags!!) {
