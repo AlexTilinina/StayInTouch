@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Profile (val id: Int,
+data class Profile (val id: Int,
                val user: Int,
                val tags: List<Tag>? = ArrayList(),
                val photo_url: String? = ""

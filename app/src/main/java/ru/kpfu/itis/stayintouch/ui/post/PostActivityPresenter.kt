@@ -18,7 +18,7 @@ class PostActivityPresenter : MvpPresenter<PostActivityView>()  {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.getPostId()
-        initPost()
+        getUser()
     }
 
     fun initPost(){
@@ -41,13 +41,22 @@ class PostActivityPresenter : MvpPresenter<PostActivityView>()  {
             .subscribe(viewState::loadMoreItems, viewState::handleError)
     }
 
-    fun getUserToCreateComment() {
+    fun getUser() {
         UserRepository
             .getCurrentUser()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)
-            .subscribe(viewState::createComment, viewState::handleError)
+            .subscribe { t1, t2 ->
+                if (t1 != null) {
+                    viewState.initUser(t1)
+                    initPost()
+                }
+                if (t2 != null) {
+                    viewState.handleError(t2)
+                }
+
+            }
     }
 
     fun createComment(postId: Int, comment: Comment) {

@@ -4,6 +4,8 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import ru.kpfu.itis.stayintouch.model.UserPatch
 import ru.kpfu.itis.stayintouch.repository.UserRepository
 
@@ -34,5 +36,15 @@ class ProfileFragmentPresenter : MvpPresenter<ProfileFragmentView>() {
             .doAfterTerminate(viewState::setNotLoading)
             .doAfterTerminate(viewState::makeEditableInvisible)
             .subscribe(viewState::loadUser, viewState::handleError)
+    }
+
+    fun changePhoto(file: MultipartBody.Part) {
+        UserRepository
+            .changePhoto(file)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::getMessage, viewState::handleError)
     }
 }

@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-class Comment(
+data class Comment(
     var id: String = "",
     var author: User? = null,
     var text: String = "",

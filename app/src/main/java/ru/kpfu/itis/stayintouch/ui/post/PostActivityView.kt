@@ -25,7 +25,7 @@ interface PostActivityView : MvpView {
 
     fun initPost(post: Post)
 
-    fun createComment(user: User)
+    fun initUser(user: User)
 
     fun addItem(comment: Comment)
 }

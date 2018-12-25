@@ -20,6 +20,7 @@ import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.ui.adapter.PostAdapter
 import ru.kpfu.itis.stayintouch.ui.adapter.RecommendAdapter
 import ru.kpfu.itis.stayintouch.utils.CODE_500
+import ru.kpfu.itis.stayintouch.utils.SEARCH
 
 class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
 
@@ -34,6 +35,26 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
         fun newInstance(): Fragment {
             return RecommendFragment()
         }
+
+        fun newInstance(tags: String) : Fragment {
+            val fragment = RecommendFragment()
+            val bundle = Bundle()
+            bundle.putString(SEARCH, tags)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        this.activity?.toolbar?.title = resources.getString(R.string.nav_recommend)
+        initSearch()
+        return inflater.inflate(R.layout.fragment_recommend, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initRecycler()
     }
 
     override fun handleError(error: Throwable) {
@@ -55,10 +76,6 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
         progress_bar.visibility = View.GONE
     }
 
-    override fun showDetails(position: Int) {
-        //TODO переход на фрагмент просмора определенного поста
-    }
-
     override fun setNews(news: List<Post>) {
         recycler_view.adapter = PostAdapter(news.toMutableList())
         recycler_view.layoutManager = LinearLayoutManager(activity)
@@ -69,16 +86,20 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
         recycler_view.layoutManager = LinearLayoutManager(activity)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        presenter.init()
-        this.activity?.toolbar?.title = resources.getString(R.string.nav_recommend)
-        return inflater.inflate(R.layout.fragment_recommend, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initRecycler()
+    private fun initSearch() {
+        val tags = arguments?.getString(SEARCH)
+        val tagsList = ArrayList<String>()
+        if (!tags.isNullOrEmpty()) {
+            val tagsText = tags?.split(" ")
+            if (tagsText != null) {
+                for (tag in tagsText) {
+                    if (!tag.startsWith('#'))
+                        tagsList.add(tag)
+                    else tagsList.add(tag.substring(1))
+                }
+            }
+        }
+        presenter.isSearch(tagsList)
     }
 
     private fun initRecycler() {

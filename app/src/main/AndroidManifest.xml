@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.CreatePostActivity">
+        <activity android:name=".ui.createpost.CreatePostActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.kpfu.itis.stayintouch.ui.MainActivity" />

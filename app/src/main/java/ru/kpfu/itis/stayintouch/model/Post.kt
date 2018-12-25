@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Parcelize
-class Post(var id: Int? = null,
+data class Post(var id: Int? = null,
            var author: User? = null,
            var text: String = "",
            var created : String? = null,

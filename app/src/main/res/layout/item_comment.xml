@@ -13,7 +13,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_author_image"
         android:layout_width="@dimen/profile_image_size_small"
         android:layout_height="@dimen/profile_image_size_small"

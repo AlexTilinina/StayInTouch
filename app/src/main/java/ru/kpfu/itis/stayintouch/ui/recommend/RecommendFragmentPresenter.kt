@@ -9,14 +9,26 @@ import ru.kpfu.itis.stayintouch.repository.PostRepository
 @InjectViewState
 class RecommendFragmentPresenter : MvpPresenter<RecommendFragmentView>() {
 
-    fun init() {
-        //TODO сервисы
-        loadRecommendations()
-    }
-
     fun loadRecommendations() {
         PostRepository
             .getAllPosts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::setNews, viewState::handleError)
+    }
+
+    fun isSearch(tags: List<String>){
+        if (tags.isNotEmpty()) {
+            loadSearchData(tags)
+        }
+        else loadRecommendations()
+    }
+
+    fun loadSearchData(tags: List<String>) {
+        PostRepository
+            .findPostByTag(tags)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)

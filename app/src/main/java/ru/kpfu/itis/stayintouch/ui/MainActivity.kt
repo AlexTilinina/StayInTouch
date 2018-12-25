@@ -23,9 +23,7 @@ import ru.kpfu.itis.stayintouch.ui.news.NewsFragment
 import ru.kpfu.itis.stayintouch.ui.profile.ProfileFragment
 import ru.kpfu.itis.stayintouch.ui.recommend.RecommendFragment
 import ru.kpfu.itis.stayintouch.utils.*
-import android.support.v4.view.MenuItemCompat.getActionView
-
-
+import ru.kpfu.itis.stayintouch.ui.createpost.CreatePostActivity
 
 class MainActivity : MvpAppCompatActivity() {
 
@@ -45,11 +43,7 @@ class MainActivity : MvpAppCompatActivity() {
         Fabric.with(this, Crashlytics())
         initListeners()
         setSupportActionBar(toolbar)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
-            != PackageManager.PERMISSION_GRANTED) {
-                val permissions = arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
-            requestPermissions(permissions, 0)
-        }
+        checkPermissions()
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -86,14 +80,22 @@ class MainActivity : MvpAppCompatActivity() {
             action_search -> {
                 (item.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        return false
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(
+                                R.id.container,
+                                RecommendFragment.newInstance(query),
+                                RECOMMENDATION_FRAGMENT_TAG
+                            )
+                            .commit()
+                        return true
                     }
 
                     override fun onQueryTextChange(newText: String): Boolean {
-                        return false
+                        //TODO фильтровать теги
+                        return true
                     }
                 })
-                //TODO поиск
             }
             action_edit_profile -> {
                 (supportFragmentManager
@@ -103,6 +105,15 @@ class MainActivity : MvpAppCompatActivity() {
             }
         }
         return true
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
+            != PackageManager.PERMISSION_GRANTED) {
+            val permissions = arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
+            requestPermissions(permissions, 0)
+        }
     }
 
     private fun initListeners() {

@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_comment.view.*
+import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.R.layout.item_comment
 import ru.kpfu.itis.stayintouch.ui.post.AnswerCommentDialog
@@ -32,7 +34,20 @@ class CommentAdapter(
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
-        holder.itemView.iv_author_image //TODO подгрузка картинки
+        val picSize = context?.resources?.getDimension(R.dimen.profile_image_size_small)?.toInt()
+        if (!comment.author?.profile?.photo_url.isNullOrEmpty()) {
+            picSize?.let {
+                Picasso.get()
+                    .load(comment.author?.profile?.photo_url)
+                    .resize(it, it)
+                    .centerCrop()
+                    .noFade()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .into(holder.itemView.iv_author_image)
+            }
+        }
+         //TODO подгрузка картинки
         val username = "${comment.author?.first_name} ${comment.author?.last_name}"
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = comment.text

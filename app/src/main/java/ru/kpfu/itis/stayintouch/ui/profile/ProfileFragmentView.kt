@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import io.reactivex.disposables.Disposable
+import ru.kpfu.itis.stayintouch.model.Message
 import ru.kpfu.itis.stayintouch.model.User
 
 @StateStrategyType(AddToEndSingleStrategy::class)
@@ -14,6 +15,8 @@ interface ProfileFragmentView: MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun handleError(error: Throwable)
+
+    fun getMessage(message: Message)
 
     fun setLoading(disposable: Disposable)
 

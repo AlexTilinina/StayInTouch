@@ -51,6 +51,8 @@
     <string name="send">Отправить</string>
     <string name="username">Юзернейм</string>
     <string name="edit_profile">Редактировать профиль</string>
-    <string name="error_empty">Заполнены не все поля</string>
+    <string name="error_empty_fields">Заполнены не все поля</string>
     <string name="search_hint">Поиск</string>
+    <string name="error_empty_tags">Введите теги</string>
+    <string name="error_empty_text">Введите текст поста</string>
 </resources>

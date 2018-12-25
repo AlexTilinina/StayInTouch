@@ -14,6 +14,7 @@ const val USER_ID = "user_id"
 const val POST_ID = "post_id"
 const val POST = "post"
 const val TOKEN = "token"
+const val SEARCH = "search"
 const val SHARED_PREFS = "Shared_prefs"
 
 const val CODE_400 = 400
@@ -21,5 +22,10 @@ const val CODE_500 = 500
 
 const val LOGIN_DATA_ERROR = "Unable to log in with provided credentials"
 const val SIGN_UP_EMAIL_EXISTS_ERROR = "A user is already registered with this e-mail address"
+
+const val PROFILE_IMAGE_SIZE_SMALL = 48
+const val PROFILE_IMAGE_SIZE_MEDIUM = 96
+
+const val PICK_IMAGE_REQUEST = 1
 
 const val COUNT_OF_ELEMENTS = 20

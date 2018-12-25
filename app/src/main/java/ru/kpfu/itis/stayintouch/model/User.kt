@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class User(var id: Int?,
+data class User(var id: Int?,
            var first_name: String = "",
            var last_name: String = "",
            var username: String = "",

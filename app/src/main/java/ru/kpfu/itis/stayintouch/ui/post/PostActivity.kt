@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.squareup.picasso.Picasso
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_post.*
 import ru.kpfu.itis.stayintouch.R
@@ -19,6 +20,7 @@ import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
 import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 import ru.kpfu.itis.stayintouch.utils.POST_ID
+import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_SMALL
 import java.util.*
 
 class PostActivity : MvpAppCompatActivity(), PostActivityView {
@@ -27,6 +29,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     lateinit var presenter: PostActivityPresenter
 
     lateinit var post: Post
+    lateinit var user: User
     var postId = 0
     var isLoading = false
     var adapter = CommentAdapter(ArrayList(), fragmentManager = fragmentManager)
@@ -54,6 +57,10 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         this.post = post
         initPost()
         post.comments?.let { adapter.changeDataSet(it) }
+    }
+
+    override fun initUser(user: User) {
+        this.user = user
     }
 
     override fun changeLoadingState(isLoading: Boolean) {
@@ -91,7 +98,17 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     }
 
     private fun initPost() {
-        iv_author_image //TODO картиночка
+        if (!post.author?.profile?.photo_url.isNullOrEmpty()) {
+            Picasso.get()
+                .load(post.author?.profile?.photo_url)
+                .resize(PROFILE_IMAGE_SIZE_SMALL, PROFILE_IMAGE_SIZE_SMALL)
+                .centerCrop()
+                .noFade()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(iv_author_image)
+        }
+        //TODO картиночка
         val name = "${post.author?.first_name} ${post.author?.last_name}"
         tv_author_name.text = name
         tv_text.text = post.text
@@ -143,9 +160,20 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         var tags = ""
         //TODO выпадающий список с тегами
         for (tag in post.tags) {
-            tags += "#${tag.name} "
+            tags += "${tag.name} "
         }
         tv_tags.text = tags
+
+        if (!user.profile?.photo_url.isNullOrEmpty()) {
+            Picasso.get()
+                .load(user.profile?.photo_url)
+                .resize(PROFILE_IMAGE_SIZE_SMALL, PROFILE_IMAGE_SIZE_SMALL)
+                .centerCrop()
+                .noFade()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(iv_user_photo)
+        }
     }
 
     private fun addToCalendar(item: Post) {
@@ -171,11 +199,11 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             addToCalendar(post)
         }
         btn_send.setOnClickListener {
-            presenter.getUserToCreateComment()
+            createComment()
         }
     }
 
-    override fun createComment(user: User) {
+    private fun createComment() {
         val comment = Comment("", user, et_comment.text.toString(), GregorianCalendar(), post.id)
         et_comment.text.clear()
         post.id?.let { it1 -> presenter.createComment(it1, comment) }
