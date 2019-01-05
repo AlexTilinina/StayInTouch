@@ -56,4 +56,6 @@
     <string name="error_empty_tags">Введите теги</string>
     <string name="error_empty_text">Введите текст поста</string>
     <string name="show_expanded_tags_list">Показать расширенный список тегов</string>
+    <string name="image_change_success">Фото профиля изменено</string>
+    <string name="image_change_fail">При смене фото профиля произошла ошибка</string>
 </resources>

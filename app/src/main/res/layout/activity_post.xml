@@ -42,7 +42,7 @@
                 android:layout_width="@dimen/profile_image_size_small"
                 android:layout_height="@dimen/profile_image_size_small"
                 android:layout_margin="@dimen/margin_medium"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_placeholder"
                 android:contentDescription="@string/profile_image"/>
 
             <TextView
@@ -56,7 +56,7 @@
                 android:textSize="@dimen/text_medium"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/prompt_username"/>
+                tools:text="@string/prompt_username"/>
 
             <TextView
                 android:id="@+id/tv_post_date"
@@ -176,7 +176,7 @@
             android:id="@+id/iv_user_photo"
             android:layout_width="@dimen/profile_image_size_small"
             android:layout_height="@dimen/profile_image_size_small"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_placeholder"
             android:contentDescription="@string/profile_image"
             android:layout_margin="@dimen/margin_medium"/>
 

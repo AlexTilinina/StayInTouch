@@ -10,6 +10,8 @@
         android:layout_width="@dimen/profile_image_size_medium"
         android:layout_height="@dimen/profile_image_size_medium"
         android:layout_margin="@dimen/margin_medium"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:src="@mipmap/ic_launcher"
         android:contentDescription="@string/profile_image"/>
 
@@ -70,6 +72,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorTextDark"
         android:layout_below="@id/iv_profile_image"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_medium"
@@ -100,6 +104,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_email_fix"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_medium"
@@ -135,6 +141,8 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:text="@string/log_out"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:textColor="@android:color/white"/>
 
     <Button

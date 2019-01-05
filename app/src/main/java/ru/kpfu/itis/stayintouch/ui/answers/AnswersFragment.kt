@@ -1,5 +1,6 @@
 package ru.kpfu.itis.stayintouch.ui.answers
 
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -63,6 +64,9 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         presenter.init()
         this.activity?.toolbar?.title = resources.getString(R.string.nav_answers)
         val view = inflater.inflate(R.layout.fragment_answers, container, false)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            view.btns_segmented.setTintColor(resources.getColor(R.color.colorPrimaryLight, null))
+        }
         view.btns_segmented.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 view.btn_my_comments.id -> {

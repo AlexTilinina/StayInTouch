@@ -18,7 +18,7 @@
         android:layout_width="@dimen/profile_image_size_small"
         android:layout_height="@dimen/profile_image_size_small"
         android:layout_margin="@dimen/margin_medium"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_placeholder"
         android:layout_below="@id/view_divider"
         android:contentDescription="@string/profile_image"/>
 
@@ -33,7 +33,7 @@
         android:textSize="@dimen/text_medium"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="@string/prompt_username"/>
+        tools:text="@string/prompt_username"/>
 
     <TextView
         android:id="@+id/tv_text"

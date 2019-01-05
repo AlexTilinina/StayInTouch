@@ -132,6 +132,11 @@ class MainActivity : MvpAppCompatActivity() {
             val permissions = arrayOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR)
             requestPermissions(permissions, 0)
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 0)
+        }
     }
 
     private fun initListeners() {

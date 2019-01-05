@@ -23,5 +23,10 @@ interface UserService {
     @Multipart
     @POST("auth/get-current-user/change-photo")
     fun changePhoto(@Header("Authorization") token: String,
-                    @Part("image") file: MultipartBody.Part) : Single<Message>
+                    @Part("image") file: RequestBody) : Single<Message>
+
+    @Multipart
+    @POST("auth/get-current-user/change-photo")
+    fun changePhoto(@Header("Authorization") token: String,
+                    @Part file: MultipartBody.Part) : Single<Message>
 }

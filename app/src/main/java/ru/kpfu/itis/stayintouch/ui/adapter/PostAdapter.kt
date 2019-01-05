@@ -6,14 +6,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_post.view.*
-import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.R.layout.item_post
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.ui.post.PostActivity
+import ru.kpfu.itis.stayintouch.utils.DateHelper
+import ru.kpfu.itis.stayintouch.utils.ImageLoadHelper
 import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_SMALL
-import java.util.*
 
 class PostAdapter(private val news: MutableList<Post>) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
@@ -33,65 +32,21 @@ class PostAdapter(private val news: MutableList<Post>) :
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = news[position]
-        if (!post.author?.profile?.photo_url.isNullOrEmpty()) {
-            Picasso.get()
-                .load(post.author?.profile?.photo_url)
-                .resize(PROFILE_IMAGE_SIZE_SMALL, PROFILE_IMAGE_SIZE_SMALL)
-                .centerCrop()
-                .noFade()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(holder.itemView.iv_author_image)
-        }
-        //TODO подгрузка картинки
+        ImageLoadHelper.loadImage(
+            post.author?.profile?.photo_url,
+            holder.itemView.iv_author_image,
+            PROFILE_IMAGE_SIZE_SMALL
+        )
         val username = "${post.author?.first_name} ${post.author?.last_name}"
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = post.text
         if (post.created != null) {
             val date = post.getDateCreated()
-            val hour = if (date.get(Calendar.HOUR_OF_DAY) + 3 > 23) {
-                date.get(Calendar.HOUR_OF_DAY) + 3 - 24
-            } else {
-                date.get(Calendar.HOUR_OF_DAY) + 3
-            }
-            val hourString = if (hour < 10) {
-                "0$hour"
-            } else {
-                "$hour"
-            }
-            val minute = if (date.get(Calendar.MINUTE) < 10) {
-                "0${date.get(Calendar.MINUTE)}"
-            } else {
-                "${date.get(Calendar.MINUTE)}"
-            }
-            val dateText =
-                "$hourString:$minute ${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH).plus(1)}.${date.get(
-                    Calendar.YEAR
-                )}"
-            holder.itemView.tv_post_date.text = dateText
+            holder.itemView.tv_post_date.text = DateHelper.parseDate(date)
         }
         if (post.dateEvent != null) {
             val date = post.dateEvent
-            val hour = if (date?.get(Calendar.HOUR_OF_DAY)?.plus(3) ?: 0 > 23) {
-                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3 - 24
-            } else {
-                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3
-            }
-            val hourString = if (hour < 10) {
-                "0$hour"
-            } else {
-                "$hour"
-            }
-            val minute = if (date?.get(Calendar.MINUTE) ?: 0 < 10) {
-                "0${date?.get(Calendar.MINUTE)}"
-            } else {
-                "${date?.get(Calendar.MINUTE)}"
-            }
-            val dateText =
-                "$hourString:$minute ${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
-                    Calendar.YEAR
-                )}"
-            holder.itemView.tv_date.text = dateText
+            holder.itemView.tv_date.text = date?.let { DateHelper.parseDate(it) }
         } else {
             holder.itemView.tv_date.visibility = View.GONE
             holder.itemView.btn_event.visibility = View.GONE

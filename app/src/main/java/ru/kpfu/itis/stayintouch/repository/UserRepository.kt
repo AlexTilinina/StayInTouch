@@ -18,6 +18,10 @@ object UserRepository {
         return ServiceFactory.provideUserService().editProfile(AuthRepository.token, userPatch)
     }
 
+    fun changePhoto(file: RequestBody) : Single<Message> {
+        return ServiceFactory.provideUserService().changePhoto(AuthRepository.token, file)
+    }
+
     fun changePhoto(file: MultipartBody.Part) : Single<Message> {
         return ServiceFactory.provideUserService().changePhoto(AuthRepository.token, file)
     }

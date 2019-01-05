@@ -6,15 +6,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_comment.view.*
-import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.R.layout.item_comment
 import ru.kpfu.itis.stayintouch.ui.post.AnswerCommentDialog
 import ru.kpfu.itis.stayintouch.ui.post.PostActivity
 import ru.kpfu.itis.stayintouch.utils.ANSWER_COMMENT_DIALOG_TAG
-import java.util.*
+import ru.kpfu.itis.stayintouch.utils.DateHelper
+import ru.kpfu.itis.stayintouch.utils.ImageLoadHelper
+import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_MEDIUM
 
 class CommentAdapter(
     private val comments: MutableList<Comment>,
@@ -34,29 +34,17 @@ class CommentAdapter(
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
-        val picSize = context?.resources?.getDimension(R.dimen.profile_image_size_small)?.toInt()
-        if (!comment.author?.profile?.photo_url.isNullOrEmpty()) {
-            picSize?.let {
-                Picasso.get()
-                    .load(comment.author?.profile?.photo_url)
-                    .resize(it, it)
-                    .centerCrop()
-                    .noFade()
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher)
-                    .into(holder.itemView.iv_author_image)
-            }
-        }
-         //TODO подгрузка картинки
+        ImageLoadHelper.loadImage(
+            comment.author?.profile?.photo_url,
+            holder.itemView.iv_author_image,
+            PROFILE_IMAGE_SIZE_MEDIUM
+        )
         val username = "${comment.author?.first_name} ${comment.author?.last_name}"
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = comment.text
         val date = comment.date
         if (date != null) {
-            val dateText = "${date.get(Calendar.DAY_OF_MONTH)}." +
-                    "${date.get(Calendar.MONTH).plus(1)}." +
-                    "${date.get(Calendar.YEAR)}"
-            holder.itemView.tv_date.text = dateText
+            holder.itemView.tv_date.text = DateHelper.parseDate(date)
         } else {
             holder.itemView.tv_date.visibility = View.GONE
         }

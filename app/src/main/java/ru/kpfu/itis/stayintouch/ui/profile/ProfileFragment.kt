@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.squareup.picasso.Picasso
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -24,11 +23,15 @@ import ru.kpfu.itis.stayintouch.utils.PICK_IMAGE_REQUEST
 import android.app.Activity.RESULT_OK
 import okhttp3.MediaType
 import java.io.File
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.model.Message
 import ru.kpfu.itis.stayintouch.utils.CODE_500
+import android.net.Uri
+import android.provider.MediaStore
+import android.provider.DocumentsContract
+import okhttp3.MultipartBody
+import ru.kpfu.itis.stayintouch.utils.ImageLoadHelper
 
 
 class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
@@ -54,22 +57,22 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
     }
 
     override fun loadUser(user: User) {
+        tv_tags_fix.visibility = View.VISIBLE
+        tv_email_fix.visibility = View.VISIBLE
+        iv_profile_image.visibility = View.VISIBLE
+        btn_log_out.visibility = View.VISIBLE
         tv_name.text = user.first_name
         tv_surname.text = user.last_name
         tv_email.text = user.email
-        if (!user.profile?.photo_url.isNullOrEmpty()) {
-            Picasso.get()
-                .load(user.profile?.photo_url)
-                .resize(PROFILE_IMAGE_SIZE_MEDIUM, PROFILE_IMAGE_SIZE_MEDIUM)
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(iv_profile_image)
-        }
+        ImageLoadHelper.loadImage(
+            user.profile?.photo_url,
+            iv_profile_image,
+            PROFILE_IMAGE_SIZE_MEDIUM
+        )
         if (user.profile?.tags != null) {
             if (user.profile?.tags?.isNotEmpty() == true) {
                 val manager = LinearLayoutManager(context)
-                var userTags = user.profile?.tags
+                val userTags = user.profile?.tags
                 if (userTags != null) {
                     for (tag in userTags) {
                         tag.subscr = false
@@ -99,7 +102,11 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
     }
 
     override fun getMessage(message: Message) {
-        Toast.makeText(activity, message.message, Toast.LENGTH_LONG).show()
+        if (message.message.contains("successfully")) {
+            Toast.makeText(activity, resources.getText(R.string.image_change_success), Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(activity, resources.getText(R.string.image_change_fail), Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun setLoading(disposable: Disposable) {
@@ -145,21 +152,44 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-
-            val uri = data.data
-            Picasso.get()
-                .load(uri)
-                .resize(PROFILE_IMAGE_SIZE_MEDIUM, PROFILE_IMAGE_SIZE_MEDIUM)
-                .centerCrop()
-                .noFade()
-                .placeholder(R.drawable.ic_download)
-                .into(iv_profile_image)
-            val picture = File(uri.path)
-            val file = RequestBody.create(MediaType.parse("image/*"), picture);
-            val fileToUpload = MultipartBody.Part.createFormData("image", picture.name, file)
-            //TODO ждать фикса
-            presenter.changePhoto(fileToUpload)
+            val path = getPathFromURI(data.data)
+            val picture = File(path)
+            ImageLoadHelper.loadImage(
+                picture,
+                iv_profile_image,
+                PROFILE_IMAGE_SIZE_MEDIUM,
+                R.mipmap.ic_launcher
+            )
+            val file = RequestBody.create(MediaType.parse("multipart/form-data"), picture)
+            val multipartFile = MultipartBody.Part.createFormData("image", picture.name, file);
+            presenter.changePhoto(multipartFile)
         }
+    }
+
+    private fun getPathFromURI(uri: Uri): String {
+        var filePath = ""
+        val wholeID = DocumentsContract.getDocumentId(uri)
+
+        // Split at colon, use second item in the array
+        val id = wholeID.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+
+        val column = arrayOf(MediaStore.Images.Media.DATA)
+
+        // where id is equal to
+        val sel = MediaStore.Images.Media._ID + "=?"
+
+        val cursor = context!!.contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            column, sel, arrayOf(id), null
+        )
+
+        val columnIndex = cursor.getColumnIndex(column[0])
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex)
+        }
+        cursor.close()
+        return filePath
     }
 
     private fun initClickListeners() {
@@ -171,7 +201,8 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
             var surname = ""
             var email = ""
             if (et_first_name.text.isNotEmpty() && et_last_name.text.isNotEmpty()
-                && et_email.text.isNotEmpty()) {
+                && et_email.text.isNotEmpty()
+            ) {
                 name = et_first_name.text.toString()
                 surname = et_last_name.text.toString()
                 email = et_email.text.toString()

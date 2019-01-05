@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.squareup.picasso.Picasso
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_post.*
 import ru.kpfu.itis.stayintouch.R
@@ -19,16 +18,10 @@ import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
 import ru.kpfu.itis.stayintouch.ui.adapter.TagAdapter
-import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
-import ru.kpfu.itis.stayintouch.utils.POST_ID
-import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_SMALL
 import java.util.*
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.support.v4.view.ViewCompat.animate
-import android.R.attr.translationY
-
-
+import ru.kpfu.itis.stayintouch.utils.*
 
 class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
@@ -107,86 +100,36 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     }
 
     private fun initPost() {
-        if (!post.author?.profile?.photo_url.isNullOrEmpty()) {
-            Picasso.get()
-                .load(post.author?.profile?.photo_url)
-                .resize(PROFILE_IMAGE_SIZE_SMALL, PROFILE_IMAGE_SIZE_SMALL)
-                .centerCrop()
-                .noFade()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(iv_author_image)
-        }
-        //TODO картиночка
+        ImageLoadHelper.loadImage(
+            post.author?.profile?.photo_url,
+            iv_author_image,
+            PROFILE_IMAGE_SIZE_SMALL,
+            R.mipmap.ic_launcher
+        )
         val name = "${post.author?.first_name} ${post.author?.last_name}"
         tv_author_name.text = name
         tv_text.text = post.text
         if (post.created != null) {
             val date = post.getDateCreated()
-            val hour = if (date.get(Calendar.HOUR_OF_DAY) + 3 > 23) {
-                date.get(Calendar.HOUR_OF_DAY) + 3 - 24
-            } else {
-                date.get(Calendar.HOUR_OF_DAY) + 3
-            }
-            val hourString = if (hour < 10) {
-                "0$hour"
-            } else {
-                "$hour"
-            }
-            val minute = if (date.get(Calendar.MINUTE) < 10) {
-                "0${date.get(Calendar.MINUTE)}"
-            } else {
-                "${date.get(Calendar.MINUTE)}"
-            }
-            val dateText =
-                "$hourString:$minute ${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH).plus(1)}.${date.get(
-                    Calendar.YEAR
-                )}"
-            tv_post_date.text = dateText
+            tv_post_date.text = DateHelper.parseDate(date)
         }
         if (post.dateEvent != null) {
             val date = post.dateEvent
-            val hour = if (date?.get(Calendar.HOUR_OF_DAY)?.plus(3) ?: 0 > 23) {
-                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3 - 24
-            } else {
-                (date?.get(Calendar.HOUR_OF_DAY) ?: 0) + 3
-            }
-            val hourString = if (hour < 10) {
-                "0$hour"
-            } else {
-                "$hour"
-            }
-            val minute = if (date?.get(Calendar.MINUTE) ?: 0 < 10) {
-                "0${date?.get(Calendar.MINUTE)}"
-            } else {
-                "${date?.get(Calendar.MINUTE)}"
-            }
-            val dateText =
-                "$hourString:$minute ${date?.get(Calendar.DAY_OF_MONTH)}.${date?.get(Calendar.MONTH)?.plus(1)}.${date?.get(
-                    Calendar.YEAR
-                )}"
-            tv_date.text = dateText
+            tv_date.text = date?.let { DateHelper.parseDate(it) }
         } else {
             tv_date.visibility = View.GONE
             btn_event.visibility = View.GONE
         }
         var tags = ""
-        //TODO выпадающий список с тегами
         for (tag in post.tags) {
             tags += "${tag.name} "
         }
         tv_tags.text = tags
-
-        if (!user.profile?.photo_url.isNullOrEmpty()) {
-            Picasso.get()
-                .load(user.profile?.photo_url)
-                .resize(PROFILE_IMAGE_SIZE_SMALL, PROFILE_IMAGE_SIZE_SMALL)
-                .centerCrop()
-                .noFade()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(iv_user_photo)
-        }
+        ImageLoadHelper.loadImage(
+            user.profile?.photo_url,
+            iv_user_photo,
+            PROFILE_IMAGE_SIZE_SMALL
+        )
     }
 
     private fun addToCalendar(item: Post) {

@@ -38,6 +38,16 @@ class ProfileFragmentPresenter : MvpPresenter<ProfileFragmentView>() {
             .subscribe(viewState::loadUser, viewState::handleError)
     }
 
+    fun changePhoto(file: RequestBody) {
+        UserRepository
+            .changePhoto(file)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::getMessage, viewState::handleError)
+    }
+
     fun changePhoto(file: MultipartBody.Part) {
         UserRepository
             .changePhoto(file)
