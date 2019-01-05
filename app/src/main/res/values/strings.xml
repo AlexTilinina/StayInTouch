@@ -64,4 +64,5 @@
     <string name="show_expanded_tags_list">Show expanded tags list</string>
     <string name="image_change_success">User profile photo successfully changed</string>
     <string name="image_change_fail">User profile photo changing encountered errors</string>
+    <string name="click_profile_image">Click profile photo to change it</string>
 </resources>

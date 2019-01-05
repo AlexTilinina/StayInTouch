@@ -58,4 +58,5 @@
     <string name="show_expanded_tags_list">Показать расширенный список тегов</string>
     <string name="image_change_success">Фото профиля изменено</string>
     <string name="image_change_fail">При смене фото профиля произошла ошибка</string>
+    <string name="click_profile_image">Нажмите на фото, чтобы изменить его</string>
 </resources>

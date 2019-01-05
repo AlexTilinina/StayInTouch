@@ -17,21 +17,18 @@ import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.auth.AuthActivity
 import ru.kpfu.itis.stayintouch.ui.adapter.TagAdapter
-import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_MEDIUM
 import android.content.Intent
-import ru.kpfu.itis.stayintouch.utils.PICK_IMAGE_REQUEST
 import android.app.Activity.RESULT_OK
 import okhttp3.MediaType
 import java.io.File
 import okhttp3.RequestBody
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.model.Message
-import ru.kpfu.itis.stayintouch.utils.CODE_500
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.DocumentsContract
 import okhttp3.MultipartBody
-import ru.kpfu.itis.stayintouch.utils.ImageLoadHelper
+import ru.kpfu.itis.stayintouch.utils.*
 
 
 class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
@@ -57,10 +54,7 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
     }
 
     override fun loadUser(user: User) {
-        tv_tags_fix.visibility = View.VISIBLE
-        tv_email_fix.visibility = View.VISIBLE
-        iv_profile_image.visibility = View.VISIBLE
-        btn_log_out.visibility = View.VISIBLE
+        makeFixedViewsVisible()
         tv_name.text = user.first_name
         tv_surname.text = user.last_name
         tv_email.text = user.email
@@ -152,7 +146,7 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            val path = getPathFromURI(data.data)
+            val path = context?.let { FileHelper.getPathFromURI(data.data, it) }
             val picture = File(path)
             ImageLoadHelper.loadImage(
                 picture,
@@ -164,32 +158,6 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
             val multipartFile = MultipartBody.Part.createFormData("image", picture.name, file);
             presenter.changePhoto(multipartFile)
         }
-    }
-
-    private fun getPathFromURI(uri: Uri): String {
-        var filePath = ""
-        val wholeID = DocumentsContract.getDocumentId(uri)
-
-        // Split at colon, use second item in the array
-        val id = wholeID.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
-
-        val column = arrayOf(MediaStore.Images.Media.DATA)
-
-        // where id is equal to
-        val sel = MediaStore.Images.Media._ID + "=?"
-
-        val cursor = context!!.contentResolver.query(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            column, sel, arrayOf(id), null
-        )
-
-        val columnIndex = cursor.getColumnIndex(column[0])
-
-        if (cursor.moveToFirst()) {
-            filePath = cursor.getString(columnIndex)
-        }
-        cursor.close()
-        return filePath
     }
 
     private fun initClickListeners() {
@@ -217,5 +185,13 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
         }
+    }
+
+    private fun makeFixedViewsVisible() {
+        tv_tags_fix.visibility = View.VISIBLE
+        tv_email_fix.visibility = View.VISIBLE
+        iv_profile_image.visibility = View.VISIBLE
+        btn_log_out.visibility = View.VISIBLE
+        tv_edit_photo.visibility = View.VISIBLE
     }
 }
