@@ -22,14 +22,11 @@ object AuthRepository {
             .login(LoginRequestUsername(email, password))
     }
 
-    fun setToken(context: Context) {
-        val preferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        token = "JWT ${preferences.getString(TOKEN, "")}"
+    fun setCorrectToken(token: String) {
+        this.token = "JWT $token"
     }
 
-    fun refreshToken(context: Context): Single<Token> {
-        val preferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        return ServiceFactory.provideAuthService()
-            .refreshToken(Token(preferences.getString(TOKEN, "")))
+    fun refreshToken(token: String): Single<Token> {
+        return ServiceFactory.provideAuthService().refreshToken(Token(token))
     }
 }

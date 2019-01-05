@@ -1,4 +1,4 @@
-package ru.kpfu.itis.stayintouch.ui
+package ru.kpfu.itis.stayintouch.ui.registration
 
 import android.content.Context
 import android.content.Intent
@@ -6,16 +6,19 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_registration.*
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.*
 import ru.kpfu.itis.stayintouch.R.string
-import ru.kpfu.itis.stayintouch.repository.RegistrationRepository
+import ru.kpfu.itis.stayintouch.model.AuthResponse
+import ru.kpfu.itis.stayintouch.ui.auth.AuthActivity
 import ru.kpfu.itis.stayintouch.utils.*
 
-class RegistrationActivity : MvpAppCompatActivity() {
+class RegistrationActivity : MvpAppCompatActivity(), RegistrationActivityView {
+
+    @InjectPresenter
+    lateinit var presenter: RegistrationActivityPresenter
 
     companion object {
 
@@ -29,6 +32,22 @@ class RegistrationActivity : MvpAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
         initClickListeners()
+    }
+
+    override fun handleError(error: Throwable) {
+        if (error is HttpException) {
+            if (error.code() == CODE_400) {
+                if (error.response().errorBody()?.string()?.contains(SIGN_UP_EMAIL_EXISTS_ERROR) == true)
+                    Toast.makeText(this, getString(R.string.error_email_exists),
+                        Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun auth(result: AuthResponse) {
+        AuthActivity.create(this, false)
     }
 
     fun initClickListeners() {
@@ -66,22 +85,7 @@ class RegistrationActivity : MvpAppCompatActivity() {
                 it_password2.error = getString(string.error_different_passwords)
                 return@setOnClickListener
             }
-            RegistrationRepository.registration(name, surname, email, password, password2)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    AuthActivity.create(this, false)
-                }, { error ->
-                    if (error is HttpException) {
-                        if (error.code() == CODE_400) {
-                            if (error.response().errorBody()?.string()?.contains(SIGN_UP_EMAIL_EXISTS_ERROR) == true)
-                                Toast.makeText(this, getString(R.string.error_email_exists),
-                                    Toast.LENGTH_LONG).show()
-                        }
-                    } else {
-                        Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
-                    }
-                })
+            presenter.registration(name, surname, email, password, password2)
         }
     }
 }

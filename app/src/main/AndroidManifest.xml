@@ -19,16 +19,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity">
         </activity>
-        <activity android:name=".ui.AuthActivity">
+        <activity android:name=".ui.auth.AuthActivity">
         </activity>
-        <activity android:name=".ui.RegistrationActivity">
+        <activity android:name=".ui.registration.RegistrationActivity">
         </activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="0ae3f0e45c644b94be874bf601ecf057d57ef81c"/>
 
-        <activity android:name=".ui.SplashActivity" android:noHistory="true">
+        <activity android:name=".ui.splash.SplashActivity" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AuthActivity">
+    tools:context=".ui.auth.AuthActivity">
 
     <LinearLayout
         android:id="@+id/container"
@@ -79,6 +79,7 @@
             android:text="@string/btn_sign_up"/>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

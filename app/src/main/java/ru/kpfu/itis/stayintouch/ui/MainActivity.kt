@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
@@ -52,24 +53,10 @@ class MainActivity : MvpAppCompatActivity() {
         checkPermissions()
         if (intent.extras != null) {
             val searchQuery = intent.extras.getString(SEARCH)
-            supportFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.container,
-                    RecommendFragment.newInstance(searchQuery),
-                    RECOMMENDATION_FRAGMENT_TAG
-                )
-                .commit()
+            setFragment(RecommendFragment.newInstance(searchQuery), RECOMMENDATION_FRAGMENT_TAG)
         } else {
             if (savedInstanceState == null) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(
-                        R.id.container,
-                        NewsFragment.newInstance(),
-                        NEWS_FRAGMENT_TAG
-                    )
-                    .commit()
+                setFragment(NewsFragment.newInstance(), NEWS_FRAGMENT_TAG)
             }
         }
     }
@@ -98,14 +85,7 @@ class MainActivity : MvpAppCompatActivity() {
             action_search -> {
                 (item.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(
-                                R.id.container,
-                                RecommendFragment.newInstance(query),
-                                RECOMMENDATION_FRAGMENT_TAG
-                            )
-                            .commit()
+                        setFragment(RecommendFragment.newInstance(query), RECOMMENDATION_FRAGMENT_TAG)
                         return true
                     }
 
@@ -144,47 +124,30 @@ class MainActivity : MvpAppCompatActivity() {
             invalidateOptionsMenu()
             when (it.itemId) {
                 nav_news -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(
-                            R.id.container,
-                            NewsFragment.newInstance(),
-                            NEWS_FRAGMENT_TAG
-                        )
-                        .commit()
+                    setFragment(NewsFragment.newInstance(), NEWS_FRAGMENT_TAG)
                 }
                 nav_recommend -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(
-                            R.id.container,
-                            RecommendFragment.newInstance(),
-                            RECOMMENDATION_FRAGMENT_TAG
-                        )
-                        .commit()
+                    setFragment(RecommendFragment.newInstance(), RECOMMENDATION_FRAGMENT_TAG)
                 }
                 nav_answers -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(
-                            R.id.container,
-                            AnswersFragment.newInstance(),
-                            ANSWERS_FRAGMENT_TAG
-                        )
-                        .commit()
+                    setFragment(AnswersFragment.newInstance(), ANSWERS_FRAGMENT_TAG)
                 }
                 nav_profile -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(
-                            R.id.container,
-                            ProfileFragment.newInstance(),
-                            PROFILE_FRAGMENT_TAG
-                        )
-                        .commit()
+                    setFragment(ProfileFragment.newInstance(), PROFILE_FRAGMENT_TAG)
                 }
             }
             true
         }
+    }
+
+    private fun setFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.container,
+                fragment,
+                tag
+            )
+            .commit()
     }
 }

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.model.User
-import ru.kpfu.itis.stayintouch.ui.AuthActivity
+import ru.kpfu.itis.stayintouch.ui.auth.AuthActivity
 import ru.kpfu.itis.stayintouch.ui.adapter.TagAdapter
 import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_MEDIUM
 import android.content.Intent
