@@ -21,6 +21,7 @@ import ru.kpfu.itis.stayintouch.ui.adapter.TagAdapter
 import java.util.*
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.utils.*
 
 class PostActivity : MvpAppCompatActivity(), PostActivityView {
@@ -79,8 +80,16 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
     }
 
     override fun handleError(error: Throwable) {
-        Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
-        error.printStackTrace()
+        if (error is HttpException) {
+            if (error.code() == CODE_500) {
+                Toast.makeText(this, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
+            }
+        }
+        else {
+            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            error.printStackTrace()
+        }
+        setNotLoading()
     }
 
     override fun setLoading(disposable: Disposable) {

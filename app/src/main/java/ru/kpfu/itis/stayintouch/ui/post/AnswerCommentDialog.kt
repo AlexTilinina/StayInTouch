@@ -14,9 +14,12 @@ import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.repository.CommentRepository
 import ru.kpfu.itis.stayintouch.repository.UserRepository
+import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
 import java.util.*
 
 class AnswerCommentDialog : DialogFragment() {
+
+    lateinit var commentAdapter: CommentAdapter
 
     companion object {
 
@@ -42,7 +45,6 @@ class AnswerCommentDialog : DialogFragment() {
         val dialog = builder.create()
         val progressBar = view.findViewById<ProgressBar>(R.id.pb_comment)
         dialog.setOnShowListener {
-
             val button = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
             button.setOnClickListener {
                 val editText = view.findViewById<EditText>(R.id.et_comment)
@@ -65,7 +67,9 @@ class AnswerCommentDialog : DialogFragment() {
             .createComment(postId, comment)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{t -> dialog.dismiss() }
+            .subscribe{t ->
+                commentAdapter.add(t)
+                dialog.dismiss() }
     }
 
     fun setLoading(progressBar: ProgressBar){

@@ -89,10 +89,14 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
     override fun handleError(error: Throwable) {
         if (error is HttpException) {
             if (error.code() == CODE_500) {
-                error.printStackTrace()
-                Toast.makeText(activity, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
             }
         }
+        else {
+            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+            error.printStackTrace()
+        }
+        setNotLoading()
     }
 
     override fun getMessage(message: Message) {
@@ -123,6 +127,7 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         tv_email.visibility = View.VISIBLE
         tv_tags_list.visibility = View.VISIBLE
         btn_log_out.visibility = View.VISIBLE
+        tv_edit_photo.visibility = View.VISIBLE
     }
 
     fun editProfile() {
@@ -141,6 +146,7 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         tv_email.visibility = View.GONE
         tv_tags_list.visibility = View.GONE
         btn_log_out.visibility = View.GONE
+        tv_edit_photo.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

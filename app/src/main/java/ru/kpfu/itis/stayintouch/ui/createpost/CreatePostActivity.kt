@@ -41,10 +41,14 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
     override fun handleError(error: Throwable) {
         if (error is HttpException) {
             if (error.code() == CODE_500) {
-                error.printStackTrace()
                 Toast.makeText(this, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
             }
         }
+        else {
+            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            error.printStackTrace()
+        }
+        progress_bar.visibility = View.GONE
     }
 
     override fun setLoading(disposable: Disposable) {
@@ -73,9 +77,11 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
             val splitText = tagsText.split(" ")
             val tags = ArrayList<String>()
             for (tag in splitText){
-                if (!tag.startsWith('#'))
-                    tags.add("#$tag")
-                else tags.add(tag)
+                if (tag.isNotEmpty()) {
+                    if (!tag.startsWith('#'))
+                        tags.add("#$tag")
+                    else tags.add(tag)
+                }
             }
             if (text.isNotEmpty())
                 presenter.createPost(PostCreate(text, tags))

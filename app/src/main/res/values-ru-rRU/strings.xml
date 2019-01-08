@@ -13,7 +13,7 @@
     <string name="prompt_confirm_password">Подтвердите пароль</string>
     <string name="prompt_surname">Фамилия</string>
     <string name="nav_news">Новости</string>
-    <string name="nav_recommend">Рекомандации</string>
+    <string name="nav_recommend">Рекомендации</string>
     <string name="nav_answers">Ответы</string>
     <string name="nav_profile">Профиль</string>
     <string name="profile_image">Фотография</string>

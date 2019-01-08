@@ -41,6 +41,9 @@ class RegistrationActivity : MvpAppCompatActivity(), RegistrationActivityView {
                     Toast.makeText(this, getString(R.string.error_email_exists),
                         Toast.LENGTH_LONG).show()
             }
+            if (error.code() == CODE_500) {
+                Toast.makeText(this, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
+            }
         } else {
             Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
         }

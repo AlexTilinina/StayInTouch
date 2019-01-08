@@ -13,9 +13,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news.*
+import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.ui.adapter.PostAdapter
+import ru.kpfu.itis.stayintouch.utils.CODE_500
 
 class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
 
@@ -54,8 +56,16 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
     }
 
     override fun handleError(error: Throwable) {
-        error.printStackTrace()
-        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
+        if (error is HttpException) {
+            if (error.code() == CODE_500) {
+                Toast.makeText(context, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
+            }
+        }
+        else {
+            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+            error.printStackTrace()
+        }
+        setNotLoading()
     }
 
     override fun setLoading(disposable: Disposable) {

@@ -43,6 +43,7 @@
         android:layout_below="@id/tv_author_name"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_small"
         android:textSize="@dimen/text_medium"
         android:textColor="@color/colorTextDark"
         tools:text="test data for post sfdgdfgdfgdfsg dfgfd dfas fsdafsd fsafsdaf fdsafsdafsdf sdfsdafsdfsdf sdfsdfsdfsdfsadfsda sdfsdafsdafsdafas fasdfasdfas fasgadfgsdfhhgf"/>
@@ -53,7 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/iv_author_image"
         android:layout_below="@id/tv_text"
-        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_small"
         tools:text="10 10 2018"/>
@@ -64,7 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/tv_date"
         android:layout_below="@id/tv_text"
-        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"
         android:textColor="@color/colorTextLink"
         android:text="@string/answer"/>

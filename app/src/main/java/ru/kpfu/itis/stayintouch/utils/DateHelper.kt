@@ -22,10 +22,18 @@ class DateHelper {
             } else {
                 "${date.get(Calendar.MINUTE)}"
             }
+            val day = if (date.get(Calendar.DAY_OF_MONTH) < 10) {
+                "0${date.get(Calendar.DAY_OF_MONTH)}"
+            } else {
+                "${date.get(Calendar.DAY_OF_MONTH)}"
+            }
+            val month = if (date.get(Calendar.MONTH) + 1 < 10) {
+                "0${date.get(Calendar.MONTH) + 1}"
+            } else {
+                "${date.get(Calendar.MONTH) + 1}"
+            }
             val dateText =
-                "$hourString:$minute ${
-                date.get(Calendar.DAY_OF_MONTH)}.${
-                date.get(Calendar.MONTH).plus(1)}.${
+                "$hourString:$minute $day.$month.${
                 date.get(Calendar.YEAR)}"
             return dateText
         }

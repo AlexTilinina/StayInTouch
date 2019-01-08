@@ -60,10 +60,14 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
     override fun handleError(error: Throwable) {
         if (error is HttpException) {
             if (error.code() == CODE_500) {
-                error.printStackTrace()
-                Toast.makeText(activity, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.error_server_not_responding), Toast.LENGTH_SHORT).show()
             }
         }
+        else {
+            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+            error.printStackTrace()
+        }
+        setNotLoading()
     }
 
     override fun setLoading(disposable: Disposable) {

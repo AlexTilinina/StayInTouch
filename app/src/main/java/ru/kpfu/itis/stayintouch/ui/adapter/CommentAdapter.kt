@@ -51,9 +51,9 @@ class CommentAdapter(
         if (fragmentManager != null) {
             holder.itemView.tv_answer.setOnClickListener {
                 comment.news_commented?.let { it1 ->
-                    AnswerCommentDialog
-                        .newInstance(it1)
-                        .show(fragmentManager, ANSWER_COMMENT_DIALOG_TAG)
+                    val fragment = AnswerCommentDialog.newInstance(it1)
+                    fragment.commentAdapter = this
+                    fragment.show(fragmentManager, ANSWER_COMMENT_DIALOG_TAG)
                 }
             }
         } else {
