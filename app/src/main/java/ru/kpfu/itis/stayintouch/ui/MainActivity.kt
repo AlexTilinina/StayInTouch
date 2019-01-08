@@ -121,7 +121,6 @@ class MainActivity : MvpAppCompatActivity() {
 
     private fun initListeners() {
         bottom_navigation.setOnNavigationItemSelectedListener {
-            invalidateOptionsMenu()
             when (it.itemId) {
                 nav_news -> {
                     setFragment(NewsFragment.newInstance(), NEWS_FRAGMENT_TAG)
@@ -136,6 +135,7 @@ class MainActivity : MvpAppCompatActivity() {
                     setFragment(ProfileFragment.newInstance(), PROFILE_FRAGMENT_TAG)
                 }
             }
+            invalidateOptionsMenu()
             true
         }
     }

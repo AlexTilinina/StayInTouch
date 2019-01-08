@@ -170,6 +170,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             if (!tagsShown) {
                 btn_show_tags.setImageResource(R.drawable.ic_drop_down_up)
                 rv_tags.visibility = View.VISIBLE
+                tv_tags.visibility = View.INVISIBLE
                 rv_tags.alpha = 0f
                 rv_tags.animate()
                     .alpha(1f)
@@ -182,6 +183,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
                             rv_tags.visibility = View.GONE
+                            tv_tags.visibility = View.VISIBLE
                         }
                     })
             }
@@ -202,7 +204,6 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         val comment = Comment("", user, et_comment.text.toString(), GregorianCalendar(), post.id)
         et_comment.text.clear()
         post.id?.let { it1 -> presenter.createComment(it1, comment) }
-        //TODO scroll к последнему комменту
     }
 
     private fun initComments() {

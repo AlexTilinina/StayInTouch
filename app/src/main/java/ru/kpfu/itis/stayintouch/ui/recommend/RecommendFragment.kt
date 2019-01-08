@@ -97,9 +97,11 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
             val tagsText = tags?.split(" ")
             if (tagsText != null) {
                 for (tag in tagsText) {
-                    if (!tag.startsWith('#'))
-                        tagsList.add(tag)
-                    else tagsList.add(tag.substring(1))
+                    if (!tag.isEmpty()) {
+                        if (!tag.startsWith('#'))
+                            tagsList.add(tag)
+                        else tagsList.add(tag.substring(1))
+                    }
                 }
             }
         }

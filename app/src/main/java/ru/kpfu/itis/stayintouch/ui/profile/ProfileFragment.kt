@@ -55,8 +55,8 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
 
     override fun loadUser(user: User) {
         makeFixedViewsVisible()
-        tv_name.text = user.first_name
-        tv_surname.text = user.last_name
+        val username = "${user.first_name} ${user.last_name}"
+        tv_name.text = username
         tv_email.text = user.email
         ImageLoadHelper.loadImage(
             user.profile?.photo_url,
@@ -80,7 +80,7 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
                 }
                 tv_tags_list.text = tags
             } else {
-                tv_tags_list.text = getString(R.string.empty_news)
+                tv_tags_list.text = getString(R.string.empty_tags)
             }
         }
 
@@ -123,7 +123,6 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         recycler_view.visibility = View.GONE
 
         tv_name.visibility = View.VISIBLE
-        tv_surname.visibility = View.VISIBLE
         tv_email.visibility = View.VISIBLE
         tv_tags_list.visibility = View.VISIBLE
         btn_log_out.visibility = View.VISIBLE
@@ -137,12 +136,11 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
         btn_ok.visibility = View.VISIBLE
         recycler_view.visibility = View.VISIBLE
 
-        et_first_name.setText(tv_name.text)
-        et_last_name.setText(tv_surname.text)
+        et_first_name.setText(tv_name.text.split(" ")[0])
+        et_last_name.setText(tv_name.text.split(" ")[1])
         et_email.setText(tv_email.text)
 
         tv_name.visibility = View.GONE
-        tv_surname.visibility = View.GONE
         tv_email.visibility = View.GONE
         tv_tags_list.visibility = View.GONE
         btn_log_out.visibility = View.GONE

@@ -13,6 +13,8 @@ class RegistrationActivityPresenter : MvpPresenter<RegistrationActivityView>() {
         RegistrationRepository.registration(name, surname, email, password, password2)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
             .subscribe(viewState::auth, viewState::handleError)
     }
 }

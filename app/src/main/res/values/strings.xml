@@ -40,9 +40,11 @@
     <string name="error_email_exists">E-mail already taken</string>
     <string name="error_server_not_responding">Server is not responding</string>
     <string name="log_out">Log out</string>
+    <string name="reg_success">Registration successful</string>
     <string name="sign_in_another_way">Sign in another way</string>
     <string name="google" translatable="false">Google</string>
     <string name="empty_news">You don\'t have any news with your tags yet</string>
+    <string name="empty_tags">You don\'t have any tags yet</string>
     <string name="title">Title</string>
     <string name="location">Location</string>
     <string name="description">Description</string>

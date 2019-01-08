@@ -73,15 +73,15 @@ class AuthActivity : MvpAppCompatActivity(), AuthActivityView {
             if (TextUtils.isEmpty(email)) {
                 it_email.error = getString(string.error_empty_email)
                 return@setOnClickListener
-            }
-            if (TextUtils.isEmpty(password)) {
-                it_password.error = getString(string.error_empty_password)
-                return@setOnClickListener
-            }
+            } else it_email.error = null
             if (!email.matches(EMAIL_REGEX.toRegex())) {
                 it_email.error = getString(string.error_wrong_email)
                 return@setOnClickListener
-            }
+            } else it_email.error = null
+            if (TextUtils.isEmpty(password)) {
+                it_password.error = getString(string.error_empty_password)
+                return@setOnClickListener
+            } else it_password.error = null
             setLoadingState(true)
             presenter.login(email, password)
         }
