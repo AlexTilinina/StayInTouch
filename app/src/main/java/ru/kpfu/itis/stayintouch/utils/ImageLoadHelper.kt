@@ -3,6 +3,7 @@ package ru.kpfu.itis.stayintouch.utils
 import android.net.Uri
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import ru.kpfu.itis.stayintouch.App
 import ru.kpfu.itis.stayintouch.R
 import java.io.File
 
@@ -22,7 +23,7 @@ class ImageLoadHelper {
 
         fun loadImage(picture: String?, into: ImageView, size: Int) {
             if (!picture.isNullOrEmpty()) {
-                Picasso.get()
+                App.picassoWithCache
                     .load(picture)
                     .resize(size, size)
                     .centerCrop()
@@ -30,7 +31,7 @@ class ImageLoadHelper {
                     .placeholder(R.drawable.ic_placeholder)
                     .into(into)
             } else {
-                Picasso.get()
+                App.picassoWithCache
                     .load(R.drawable.ic_placeholder)
                     .resize(size, size)
                     .centerCrop()
@@ -41,7 +42,7 @@ class ImageLoadHelper {
         }
 
         fun loadImage(picture: File, into: ImageView, size: Int) {
-            Picasso.get()
+            App.picassoWithCache
                 .load(picture)
                 .resize(size, size)
                 .centerCrop()
@@ -51,7 +52,7 @@ class ImageLoadHelper {
         }
 
         fun loadImage(picture: Uri?, into: ImageView, size: Int) {
-            Picasso.get()
+            App.picassoWithCache
                 .load(picture)
                 .resize(size, size)
                 .centerCrop()
@@ -62,7 +63,7 @@ class ImageLoadHelper {
 
         fun loadImage(picture: String?, into: ImageView, size: Int, error: Int) {
             if (picture.isNullOrEmpty()) {
-                Picasso.get()
+                App.picassoWithCache
                     .load(R.drawable.ic_placeholder)
                     .resize(size, size)
                     .centerCrop()
@@ -71,7 +72,7 @@ class ImageLoadHelper {
                     .placeholder(R.drawable.ic_placeholder)
                     .into(into)
             } else {
-                Picasso.get()
+                App.picassoWithCache
                     .load(picture)
                     .resize(size, size)
                     .centerCrop()
@@ -83,7 +84,7 @@ class ImageLoadHelper {
         }
 
         fun loadImage(picture: File, into: ImageView, size: Int, error: Int) {
-            Picasso.get()
+            App.picassoWithCache
                 .load(picture)
                 .resize(size, size)
                 .centerCrop()

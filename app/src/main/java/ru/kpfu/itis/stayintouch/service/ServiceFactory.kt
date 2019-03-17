@@ -9,12 +9,13 @@ import ru.kpfu.itis.stayintouch.service.mock.*
 
 object ServiceFactory {
 
-    private val authService = buildRetrofit().create(AuthService::class.java)
-    private val signUpService = buildRetrofit().create(SignUpService::class.java)
-    private val postService = buildRetrofit().create(PostService::class.java)
-    private val tagService = buildRetrofit().create(TagService::class.java)
-    private val userService = buildRetrofit().create(UserService::class.java)
-    private val commentService = buildRetrofit().create(CommentService::class.java)
+    private val retrofit = buildRetrofit()
+    private val authService = retrofit.create(AuthService::class.java)
+    private val signUpService = retrofit.create(SignUpService::class.java)
+    private val postService = retrofit.create(PostService::class.java)
+    private val tagService = retrofit.create(TagService::class.java)
+    private val userService = retrofit.create(UserService::class.java)
+    private val commentService = retrofit.create(CommentService::class.java)
 
     fun provideAuthService(): AuthService {
         return authService

@@ -30,6 +30,7 @@ ext {
     support = "27.1.1"
     moxy = "1.5.5"
     retrofit = "2.3.0"
+    okhttp = "3.10.0"
 }
 
 androidExtensions {
@@ -63,7 +64,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
 
     //okhttp3
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:${okhttp}"
+    implementation "com.squareup.okhttp3:okhttp:${okhttp}"
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
