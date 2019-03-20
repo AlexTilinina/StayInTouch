@@ -9,9 +9,9 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.kpfu.itis.stayintouch.R.id.*
@@ -80,12 +80,13 @@ class MainActivity : MvpAppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             action_create_post -> {
-                CreatePostActivity.create(this);
+                CreatePostActivity.create(this)
             }
             action_search -> {
                 (item.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        setFragment(RecommendFragment.newInstance(query), RECOMMENDATION_FRAGMENT_TAG)
+                        setFragment(RecommendFragment.newInstance(query), RECOMMENDATION_FRAGMENT_TAG, true)
+                        item.collapseActionView()
                         return true
                     }
 
@@ -149,5 +150,20 @@ class MainActivity : MvpAppCompatActivity() {
                 tag
             )
             .commit()
+    }
+
+    private fun setFragment(fragment: Fragment, tag: String, addToBackStack: Boolean) {
+        if (addToBackStack) {
+            supportFragmentManager.popBackStack()
+            supportFragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(
+                    R.id.container,
+                    fragment,
+                    tag
+                )
+                .commit()
+        } else setFragment(fragment, tag)
     }
 }

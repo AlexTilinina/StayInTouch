@@ -62,6 +62,7 @@
     <string name="error_empty_fields">Some fields are empty!</string>
     <string name="error_empty_tags">Enter some tags</string>
     <string name="error_empty_text">Enter some text</string>
+    <string name="error_no_search">No results found</string>
     <string name="search_hint">Search</string>
     <string name="show_expanded_tags_list">Show expanded tags list</string>
     <string name="image_change_success">User profile photo successfully changed</string>

@@ -61,4 +61,5 @@
     <string name="click_profile_image">Нажмите на фото, чтобы изменить его</string>
     <string name="empty_tags">У вас пока что нет тегов</string>
     <string name="reg_success">Регистрация прошла успешно</string>
+    <string name="error_no_search">По вашему запросу ничего не найдено</string>
 </resources>

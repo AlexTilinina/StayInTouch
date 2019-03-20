@@ -81,6 +81,10 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
     }
 
     override fun setNews(news: List<Post>) {
+        if (news.isEmpty()) {
+            tv_empty.visibility = View.VISIBLE
+        }
+        else tv_empty.visibility = View.GONE
         recycler_view.adapter = PostAdapter(news.toMutableList())
         recycler_view.layoutManager = LinearLayoutManager(activity)
     }

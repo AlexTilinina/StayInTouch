@@ -11,13 +11,13 @@ class RecommendFragmentPresenter : MvpPresenter<RecommendFragmentView>() {
 
     fun loadRecommendations() {
         //TODO рекомендации
-        PostRepository
+        /*PostRepository
             .getAllPosts()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)
             .doAfterTerminate(viewState::setNotLoading)
-            .subscribe(viewState::setNews, viewState::handleError)
+            .subscribe(viewState::setNews, viewState::handleError)*/
     }
 
     fun isSearch(tags: List<String>){
