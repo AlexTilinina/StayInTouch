@@ -42,6 +42,8 @@ class MainActivity : MvpAppCompatActivity() {
         }
     }
 
+    private var isProfileEditing = false
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +75,7 @@ class MainActivity : MvpAppCompatActivity() {
         currentFrag = supportFragmentManager.findFragmentByTag(PROFILE_FRAGMENT_TAG)
         if (currentFrag != null && currentFrag.isVisible) {
             menuInflater.inflate(R.menu.toolbar_edit_profile_menu, menu)
+            isProfileEditing = false
         }
         return true
     }
@@ -101,9 +104,24 @@ class MainActivity : MvpAppCompatActivity() {
                     .findFragmentByTag(PROFILE_FRAGMENT_TAG)
                         as ProfileFragment)
                     .editProfile()
+                isProfileEditing = true
             }
         }
         return true
+    }
+
+    override fun onBackPressed() {
+        val currentFrag = supportFragmentManager.findFragmentByTag(PROFILE_FRAGMENT_TAG)
+        if (currentFrag != null && currentFrag.isVisible && isProfileEditing) {
+            (supportFragmentManager
+                .findFragmentByTag(PROFILE_FRAGMENT_TAG)
+                    as ProfileFragment)
+                .makeEditableInvisible()
+            //TODO всплывающее окно
+            isProfileEditing = false
+        } else {
+            super.onBackPressed()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
