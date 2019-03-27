@@ -18,6 +18,7 @@ import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.ui.adapter.PostAdapter
 import ru.kpfu.itis.stayintouch.utils.CODE_500
+import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 
 class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
 
@@ -100,7 +101,7 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
         recycler_view.setHasFixedSize(true)
         recycler_view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
 
-            var currentPage = 0
+            var currentPage = COUNT_OF_ELEMENTS + 1
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -110,10 +111,10 @@ class NewsFragment : MvpAppCompatFragment(), NewsFragmentView {
                 if (!isLoading) {
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                         && firstVisibleItemPosition >= 0
-                        && totalItemCount >= 20) {
+                        && totalItemCount >= COUNT_OF_ELEMENTS - 1) {
                         isLoading = true
-                        //TODO добавить подгрузку новых постов, когда появится API
-                        //presenter.loadNextElements(++currentPage)
+                        presenter.loadNextElements(currentPage)
+                        currentPage += COUNT_OF_ELEMENTS
                     }
                 }
             }

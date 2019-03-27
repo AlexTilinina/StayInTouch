@@ -20,6 +20,7 @@ import ru.kpfu.itis.stayintouch.model.Tag
 import ru.kpfu.itis.stayintouch.ui.adapter.PostAdapter
 import ru.kpfu.itis.stayintouch.ui.adapter.RecommendAdapter
 import ru.kpfu.itis.stayintouch.utils.CODE_500
+import ru.kpfu.itis.stayintouch.utils.COUNT_OF_ELEMENTS
 import ru.kpfu.itis.stayintouch.utils.SEARCH
 
 class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
@@ -85,27 +86,27 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
             tv_empty.visibility = View.VISIBLE
         }
         else tv_empty.visibility = View.GONE
-        recycler_view.adapter = PostAdapter(news.toMutableList())
-        recycler_view.layoutManager = LinearLayoutManager(activity)
+        adapter.changeDataSet(news.toMutableList())
+    }
+
+    override fun loadMoreItems(items: List<Post>) {
+        adapter.addAll(items)
     }
 
     override fun setTags(tags: List<Tag>) {
         recycler_view.adapter = RecommendAdapter(tags)
-        recycler_view.layoutManager = LinearLayoutManager(activity)
     }
 
     private fun initSearch() {
         val tags = arguments?.getString(SEARCH)
         val tagsList = ArrayList<String>()
         if (!tags.isNullOrEmpty()) {
-            val tagsText = tags?.split(" ")
-            if (tagsText != null) {
-                for (tag in tagsText) {
-                    if (!tag.isEmpty()) {
-                        if (!tag.startsWith('#'))
-                            tagsList.add(tag)
-                        else tagsList.add(tag.substring(1))
-                    }
+            val tagsText = tags.split(" ")
+            for (tag in tagsText) {
+                if (!tag.isEmpty()) {
+                    if (!tag.startsWith('#'))
+                        tagsList.add(tag)
+                    else tagsList.add(tag.substring(1))
                 }
             }
         }
@@ -119,20 +120,21 @@ class RecommendFragment : MvpAppCompatFragment(), RecommendFragmentView {
         recycler_view.setHasFixedSize(true)
         recycler_view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
 
-            var currentPage = 0
+            var currentPage = COUNT_OF_ELEMENTS + 1
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount = manager.childCount
-                val totalItemCount = manager.itemCount
-                val firstVisibleItemPosition = manager.findFirstVisibleItemPosition()
+                val r_manager = recyclerView?.layoutManager as LinearLayoutManager
+                val visibleItemCount = r_manager.childCount
+                val totalItemCount = r_manager.itemCount
+                val firstVisibleItemPosition = r_manager.findFirstVisibleItemPosition()
                 if (!isLoading) {
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                         && firstVisibleItemPosition >= 0
-                        && totalItemCount >= 20) {
+                        && totalItemCount >= COUNT_OF_ELEMENTS) {
                         isLoading = true
-                        //TODO добавить подгрузку новых постов, когда появится API
-                        //presenter.loadNextElements(++currentPage)
+                        presenter.loadNextElements(currentPage)
+                        currentPage += COUNT_OF_ELEMENTS
                     }
                 }
             }

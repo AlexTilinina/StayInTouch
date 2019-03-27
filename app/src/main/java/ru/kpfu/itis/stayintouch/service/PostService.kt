@@ -4,15 +4,16 @@ import io.reactivex.Single
 import retrofit2.http.*
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.PostCreate
-import ru.kpfu.itis.stayintouch.model.Tag
 
 interface PostService {
 
     @GET("api/feed")
-    fun getNews(@Header("Authorization") token: String, @Query("offset") offset: Int) : Single<List<Post>>
+    fun getNews(@Header("Authorization") token: String, @Query("start") start: Int,
+                @Query("end") end: Int) : Single<List<Post>>
 
-    @GET("api/news/")
-    fun getAllPosts(@Header("Authorization") token: String) : Single<List<Post>>
+    @GET("api/news")
+    fun getAllPosts(@Header("Authorization") token: String, @Query("start") start: Int,
+                    @Query("end") end: Int) : Single<List<Post>>
 
     @POST("api/news/")
     fun createPost(@Header("Authorization") token: String, @Body post: PostCreate) : Single<Post>

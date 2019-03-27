@@ -28,4 +28,4 @@ const val PROFILE_IMAGE_SIZE_MEDIUM = 96
 
 const val PICK_IMAGE_REQUEST = 1
 
-const val COUNT_OF_ELEMENTS = 20
+const val COUNT_OF_ELEMENTS = 10

@@ -17,7 +17,7 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
 
     fun loadPosts(){
         PostRepository
-            .getNews(0)
+            .getNews(1, COUNT_OF_ELEMENTS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)
@@ -26,9 +26,9 @@ class NewsFragmentPresenter : MvpPresenter<NewsFragmentView>() {
             .subscribe(viewState::showPosts, viewState::handleError)
     }
 
-    fun loadNextElements(page: Int) {
+    fun loadNextElements(start: Int) {
         PostRepository
-            .getNews(COUNT_OF_ELEMENTS * page)
+            .getNews(start, start + COUNT_OF_ELEMENTS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe(viewState::setLoading)

@@ -20,4 +20,6 @@ interface RecommendFragmentView : MvpView {
     fun setNews(news: List<Post>)
 
     fun setTags(tags: List<Tag>)
+
+    fun loadMoreItems(items: List<Post>)
 }

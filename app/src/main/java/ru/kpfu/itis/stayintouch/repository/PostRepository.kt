@@ -8,12 +8,12 @@ import ru.kpfu.itis.stayintouch.service.ServiceFactory
 
 object PostRepository {
 
-    fun getNews(offset: Int) : Single<List<Post>> {
-        return ServiceFactory.providePostService().getNews(AuthRepository.token, offset)
+    fun getNews(start: Int, end: Int) : Single<List<Post>> {
+        return ServiceFactory.providePostService().getNews(AuthRepository.token, start, end)
     }
 
-    fun getAllPosts() : Single<List<Post>> {
-        return ServiceFactory.providePostService().getAllPosts(AuthRepository.token)
+    fun getAllPosts(start: Int, end: Int) : Single<List<Post>> {
+        return ServiceFactory.providePostService().getAllPosts(AuthRepository.token, start, end)
     }
 
     fun createPost(post: PostCreate) : Single<Post> {

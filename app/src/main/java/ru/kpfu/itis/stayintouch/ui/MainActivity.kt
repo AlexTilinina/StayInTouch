@@ -117,7 +117,6 @@ class MainActivity : MvpAppCompatActivity() {
                 .findFragmentByTag(PROFILE_FRAGMENT_TAG)
                     as ProfileFragment)
                 .makeEditableInvisible()
-            //TODO всплывающее окно
             isProfileEditing = false
         } else {
             super.onBackPressed()
