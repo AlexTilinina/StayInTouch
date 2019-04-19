@@ -67,4 +67,14 @@
         android:layout_marginBottom="@dimen/margin_small"
         android:textColor="@color/colorTextLink"
         android:text="@string/answer"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_below="@id/tv_answer"
+        android:layout_marginStart="@dimen/margin_xxlarge"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

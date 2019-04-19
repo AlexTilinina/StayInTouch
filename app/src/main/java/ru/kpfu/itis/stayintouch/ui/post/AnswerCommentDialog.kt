@@ -23,9 +23,10 @@ class AnswerCommentDialog : DialogFragment() {
 
     companion object {
 
-        fun newInstance(postId: Int): AnswerCommentDialog {
+        fun newInstance(commentId: String, postId: Int): AnswerCommentDialog {
             val answerCommentDialog = AnswerCommentDialog()
             val bundle = Bundle()
+            bundle.putString("commentId", commentId)
             bundle.putInt("postId", postId)
             answerCommentDialog.arguments = bundle
             return answerCommentDialog
@@ -36,6 +37,7 @@ class AnswerCommentDialog : DialogFragment() {
 
         val builder = AlertDialog.Builder(activity)
         val view = activity.layoutInflater.inflate(R.layout.dialog_comment, null)
+        val commentId = arguments.getString("commentId")
         val postId = arguments.getInt("postId")
         builder.setView(view)
             .setPositiveButton(R.string.send, null)
@@ -46,29 +48,29 @@ class AnswerCommentDialog : DialogFragment() {
         val progressBar = view.findViewById<ProgressBar>(R.id.pb_comment)
         dialog.setOnShowListener {
             val button = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            val editText = view.findViewById<EditText>(R.id.et_comment)
             button.setOnClickListener {
-                val editText = view.findViewById<EditText>(R.id.et_comment)
                 if (editText.text.toString().isNotEmpty()) {
                     UserRepository
                         .getCurrentUser()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe { setLoading(progressBar) }
-                        .subscribe{t-> createComment(t, editText, postId, dialog)}
+                        .subscribe{t-> createComment(t, editText, commentId, postId, dialog)}
                 }
             }
         }
         return dialog
     }
 
-    fun createComment(user: User, editText: EditText, postId: Int, dialog: Dialog) {
+    fun createComment(user: User, editText: EditText, commentId: String, postId: Int, dialog: Dialog) {
         val comment = Comment("", user, editText.text.toString(), GregorianCalendar(), postId)
         CommentRepository
-            .createComment(postId, comment)
+            .createAnswer(commentId, comment)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe{t ->
-                commentAdapter.add(t)
+                commentAdapter.answerAdapter.add(t)
                 dialog.dismiss() }
     }
 

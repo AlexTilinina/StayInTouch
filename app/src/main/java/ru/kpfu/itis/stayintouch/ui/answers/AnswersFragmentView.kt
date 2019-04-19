@@ -13,14 +13,13 @@ interface AnswersFragmentView : MvpView {
 
     fun showMyComments(comments: List<Comment>)
 
-    fun showAnswers()
+    fun showAnswers(comments : List<Comment>)
 
     fun setLoading(disposable: Disposable)
 
     fun setNotLoading()
 
-    @StateStrategyType(SkipStrategy::class)
-    fun showDetails(position: Int)
+    fun setAdapter()
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun handleError(error: Throwable)

@@ -2,6 +2,7 @@ package ru.kpfu.itis.stayintouch.ui.adapter
 
 import android.app.FragmentManager
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,13 @@ import ru.kpfu.itis.stayintouch.utils.DateHelper
 import ru.kpfu.itis.stayintouch.utils.ImageLoadHelper
 import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_MEDIUM
 
-class CommentAdapter(
+class CommentAdapter (
     private val comments: MutableList<Comment>,
     private val context: Context? = null,
     private val fragmentManager: FragmentManager? = null
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+
+    lateinit var answerAdapter : CommentAdapter
 
     class CommentViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
@@ -51,10 +54,18 @@ class CommentAdapter(
         if (fragmentManager != null) {
             holder.itemView.tv_answer.setOnClickListener {
                 comment.news_commented?.let { it1 ->
-                    val fragment = AnswerCommentDialog.newInstance(it1)
+                    val fragment = AnswerCommentDialog.newInstance(comment.id, it1)
                     fragment.commentAdapter = this
                     fragment.show(fragmentManager, ANSWER_COMMENT_DIALOG_TAG)
                 }
+            }
+
+            answerAdapter = CommentAdapter(ArrayList())
+            holder.itemView.recycler_view.adapter = answerAdapter
+            holder.itemView.recycler_view.layoutManager = LinearLayoutManager(context)
+
+            if (comment.answers.isNotEmpty()) {
+                answerAdapter = CommentAdapter(comment.answers.toMutableList(), context)
             }
         } else {
             holder.itemView.tv_answer.visibility = View.GONE

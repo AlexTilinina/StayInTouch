@@ -27,6 +27,7 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
     lateinit var presenter: AnswersFragmentPresenter
     var myComments: MutableList<Comment> = ArrayList()
     var answers: MutableList<Comment> = ArrayList()
+    lateinit var adapter : CommentAdapter
 
     companion object {
 
@@ -35,14 +36,18 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         }
     }
 
-    override fun showMyComments(comments : List<Comment>) {
-        myComments = comments.toMutableList()
-        recycler_view.adapter = CommentAdapter(myComments, context)
+    override fun setAdapter() {
+        recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(activity)
     }
 
-    override fun showAnswers() {
-        //TODO ответы
+    override fun showMyComments(comments : List<Comment>) {
+        myComments = comments.toMutableList()
+        adapter.changeDataSet(myComments)
+    }
+
+    override fun showAnswers(comments : List<Comment>) {
+        answers = comments.toMutableList()
     }
 
     override fun setLoading(disposable: Disposable) {
@@ -51,10 +56,6 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
 
     override fun setNotLoading() {
         progress_bar.visibility = View.GONE
-    }
-
-    override fun showDetails(position: Int) {
-        //TODO открыть пост с комментами
     }
 
     override fun handleError(error: Throwable) {
@@ -75,13 +76,14 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view.btns_segmented.setTintColor(resources.getColor(R.color.colorPrimaryLight, null))
         }
+        adapter = CommentAdapter(myComments, context)
         view.btns_segmented.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 view.btn_my_comments.id -> {
-                    recycler_view.adapter = CommentAdapter(myComments, context)
+                    adapter.changeDataSet(myComments)
                 }
                 view.btn_answers.id -> {
-                    recycler_view.adapter = CommentAdapter(answers, context)
+                    adapter.changeDataSet(answers)
                 }
             }
         }

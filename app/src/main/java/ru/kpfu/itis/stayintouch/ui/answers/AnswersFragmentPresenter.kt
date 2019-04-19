@@ -12,10 +12,12 @@ class AnswersFragmentPresenter : MvpPresenter<AnswersFragmentView>() {
 
     fun init() {
         super.onFirstViewAttach()
+        viewState.setAdapter()
         loadMyComments()
+        loadAnswers()
     }
 
-    fun loadMyComments(){
+    fun loadMyComments() {
         CommentRepository
             .getMyComments()
             .subscribeOn(Schedulers.io())
@@ -23,5 +25,15 @@ class AnswersFragmentPresenter : MvpPresenter<AnswersFragmentView>() {
             .doOnSubscribe(viewState::setLoading)
             .doAfterTerminate(viewState::setNotLoading)
             .subscribe(viewState::showMyComments, viewState::handleError)
+    }
+
+    fun loadAnswers() {
+        CommentRepository
+            .getAnswers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::showAnswers, viewState::handleError)
     }
 }
