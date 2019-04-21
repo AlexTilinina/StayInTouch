@@ -21,6 +21,8 @@ interface AnswersFragmentView : MvpView {
 
     fun setAdapter()
 
+    fun openPost(comment: Comment)
+
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun handleError(error: Throwable)
 }

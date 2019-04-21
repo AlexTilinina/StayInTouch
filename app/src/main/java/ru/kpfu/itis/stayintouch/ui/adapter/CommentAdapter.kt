@@ -7,9 +7,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.item_comment.view.*
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.R.layout.item_comment
+import ru.kpfu.itis.stayintouch.repository.CommentRepository
+import ru.kpfu.itis.stayintouch.ui.answers.AnswersFragmentPresenter
 import ru.kpfu.itis.stayintouch.ui.post.AnswerCommentDialog
 import ru.kpfu.itis.stayintouch.ui.post.PostActivity
 import ru.kpfu.itis.stayintouch.utils.ANSWER_COMMENT_DIALOG_TAG
@@ -20,10 +24,9 @@ import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_MEDIUM
 class CommentAdapter (
     private val comments: MutableList<Comment>,
     private val context: Context? = null,
-    private val fragmentManager: FragmentManager? = null
+    private val fragmentManager: FragmentManager? = null,
+    private val presenter: AnswersFragmentPresenter? = null
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
-
-    lateinit var answerAdapter : CommentAdapter
 
     class CommentViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
@@ -52,20 +55,18 @@ class CommentAdapter (
             holder.itemView.tv_date.visibility = View.GONE
         }
         if (fragmentManager != null) {
-            holder.itemView.tv_answer.setOnClickListener {
-                comment.news_commented?.let { it1 ->
-                    val fragment = AnswerCommentDialog.newInstance(comment.id, it1)
-                    fragment.commentAdapter = this
-                    fragment.show(fragmentManager, ANSWER_COMMENT_DIALOG_TAG)
-                }
-            }
-
-            answerAdapter = CommentAdapter(ArrayList())
+            val answerAdapter = CommentAdapter(ArrayList())
             holder.itemView.recycler_view.adapter = answerAdapter
             holder.itemView.recycler_view.layoutManager = LinearLayoutManager(context)
 
             if (comment.answers.isNotEmpty()) {
-                answerAdapter = CommentAdapter(comment.answers.toMutableList(), context)
+                answerAdapter.changeDataSet(comment.answers.toMutableList())
+            }
+
+            holder.itemView.tv_answer.setOnClickListener {
+                val fragment = AnswerCommentDialog.newInstance(comment.id)
+                fragment.answerAdapter = answerAdapter
+                fragment.show(fragmentManager, ANSWER_COMMENT_DIALOG_TAG)
             }
         } else {
             holder.itemView.tv_answer.visibility = View.GONE
@@ -74,6 +75,9 @@ class CommentAdapter (
                     comment.news_commented?.let { it2 ->
                         PostActivity.create(it1, it2)
                     }
+                }
+                if (comment.answer_to != null && presenter != null) {
+                    presenter.loadComment(comment.answer_to.toString())
                 }
             }
         }

@@ -19,6 +19,7 @@ import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Comment
 import ru.kpfu.itis.stayintouch.model.User
 import ru.kpfu.itis.stayintouch.ui.adapter.CommentAdapter
+import ru.kpfu.itis.stayintouch.ui.post.PostActivity
 import ru.kpfu.itis.stayintouch.utils.CODE_500
 
 class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
@@ -58,6 +59,15 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         progress_bar.visibility = View.GONE
     }
 
+    override fun openPost(comment: Comment) {
+        comment.news_commented?.let {
+            context?.let {
+                    it1 ->
+                PostActivity.create(it1, it)
+            }
+        }
+    }
+
     override fun handleError(error: Throwable) {
         if (error is HttpException) {
             if (error.code() == CODE_500) {
@@ -76,7 +86,7 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view.btns_segmented.setTintColor(resources.getColor(R.color.colorPrimaryLight, null))
         }
-        adapter = CommentAdapter(myComments, context)
+        adapter = CommentAdapter(myComments, context, presenter = presenter)
         view.btns_segmented.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 view.btn_my_comments.id -> {

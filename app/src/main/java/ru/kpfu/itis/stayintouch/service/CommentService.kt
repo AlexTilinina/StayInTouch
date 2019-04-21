@@ -20,4 +20,7 @@ interface CommentService {
 
     @GET("/api/answers")
     fun getAnswers(@Header("Authorization") token: String) : Single<List<Comment>>
+
+    @GET("/api/comments/{id}")
+    fun getCommentById(@Header("Authorization") token: String, @Path("id") commentId: String) : Single<Comment>
 }

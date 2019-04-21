@@ -25,4 +25,8 @@ object CommentRepository {
     fun getAnswers() : Single<List<Comment>> {
         return ServiceFactory.provideCommentService().getAnswers(AuthRepository.token)
     }
+
+    fun getCommentById(commentId: String) : Single<Comment> {
+        return ServiceFactory.provideCommentService().getCommentById(AuthRepository.token, commentId)
+    }
 }

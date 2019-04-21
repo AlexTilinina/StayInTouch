@@ -19,15 +19,14 @@ import java.util.*
 
 class AnswerCommentDialog : DialogFragment() {
 
-    lateinit var commentAdapter: CommentAdapter
+    lateinit var answerAdapter: CommentAdapter
 
     companion object {
 
-        fun newInstance(commentId: String, postId: Int): AnswerCommentDialog {
+        fun newInstance(commentId: String): AnswerCommentDialog {
             val answerCommentDialog = AnswerCommentDialog()
             val bundle = Bundle()
             bundle.putString("commentId", commentId)
-            bundle.putInt("postId", postId)
             answerCommentDialog.arguments = bundle
             return answerCommentDialog
         }
@@ -38,7 +37,6 @@ class AnswerCommentDialog : DialogFragment() {
         val builder = AlertDialog.Builder(activity)
         val view = activity.layoutInflater.inflate(R.layout.dialog_comment, null)
         val commentId = arguments.getString("commentId")
-        val postId = arguments.getInt("postId")
         builder.setView(view)
             .setPositiveButton(R.string.send, null)
             .setNegativeButton(R.string.cancel) { _, _ ->
@@ -56,21 +54,21 @@ class AnswerCommentDialog : DialogFragment() {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe { setLoading(progressBar) }
-                        .subscribe{t-> createComment(t, editText, commentId, postId, dialog)}
+                        .subscribe{t-> createComment(t, editText, commentId, dialog)}
                 }
             }
         }
         return dialog
     }
 
-    fun createComment(user: User, editText: EditText, commentId: String, postId: Int, dialog: Dialog) {
-        val comment = Comment("", user, editText.text.toString(), GregorianCalendar(), postId)
+    fun createComment(user: User, editText: EditText, commentId: String, dialog: Dialog) {
+        val comment = Comment("", user, editText.text.toString(), GregorianCalendar())
         CommentRepository
             .createAnswer(commentId, comment)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe{t ->
-                commentAdapter.answerAdapter.add(t)
+                answerAdapter.add(t)
                 dialog.dismiss() }
     }
 

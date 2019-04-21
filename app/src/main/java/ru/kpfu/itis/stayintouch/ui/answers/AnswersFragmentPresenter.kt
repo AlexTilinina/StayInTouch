@@ -36,4 +36,14 @@ class AnswersFragmentPresenter : MvpPresenter<AnswersFragmentView>() {
             .doAfterTerminate(viewState::setNotLoading)
             .subscribe(viewState::showAnswers, viewState::handleError)
     }
+
+    fun loadComment(commentId: String) {
+        CommentRepository
+            .getCommentById(commentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(viewState::setLoading)
+            .doAfterTerminate(viewState::setNotLoading)
+            .subscribe(viewState::openPost, viewState::handleError)
+    }
 }

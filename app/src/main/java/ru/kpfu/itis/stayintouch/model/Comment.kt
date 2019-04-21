@@ -13,4 +13,5 @@ data class Comment(
     var date: GregorianCalendar?,
     var news_commented: Int? = null,
     var answers: List<Comment> = ArrayList(),
-    var like_counter: Int? = null) : Parcelable
+    var like_counter: Int? = null,
+    var answer_to:Int? = null) : Parcelable
