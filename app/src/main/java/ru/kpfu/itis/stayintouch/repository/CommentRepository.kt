@@ -18,10 +18,6 @@ object CommentRepository {
         return ServiceFactory.provideCommentService().getMyComments(AuthRepository.token)
     }
 
-    fun getCommentsByPostId(postId: Int, offset: Int) : Single<List<Comment>> {
-        return ServiceFactory.provideCommentServiceMock().getCommentsByPostId(postId, offset)
-    }
-
     fun getAnswers() : Single<List<Comment>> {
         return ServiceFactory.provideCommentService().getAnswers(AuthRepository.token)
     }

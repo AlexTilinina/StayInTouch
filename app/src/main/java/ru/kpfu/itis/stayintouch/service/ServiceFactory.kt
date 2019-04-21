@@ -5,7 +5,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.kpfu.itis.stayintouch.service.mock.*
 
 object ServiceFactory {
 
@@ -39,14 +38,6 @@ object ServiceFactory {
 
     fun provideCommentService() : CommentService {
         return commentService
-    }
-
-    fun provideTagServiceMock() : TagServiceMock {
-        return TagServiceMock()
-    }
-
-    fun provideCommentServiceMock() : CommentServiceMock {
-        return CommentServiceMock()
     }
 
     private fun buildRetrofit(): Retrofit {

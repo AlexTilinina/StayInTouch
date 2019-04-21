@@ -159,7 +159,7 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
                 R.mipmap.ic_launcher
             )
             val file = RequestBody.create(MediaType.parse("multipart/form-data"), picture)
-            val multipartFile = MultipartBody.Part.createFormData("image", picture.name, file);
+            val multipartFile = MultipartBody.Part.createFormData("image", picture.name, file)
             presenter.changePhoto(multipartFile)
         }
     }

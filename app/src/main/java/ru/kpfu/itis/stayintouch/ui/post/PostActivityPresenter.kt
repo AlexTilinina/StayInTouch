@@ -31,16 +31,6 @@ class PostActivityPresenter : MvpPresenter<PostActivityView>()  {
             .subscribe(viewState::initPost, viewState::handleError)
     }
 
-    fun loadNextElements(page: Int) {
-        CommentRepository
-            .getCommentsByPostId(postId, COUNT_OF_ELEMENTS * page)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe(viewState::setLoading)
-            .doAfterTerminate(viewState::setNotLoading)
-            .subscribe(viewState::loadMoreItems, viewState::handleError)
-    }
-
     fun getUser() {
         UserRepository
             .getCurrentUser()
