@@ -9,18 +9,33 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_create_post.*
+import kotlinx.android.synthetic.main.activity_create_post.progress_bar
+import kotlinx.android.synthetic.main.activity_create_post.toolbar
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.model.PostCreate
 import ru.kpfu.itis.stayintouch.ui.MainActivity
-import ru.kpfu.itis.stayintouch.utils.CODE_500
+import java.io.File
 import java.util.*
+import android.support.v7.widget.PopupMenu
+import ru.kpfu.itis.stayintouch.model.AttachmentCreate
+import ru.kpfu.itis.stayintouch.model.Message
+import ru.kpfu.itis.stayintouch.utils.*
+import android.content.pm.PackageManager
+import android.os.Build
+import android.support.annotation.RequiresApi
+import android.provider.MediaStore
+
 
 class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
 
     @InjectPresenter
     lateinit var presenter: CreatePostActivityPresenter
+    var attachment: AttachmentCreate? = null
 
     companion object {
 
@@ -59,13 +74,105 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
         MainActivity.create(this)
     }
 
+    override fun returnToMainActivity(message: Message) {
+        MainActivity.create(this)
+    }
+
+    override fun addAttachment(post: Post) {
+        if (attachment == null) {
+            Toast.makeText(this, "Что-то пошло не так", Toast.LENGTH_LONG).show()
+        } else {
+            attachment?.attach_to = RequestBody.create(MediaType.parse("multipart/form-data"), post.id.toString())
+            attachment?.let { presenter.addAttachment(it) }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && data != null && data.data != null) {
+            iv_attach.visibility = View.VISIBLE
+            tv_attach.visibility = View.VISIBLE
+            btn_delete.visibility = View.VISIBLE
+            when (requestCode) {
+                PICK_IMAGE_REQUEST -> {
+                    val path = this.let { FileHelper.getPathFromURI(data.data, it) }
+                    val picture = File(path)
+                    val file = RequestBody.create(MediaType.parse("multipart/form-data"), picture)
+                    val multipartFile = MultipartBody.Part.createFormData("file", picture.name, file)
+                    val label = RequestBody.create(MediaType.parse("multipart/form-data"), ATTACH_LABEL_IMAGE)
+                    attachment = AttachmentCreate(multipartFile, label)
+                    iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_image, null))
+                    tv_attach.text = picture.name
+                }
+            }
+
+        }
+    }
+
     private fun initOnClickListeners() {
         btn_attach.setOnClickListener {
-            //TODO attachments
+            showPopupAttachmentsMenu(it)
         }
         btn_create_post.setOnClickListener {
             createPost()
         }
+        btn_delete.setOnClickListener {
+            attachment = null
+            iv_attach.visibility = View.GONE
+            tv_attach.visibility = View.GONE
+            btn_delete.visibility = View.GONE
+        }
+    }
+
+    private fun showPopupAttachmentsMenu(v: View) {
+        val menu = PopupMenu(this, v)
+        makeMenuIconsVisible(menu)
+        menu.inflate(R.menu.create_post_attachments_menu)
+
+        menu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.attach_image -> {
+                    selectPictureFromDevice()
+                }
+                R.id.attach_video -> {
+
+                }
+                R.id.attach_file -> {
+
+                }
+                R.id.attach_link -> {
+
+                }
+            }
+            true
+        }
+        menu.show()
+    }
+
+    private fun makeMenuIconsVisible(menu: PopupMenu) {
+        try {
+            val fields = menu.javaClass.declaredFields
+            for (field in fields) {
+                if ("mPopup" == field.name) {
+                    field.isAccessible = true
+                    val menuPopupHelper = field.get(menu)
+                    val classPopupHelper = Class.forName(menuPopupHelper.javaClass.name)
+                    val setForceIcons = classPopupHelper.getMethod("setForceShowIcon",
+                        Boolean::class.javaPrimitiveType)
+                    setForceIcons.invoke(menuPopupHelper, true)
+                    break
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun selectPictureFromDevice() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
     }
 
     private fun createPost() {
@@ -83,8 +190,14 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
                     else tags.add(tag)
                 }
             }
-            if (text.isNotEmpty())
-                presenter.createPost(PostCreate(text, tags))
+            if (text.isNotEmpty()) {
+                val post = PostCreate(text, tags)
+                if (attachment != null) {
+                    presenter.createPostWithAttachments(post)
+                } else {
+                    presenter.createPost(post)
+                }
+            }
             else Toast.makeText(this, getString(R.string.error_empty_text), Toast.LENGTH_LONG).show()
         }
     }

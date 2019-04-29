@@ -11,7 +11,8 @@ import ru.kpfu.itis.stayintouch.model.UserPatch
 interface UserService {
 
     @GET("api/users/{id}/")
-    fun getUserById(@Header("Authorization") token: String, @Path("id") id: String) : Single<User>
+    fun getUserById(@Header("Authorization") token: String,
+                    @Path("id") id: String) : Single<User>
 
     @GET("auth/get-current-user/")
     fun getCurrentUser(@Header("Authorization") token: String): Single<User>
@@ -19,11 +20,6 @@ interface UserService {
     @PATCH("auth/get-current-user/")
     fun editProfile(@Header("Authorization") token: String,
                     @Body userPath: UserPatch): Single<User>
-
-    @Multipart
-    @POST("auth/get-current-user/change-photo")
-    fun changePhoto(@Header("Authorization") token: String,
-                    @Part("image") file: RequestBody) : Single<Message>
 
     @Multipart
     @POST("auth/get-current-user/change-photo")

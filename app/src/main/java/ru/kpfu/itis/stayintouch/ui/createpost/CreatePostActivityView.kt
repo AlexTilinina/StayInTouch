@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import io.reactivex.disposables.Disposable
+import ru.kpfu.itis.stayintouch.model.Message
 import ru.kpfu.itis.stayintouch.model.Post
 
 interface CreatePostActivityView : MvpView {
@@ -14,4 +15,8 @@ interface CreatePostActivityView : MvpView {
     fun setLoading(disposable: Disposable)
 
     fun returnToMainActivity(post: Post)
+
+    fun returnToMainActivity(message: Message)
+
+    fun addAttachment(post: Post)
 }

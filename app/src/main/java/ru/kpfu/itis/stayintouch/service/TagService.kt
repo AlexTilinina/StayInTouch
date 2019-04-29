@@ -13,8 +13,10 @@ interface TagService {
     fun getTags(@Header("Authorization") token: String) : Single<List<Tag>>
 
     @GET("api/tags/{id}/sub")
-    fun subscribeToTag(@Header("Authorization") token: String, @Path("id") id: Int) : Single<Tag>
+    fun subscribeToTag(@Header("Authorization") token: String,
+                       @Path("id") id: Int) : Single<Tag>
 
     @GET("api/tags/{id}/unsub")
-    fun unsubscribeFromTag(@Header("Authorization") token: String, @Path("id") id: Int) : Single<Tag>
+    fun unsubscribeFromTag(@Header("Authorization") token: String,
+                           @Path("id") id: Int) : Single<Tag>
 }

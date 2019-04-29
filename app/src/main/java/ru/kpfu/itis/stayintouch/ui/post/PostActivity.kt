@@ -119,7 +119,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         tv_author_name.text = name
         tv_text.text = post.text
         if (post.created != null) {
-            val date = post.getDateCreated()
+            val date = DateHelper.getDateCreated(post.created)
             tv_post_date.text = DateHelper.parseDate(date)
         }
         if (post.dateEvent != null) {
@@ -128,6 +128,17 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         } else {
             tv_date.visibility = View.GONE
             btn_event.visibility = View.GONE
+        }
+        if (post.attachments.isNotEmpty()) {
+            val attachment = post.attachments[0]
+            iv_attachment_image.visibility = View.VISIBLE
+            if (attachment.label.equals(ATTACH_LABEL_IMAGE)) {
+                ImageLoadHelper.loadImage(
+                    attachment.url,
+                    iv_attachment_image,
+                    ATTACH_IMAGE_SIZE_MEDIUM
+                )
+            }
         }
         var tags = ""
         for (tag in post.tags) {
@@ -153,7 +164,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         )
 
         intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)
-        applicationContext.startActivity(intent);
+        applicationContext.startActivity(intent)
     }
 
     private fun initOnClickListeners() {

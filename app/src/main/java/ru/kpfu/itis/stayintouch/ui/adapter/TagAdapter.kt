@@ -55,7 +55,7 @@ class TagAdapter(
                 .doAfterTerminate {
                     holder.itemView.progress_bar.visibility = View.GONE
                 }
-                .subscribe { t1, t2 ->
+                .subscribe { _, _ ->
                     holder.itemView.btn_unsubscribe.visibility = View.VISIBLE
                 }
         }
@@ -71,7 +71,7 @@ class TagAdapter(
                 .doAfterTerminate {
                     holder.itemView.progress_bar.visibility = View.GONE
                 }
-                .subscribe { t1, t2 ->
+                .subscribe { _, _ ->
                     holder.itemView.btn_subscribe.visibility = View.VISIBLE
                 }
         }

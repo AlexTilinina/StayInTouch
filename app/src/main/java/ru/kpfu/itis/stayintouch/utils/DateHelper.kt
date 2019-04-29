@@ -1,5 +1,6 @@
 package ru.kpfu.itis.stayintouch.utils
 
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DateHelper {
@@ -36,6 +37,14 @@ class DateHelper {
                 "$hourString:$minute $day.$month.${
                 date.get(Calendar.YEAR)}"
             return dateText
+        }
+
+        fun getDateCreated(stringDate: String?) : GregorianCalendar {
+            val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS")
+            val date = format.parse(stringDate)
+            val dateCreated = GregorianCalendar()
+            dateCreated.time = date
+            return dateCreated
         }
     }
 }

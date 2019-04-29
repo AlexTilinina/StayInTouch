@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/attach_image"
+        android:icon="@drawable/ic_image"
+        android:title="@string/attach_image"/>
+    <item
+        android:id="@+id/attach_video"
+        android:icon="@drawable/ic_video"
+        android:title="@string/attach_video"/>
+    <item
+        android:id="@+id/attach_file"
+        android:icon="@drawable/ic_file"
+        android:title="@string/attach_file"/>
+    <item
+        android:id="@+id/attach_link"
+        android:icon="@drawable/ic_link"
+        android:title="@string/attach_link"/>
+</menu>

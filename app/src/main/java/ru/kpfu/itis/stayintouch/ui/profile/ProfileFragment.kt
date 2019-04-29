@@ -24,9 +24,6 @@ import java.io.File
 import okhttp3.RequestBody
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.model.Message
-import android.net.Uri
-import android.provider.MediaStore
-import android.provider.DocumentsContract
 import okhttp3.MultipartBody
 import ru.kpfu.itis.stayintouch.utils.*
 
@@ -169,15 +166,12 @@ class ProfileFragment : MvpAppCompatFragment(), ProfileFragmentView {
             context?.let { it1 -> AuthActivity.create(it1, false) }
         }
         btn_ok.setOnClickListener {
-            var name = ""
-            var surname = ""
-            var email = ""
             if (et_first_name.text.isNotEmpty() && et_last_name.text.isNotEmpty()
                 && et_email.text.isNotEmpty()
             ) {
-                name = et_first_name.text.toString()
-                surname = et_last_name.text.toString()
-                email = et_email.text.toString()
+                val name = et_first_name.text.toString()
+                val surname = et_last_name.text.toString()
+                val email = et_email.text.toString()
                 presenter.editProfile(name, surname, email)
             } else {
                 Toast.makeText(this.context, R.string.error_empty_fields, Toast.LENGTH_SHORT).show()

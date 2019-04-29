@@ -7,6 +7,8 @@ import ru.kpfu.itis.stayintouch.App
 import ru.kpfu.itis.stayintouch.R
 import java.io.File
 
+
+
 class ImageLoadHelper {
 
     companion object {

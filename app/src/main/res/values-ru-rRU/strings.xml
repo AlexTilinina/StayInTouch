@@ -62,4 +62,12 @@
     <string name="empty_tags">У вас пока что нет тегов</string>
     <string name="reg_success">Регистрация прошла успешно</string>
     <string name="error_no_search">По вашему запросу ничего не найдено</string>
+    <string name="attachment">Прикрепленный файл</string>
+    <string name="attach_file">Файл</string>
+    <string name="attach_image">Изображение</string>
+    <string name="attach_link">Ссылка</string>
+    <string name="attach_photo">Фото</string>
+    <string name="attach_video">Видео</string>
+    <string name="attachment_type">Тип прикрепленного файла</string>
+    <string name="remove_attachment">Не прикреплять файл</string>
 </resources>

@@ -40,6 +40,7 @@
         android:inputType="textPersonName"
         android:textSize="@dimen/text_large"
         android:visibility="gone"
+        android:maxLength="16"
         android:layout_marginTop="12dp"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_toEndOf="@id/iv_profile_image"/>
@@ -50,6 +51,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:textSize="@dimen/text_large"
+        android:maxLength="16"
         android:visibility="gone"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginTop="-8dp"

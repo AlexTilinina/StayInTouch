@@ -79,6 +79,30 @@
                 android:textColor="@color/colorTextDark"
                 tools:text="test data for post sfdgdfgdfgdfsg dfgfd dfas fsdafsd fsafsdaf fdsafsdafsdf sdfsdafsdfsdf sdfsdfsdfsdfsadfsda sdfsdafsdafsdafas fasdfasdfas fasgadfgsdfhhgf"/>
 
+            <ImageView
+                android:id="@+id/iv_attachment_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_text"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/attachment"/>
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_text"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/attachment"/>
+
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
@@ -100,7 +124,8 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_large"
-                android:layout_below="@id/tv_text"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_below="@id/iv_attachment_image"
                 tools:text="#tag1 #tag2 #test123"/>
 
             <android.support.v7.widget.RecyclerView
@@ -115,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@id/tv_text"
+                android:layout_below="@id/iv_attachment_image"
                 android:layout_alignWithParentIfMissing="true"
                 android:src="@drawable/ic_drop_down"
                 android:background="@null"
@@ -161,7 +186,7 @@
         android:layout_above="@id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#7b7b7b"
+        android:background="#4B7B7B7B"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"/>
 

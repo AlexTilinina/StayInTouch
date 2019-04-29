@@ -68,4 +68,12 @@
     <string name="image_change_success">User profile photo successfully changed</string>
     <string name="image_change_fail">User profile photo changing encountered errors</string>
     <string name="click_profile_image">Click profile photo to change it</string>
+    <string name="attachment">Attachment</string>
+    <string name="attach_image">Image</string>
+    <string name="attach_photo">Photo</string>
+    <string name="attach_video">Video</string>
+    <string name="attach_file">File</string>
+    <string name="attach_link">Link</string>
+    <string name="attachment_type">Attachment type</string>
+    <string name="remove_attachment">Do not attach</string>
 </resources>

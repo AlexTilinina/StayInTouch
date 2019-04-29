@@ -10,9 +10,7 @@ import kotlinx.android.synthetic.main.item_post.view.*
 import ru.kpfu.itis.stayintouch.R.layout.item_post
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.ui.post.PostActivity
-import ru.kpfu.itis.stayintouch.utils.DateHelper
-import ru.kpfu.itis.stayintouch.utils.ImageLoadHelper
-import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_SMALL
+import ru.kpfu.itis.stayintouch.utils.*
 
 class PostAdapter(private val news: MutableList<Post>) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
@@ -41,7 +39,7 @@ class PostAdapter(private val news: MutableList<Post>) :
         holder.itemView.tv_author_name.text = username
         holder.itemView.tv_text.text = post.text
         if (post.created != null) {
-            val date = post.getDateCreated()
+            val date = DateHelper.getDateCreated(post.created)
             holder.itemView.tv_post_date.text = DateHelper.parseDate(date)
         }
         if (post.dateEvent != null) {
@@ -54,6 +52,19 @@ class PostAdapter(private val news: MutableList<Post>) :
         var tags = ""
         for (tag in post.tags) {
             tags += "${tag.name} "
+        }
+        if (post.attachments.isNotEmpty()) {
+            val attachment = post.attachments[0]
+            holder.itemView.iv_attachment_image.visibility = View.VISIBLE
+            if (attachment.label.equals(ATTACH_LABEL_IMAGE)) {
+                ImageLoadHelper.loadImage(
+                    attachment.url,
+                    holder.itemView.iv_attachment_image,
+                    ATTACH_IMAGE_SIZE_MEDIUM
+                )
+            }
+        } else {
+            holder.itemView.iv_attachment_image.visibility = View.GONE
         }
         holder.itemView.tv_tags.text = tags
         holder.itemView.btn_comments.setOnClickListener {
@@ -105,6 +116,6 @@ class PostAdapter(private val news: MutableList<Post>) :
         )
 
         intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)
-        parent.context.startActivity(intent);
+        parent.context.startActivity(intent)
     }
 }
