@@ -76,4 +76,5 @@
     <string name="attach_link">Link</string>
     <string name="attachment_type">Attachment type</string>
     <string name="remove_attachment">Do not attach</string>
+    <string name="play_button">Play button</string>
 </resources>

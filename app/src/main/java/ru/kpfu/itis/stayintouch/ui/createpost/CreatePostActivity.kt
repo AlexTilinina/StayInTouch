@@ -22,13 +22,10 @@ import ru.kpfu.itis.stayintouch.ui.MainActivity
 import java.io.File
 import java.util.*
 import android.support.v7.widget.PopupMenu
+import android.util.Log
 import ru.kpfu.itis.stayintouch.model.AttachmentCreate
 import ru.kpfu.itis.stayintouch.model.Message
 import ru.kpfu.itis.stayintouch.utils.*
-import android.content.pm.PackageManager
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.provider.MediaStore
 
 
 class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
@@ -93,7 +90,28 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
             iv_attach.visibility = View.VISIBLE
             tv_attach.visibility = View.VISIBLE
             btn_delete.visibility = View.VISIBLE
+            var label_name = ""
             when (requestCode) {
+                PICK_IMAGE_REQUEST -> {
+                    label_name = ATTACH_LABEL_IMAGE
+                    iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_image, null))
+                }
+                PICK_VIDEO_REQUEST -> {
+                    label_name = ATTACH_LABEL_VIDEO
+                    iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_video, null))
+                }
+            }
+            val path = FileHelper.getPathFromURI(data.data, this, label_name)
+            val fileToLoad = File(path)
+            val file = RequestBody.create(MediaType.parse("multipart/form-data"), fileToLoad)
+            val multipartFile = MultipartBody.Part.createFormData("file", fileToLoad.name, file)
+
+            val label = RequestBody.create(MediaType.parse("multipart/form-data"), label_name)
+            attachment = AttachmentCreate(multipartFile, label)
+
+            tv_attach.text = fileToLoad.name
+
+            /*when (requestCode) {
                 PICK_IMAGE_REQUEST -> {
                     val path = this.let { FileHelper.getPathFromURI(data.data, it) }
                     val picture = File(path)
@@ -104,7 +122,10 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
                     iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_image, null))
                     tv_attach.text = picture.name
                 }
-            }
+                PICK_VIDEO_REQUEST -> {
+
+                }
+            }*/
 
         }
     }
@@ -135,7 +156,7 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
                     selectPictureFromDevice()
                 }
                 R.id.attach_video -> {
-
+                    selectVideoFromDevice()
                 }
                 R.id.attach_file -> {
 
@@ -173,6 +194,13 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
+
+    private fun selectVideoFromDevice() {
+        val intent = Intent()
+        intent.type = "video/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select a Video"), PICK_VIDEO_REQUEST)
     }
 
     private fun createPost() {

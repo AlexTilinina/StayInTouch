@@ -86,7 +86,7 @@ class AnswersFragment : MvpAppCompatFragment(), AnswersFragmentView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view.btns_segmented.setTintColor(resources.getColor(R.color.colorPrimaryLight, null))
         }
-        adapter = CommentAdapter(myComments, context, presenter = presenter)
+        adapter = CommentAdapter(myComments, presenter = presenter)
         view.btns_segmented.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 view.btn_my_comments.id -> {

@@ -70,4 +70,5 @@
     <string name="attach_video">Видео</string>
     <string name="attachment_type">Тип прикрепленного файла</string>
     <string name="remove_attachment">Не прикреплять файл</string>
+    <string name="play_button">Воспроизвести</string>
 </resources>

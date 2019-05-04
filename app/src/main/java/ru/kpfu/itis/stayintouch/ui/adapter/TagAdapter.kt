@@ -1,6 +1,5 @@
 package ru.kpfu.itis.stayintouch.ui.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,15 +13,17 @@ import ru.kpfu.itis.stayintouch.repository.TagRepository
 import ru.kpfu.itis.stayintouch.ui.MainActivity
 
 class TagAdapter(
-    private val tags: MutableList<Tag>,
-    private val context: Context? = null
+    private val tags: MutableList<Tag>
 ) : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
 
     class TagViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
+    private lateinit var parent: ViewGroup
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(item_tag, parent, false)
+        this.parent = parent
         return TagViewHolder(view)
     }
 
@@ -38,9 +39,9 @@ class TagAdapter(
             holder.itemView.btn_subscribe.visibility = View.GONE
             holder.itemView.btn_unsubscribe.visibility = View.VISIBLE
         }
-        if (context != null) {
+        if (parent.context != null) {
             holder.itemView.setOnClickListener {
-                MainActivity.create(context, tag.name)
+                MainActivity.create(parent.context, tag.name)
             }
         }
         holder.itemView.btn_subscribe.setOnClickListener {

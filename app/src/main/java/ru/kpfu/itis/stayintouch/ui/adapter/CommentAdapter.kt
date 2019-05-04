@@ -23,16 +23,18 @@ import ru.kpfu.itis.stayintouch.utils.PROFILE_IMAGE_SIZE_MEDIUM
 
 class CommentAdapter (
     private val comments: MutableList<Comment>,
-    private val context: Context? = null,
     private val fragmentManager: FragmentManager? = null,
     private val presenter: AnswersFragmentPresenter? = null
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
     class CommentViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
+    private lateinit var parent: ViewGroup
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(item_comment, parent, false)
+        this.parent = parent
         return CommentViewHolder(view)
     }
 
@@ -57,7 +59,7 @@ class CommentAdapter (
         if (fragmentManager != null) {
             val answerAdapter = CommentAdapter(ArrayList())
             holder.itemView.recycler_view.adapter = answerAdapter
-            holder.itemView.recycler_view.layoutManager = LinearLayoutManager(context)
+            holder.itemView.recycler_view.layoutManager = LinearLayoutManager(parent.context)
 
             if (comment.answers.isNotEmpty()) {
                 answerAdapter.changeDataSet(comment.answers.toMutableList())
@@ -71,7 +73,7 @@ class CommentAdapter (
         } else {
             holder.itemView.tv_answer.visibility = View.GONE
             holder.itemView.setOnClickListener {
-                context?.let { it1 ->
+                parent.context?.let { it1 ->
                     comment.news_commented?.let { it2 ->
                         PostActivity.create(it1, it2)
                     }

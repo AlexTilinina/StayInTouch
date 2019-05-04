@@ -1,12 +1,16 @@
 package ru.kpfu.itis.stayintouch.ui.adapter
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.provider.CalendarContract
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_post.view.*
+import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.R.layout.item_post
 import ru.kpfu.itis.stayintouch.model.Post
 import ru.kpfu.itis.stayintouch.ui.post.PostActivity
@@ -55,16 +59,34 @@ class PostAdapter(private val news: MutableList<Post>) :
         }
         if (post.attachments.isNotEmpty()) {
             val attachment = post.attachments[0]
-            holder.itemView.iv_attachment_image.visibility = View.VISIBLE
-            if (attachment.label.equals(ATTACH_LABEL_IMAGE)) {
-                ImageLoadHelper.loadImage(
-                    attachment.url,
-                    holder.itemView.iv_attachment_image,
-                    ATTACH_IMAGE_SIZE_MEDIUM
-                )
+            when (attachment.label) {
+                ATTACH_LABEL_IMAGE -> {
+                    holder.itemView.iv_attachment_image.visibility = View.VISIBLE
+                    ImageLoadHelper.loadImage(
+                        attachment.url,
+                        holder.itemView.iv_attachment_image,
+                        ATTACH_IMAGE_SIZE_MEDIUM
+                    )
+                }
+                ATTACH_LABEL_VIDEO -> {
+                    holder.itemView.fl_attachment_video.visibility = View.VISIBLE
+                    holder.itemView.iv_attachment_video.setImageDrawable(
+                        ContextCompat.getDrawable(parent.context, R.drawable.ic_video))
+                    AsyncBitmap(holder.itemView.iv_attachment_video,
+                        holder.itemView.iv_play,
+                        ATTACH_VIDEO_WIDTH_MEDIUM,
+                        ATTACH_IMAGE_SIZE_MEDIUM,
+                        attachment.url).execute()
+                    holder.itemView.iv_play.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.setDataAndType(Uri.parse(attachment.url), "video/mp4")
+                        parent.context.startActivity(intent)
+                    }
+                }
             }
         } else {
             holder.itemView.iv_attachment_image.visibility = View.GONE
+            holder.itemView.fl_attachment_video.visibility = View.GONE
         }
         holder.itemView.tv_tags.text = tags
         holder.itemView.btn_comments.setOnClickListener {

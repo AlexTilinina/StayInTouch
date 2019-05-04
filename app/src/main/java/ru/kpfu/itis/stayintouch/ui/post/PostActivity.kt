@@ -21,6 +21,9 @@ import ru.kpfu.itis.stayintouch.ui.adapter.TagAdapter
 import java.util.*
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.net.Uri
+import android.support.v4.content.ContextCompat
+import android.widget.MediaController
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.utils.*
 
@@ -131,13 +134,30 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         }
         if (post.attachments.isNotEmpty()) {
             val attachment = post.attachments[0]
-            iv_attachment_image.visibility = View.VISIBLE
-            if (attachment.label.equals(ATTACH_LABEL_IMAGE)) {
-                ImageLoadHelper.loadImage(
-                    attachment.url,
-                    iv_attachment_image,
-                    ATTACH_IMAGE_SIZE_MEDIUM
-                )
+            when (attachment.label) {
+                ATTACH_LABEL_IMAGE -> {
+                    iv_attachment_image.visibility = View.VISIBLE
+                    ImageLoadHelper.loadImage(
+                        attachment.url,
+                        iv_attachment_image,
+                        ATTACH_IMAGE_SIZE_MEDIUM
+                    )
+                }
+                ATTACH_LABEL_VIDEO -> {
+                    fl_attachment_video.visibility = View.VISIBLE
+                    iv_attachment_video.setImageDrawable(
+                        ContextCompat.getDrawable(this, R.drawable.ic_video))
+                    AsyncBitmap(iv_attachment_video,
+                        iv_play,
+                        ATTACH_VIDEO_WIDTH_MEDIUM,
+                        ATTACH_IMAGE_SIZE_MEDIUM,
+                        attachment.url).execute()
+                    iv_play.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.setDataAndType(Uri.parse(attachment.url), "video/mp4")
+                        startActivity(intent)
+                    }
+                }
             }
         }
         var tags = ""
@@ -207,7 +227,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         for (tag in tags) {
             tag.subscr = !user.profile?.tags?.contains(tag)!!
         }
-        rv_tags.adapter = TagAdapter(tags.toMutableList(), this)
+        rv_tags.adapter = TagAdapter(tags.toMutableList())
         rv_tags.layoutManager = LinearLayoutManager(this)
     }
 

@@ -27,6 +27,7 @@ const val PROFILE_IMAGE_SIZE_SMALL = 48
 const val PROFILE_IMAGE_SIZE_MEDIUM = 96
 
 const val PICK_IMAGE_REQUEST = 1
+const val PICK_VIDEO_REQUEST = 2
 
 const val COUNT_OF_ELEMENTS = 10
 
@@ -36,3 +37,4 @@ const val ATTACH_LABEL_VIDEO = "video"
 const val ATTACH_LABEL_LINK = "link"
 
 const val ATTACH_IMAGE_SIZE_MEDIUM = 500
+const val ATTACH_VIDEO_WIDTH_MEDIUM = 900
