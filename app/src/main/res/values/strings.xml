@@ -27,18 +27,6 @@
     <string name="subscribe">+ Subscribe</string>
     <string name="unsubscribe">- Unsubscribe</string>
     <string name="my_comments">My comments</string>
-
-    <string name="error_empty_username">Enter username!</string>
-    <string name="error_empty_email">Enter email!</string>
-    <string name="error_empty_password">Enter password!</string>
-    <string name="error_different_passwords">Passwords are different</string>
-    <string name="error_wrong_password">Password is must contain min 8 characters, at 1 uppercase letter, 1 lowercase letter, 1 number and 1 special symbol!</string>
-    <string name="error_wrong_email">Invalid email!</string>
-    <string name="error_empty_name">Enter name</string>
-    <string name="error_empty_surname">Enter surname</string>
-    <string name="error_login_data">Invalid e-mail or password</string>
-    <string name="error_email_exists">E-mail already taken</string>
-    <string name="error_server_not_responding">Server is not responding</string>
     <string name="log_out">Log out</string>
     <string name="reg_success">Registration successful</string>
     <string name="sign_in_another_way">Sign in another way</string>
@@ -56,13 +44,10 @@
     <string name="create">Create</string>
     <string name="answer">Answer</string>
     <string name="enter_comment">Enter comment</string>
+    <string name="enter_link">Enter link</string>
     <string name="send">Send</string>
     <string name="username">Username</string>
     <string name="edit_profile">Edit profile</string>
-    <string name="error_empty_fields">Some fields are empty!</string>
-    <string name="error_empty_tags">Enter some tags</string>
-    <string name="error_empty_text">Enter some text</string>
-    <string name="error_no_search">No results found</string>
     <string name="search_hint">Search</string>
     <string name="show_expanded_tags_list">Show expanded tags list</string>
     <string name="image_change_success">User profile photo successfully changed</string>
@@ -70,11 +55,30 @@
     <string name="click_profile_image">Click profile photo to change it</string>
     <string name="attachment">Attachment</string>
     <string name="attach_image">Image</string>
-    <string name="attach_photo">Photo</string>
     <string name="attach_video">Video</string>
     <string name="attach_file">File</string>
     <string name="attach_link">Link</string>
     <string name="attachment_type">Attachment type</string>
     <string name="remove_attachment">Do not attach</string>
     <string name="play_button">Play button</string>
+    <string name="download_file">Download file</string>
+    <string name="link_placeholder" translatable="false">http://example.com/example</string>
+
+    <string name="error_upload_file">Error uploading file</string>
+    <string name="error_empty_fields">Some fields are empty!</string>
+    <string name="error_empty_tags">Enter some tags</string>
+    <string name="error_empty_text">Enter some text</string>
+    <string name="error_no_search">No results found</string>
+    <string name="error_empty_username">Enter username!</string>
+    <string name="error_empty_email">Enter email!</string>
+    <string name="error_empty_password">Enter password!</string>
+    <string name="error_different_passwords">Passwords are different</string>
+    <string name="error_wrong_password">Password is must contain min 8 characters, at 1 uppercase letter, 1 lowercase letter, 1 number and 1 special symbol!</string>
+    <string name="error_wrong_email">Invalid email!</string>
+    <string name="error_empty_name">Enter name</string>
+    <string name="error_empty_surname">Enter surname</string>
+    <string name="error_login_data">Invalid e-mail or password</string>
+    <string name="error_email_exists">E-mail already taken</string>
+    <string name="error_server_not_responding">Server is not responding</string>
+    <string name="error_link_not_correct">Your link is not correct</string>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/link_placeholder"
+            android:gravity="top|start"
+            android:lines="2"
+            android:inputType="textMultiLine"
+            android:layout_weight="4"
+            android:layout_margin="@dimen/margin_medium"/>
+    </LinearLayout>
+</RelativeLayout>

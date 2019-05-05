@@ -23,7 +23,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.net.Uri
 import android.support.v4.content.ContextCompat
-import android.widget.MediaController
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.utils.*
 
@@ -156,6 +155,23 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
                         val intent = Intent(Intent.ACTION_VIEW)
                         intent.setDataAndType(Uri.parse(attachment.url), "video/mp4")
                         startActivity(intent)
+                    }
+                }
+                ATTACH_LABEL_FILE -> {
+                    fl_attachment_file.visibility = View.VISIBLE
+                    tv_attachment_file.text = resources.getString(R.string.download_file)
+                    fl_attachment_file.setOnClickListener {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(attachment.url))
+                        startActivity(browserIntent)
+                    }
+                }
+                ATTACH_LABEL_LINK -> {
+                    fl_attachment_file.visibility = View.VISIBLE
+                    tv_attachment_file.text = attachment.url
+                    iv_attachment_file.setImageDrawable(resources.getDrawable(R.drawable.ic_link, null))
+                    fl_attachment_file.setOnClickListener {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(attachment.url))
+                        startActivity(browserIntent)
                     }
                 }
             }

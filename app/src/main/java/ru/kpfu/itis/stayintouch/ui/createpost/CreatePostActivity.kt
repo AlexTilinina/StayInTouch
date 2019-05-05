@@ -22,7 +22,6 @@ import ru.kpfu.itis.stayintouch.ui.MainActivity
 import java.io.File
 import java.util.*
 import android.support.v7.widget.PopupMenu
-import android.util.Log
 import ru.kpfu.itis.stayintouch.model.AttachmentCreate
 import ru.kpfu.itis.stayintouch.model.Message
 import ru.kpfu.itis.stayintouch.utils.*
@@ -77,56 +76,51 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
 
     override fun addAttachment(post: Post) {
         if (attachment == null) {
-            Toast.makeText(this, "Что-то пошло не так", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.error_upload_file), Toast.LENGTH_LONG).show()
         } else {
             attachment?.attach_to = RequestBody.create(MediaType.parse("multipart/form-data"), post.id.toString())
             attachment?.let { presenter.addAttachment(it) }
         }
     }
 
+    override fun addLink(link: String) {
+        iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_link, null))
+        showAttachment()
+        tv_attach.text = link
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && data != null && data.data != null) {
-            iv_attach.visibility = View.VISIBLE
-            tv_attach.visibility = View.VISIBLE
-            btn_delete.visibility = View.VISIBLE
-            var label_name = ""
+            showAttachment()
+            var labelName = ""
             when (requestCode) {
                 PICK_IMAGE_REQUEST -> {
-                    label_name = ATTACH_LABEL_IMAGE
+                    labelName = ATTACH_LABEL_IMAGE
                     iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_image, null))
                 }
                 PICK_VIDEO_REQUEST -> {
-                    label_name = ATTACH_LABEL_VIDEO
+                    labelName = ATTACH_LABEL_VIDEO
                     iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_video, null))
                 }
+                PICK_FILE_REQUEST -> {
+                    labelName = ATTACH_LABEL_FILE
+                    iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_file, null))
+                }
             }
-            val path = FileHelper.getPathFromURI(data.data, this, label_name)
+            val path = FileHelper.getPathFromURI(data.data, this, labelName)
             val fileToLoad = File(path)
+            if (path.isEmpty()) {
+                removeAttachment()
+                Toast.makeText(this, getString(R.string.error_upload_file), Toast.LENGTH_LONG).show()
+            }
             val file = RequestBody.create(MediaType.parse("multipart/form-data"), fileToLoad)
             val multipartFile = MultipartBody.Part.createFormData("file", fileToLoad.name, file)
 
-            val label = RequestBody.create(MediaType.parse("multipart/form-data"), label_name)
+            val label = RequestBody.create(MediaType.parse("multipart/form-data"), labelName)
             attachment = AttachmentCreate(multipartFile, label)
 
             tv_attach.text = fileToLoad.name
-
-            /*when (requestCode) {
-                PICK_IMAGE_REQUEST -> {
-                    val path = this.let { FileHelper.getPathFromURI(data.data, it) }
-                    val picture = File(path)
-                    val file = RequestBody.create(MediaType.parse("multipart/form-data"), picture)
-                    val multipartFile = MultipartBody.Part.createFormData("file", picture.name, file)
-                    val label = RequestBody.create(MediaType.parse("multipart/form-data"), ATTACH_LABEL_IMAGE)
-                    attachment = AttachmentCreate(multipartFile, label)
-                    iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_image, null))
-                    tv_attach.text = picture.name
-                }
-                PICK_VIDEO_REQUEST -> {
-
-                }
-            }*/
-
         }
     }
 
@@ -138,11 +132,21 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
             createPost()
         }
         btn_delete.setOnClickListener {
-            attachment = null
-            iv_attach.visibility = View.GONE
-            tv_attach.visibility = View.GONE
-            btn_delete.visibility = View.GONE
+            removeAttachment()
         }
+    }
+
+    private fun removeAttachment() {
+        attachment = null
+        iv_attach.visibility = View.GONE
+        tv_attach.visibility = View.GONE
+        btn_delete.visibility = View.GONE
+    }
+
+    private fun showAttachment() {
+        iv_attach.visibility = View.VISIBLE
+        tv_attach.visibility = View.VISIBLE
+        btn_delete.visibility = View.VISIBLE
     }
 
     private fun showPopupAttachmentsMenu(v: View) {
@@ -159,10 +163,12 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
                     selectVideoFromDevice()
                 }
                 R.id.attach_file -> {
-
+                    selectFileFromDevice()
                 }
                 R.id.attach_link -> {
-
+                    val attachLinkDialog = AttachLinkDialog.newInstance()
+                    attachLinkDialog.createPostActivityView = this
+                    attachLinkDialog.show(fragmentManager, ATTACH_LABEL_LINK)
                 }
             }
             true
@@ -201,6 +207,13 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
         intent.type = "video/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Select a Video"), PICK_VIDEO_REQUEST)
+    }
+
+    private fun selectFileFromDevice() {
+        val intent = Intent()
+        intent.type = "*/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Choose File to Upload.."), PICK_FILE_REQUEST)
     }
 
     private fun createPost() {

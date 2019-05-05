@@ -71,4 +71,8 @@
     <string name="attachment_type">Тип прикрепленного файла</string>
     <string name="remove_attachment">Не прикреплять файл</string>
     <string name="play_button">Воспроизвести</string>
+    <string name="error_upload_file">Ошибка загрузки файла</string>
+    <string name="download_file">Скачать файл</string>
+    <string name="enter_link">Вставьте ссылку</string>
+    <string name="error_link_not_correct">Вы ввели неверную ссылку</string>
 </resources>

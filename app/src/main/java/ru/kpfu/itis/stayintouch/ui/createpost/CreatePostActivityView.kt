@@ -19,4 +19,6 @@ interface CreatePostActivityView : MvpView {
     fun returnToMainActivity(message: Message)
 
     fun addAttachment(post: Post)
+
+    fun addLink(link: String)
 }

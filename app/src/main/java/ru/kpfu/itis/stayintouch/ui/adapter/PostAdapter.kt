@@ -83,6 +83,23 @@ class PostAdapter(private val news: MutableList<Post>) :
                         parent.context.startActivity(intent)
                     }
                 }
+                ATTACH_LABEL_FILE -> {
+                    holder.itemView.fl_attachment_file.visibility = View.VISIBLE
+                    holder.itemView.tv_attachment_file.text = parent.context.resources.getString(R.string.download_file)
+                    holder.itemView.fl_attachment_file.setOnClickListener {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(attachment.url))
+                        parent.context.startActivity(browserIntent)
+                    }
+                }
+                ATTACH_LABEL_LINK -> {
+                    holder.itemView.fl_attachment_file.visibility = View.VISIBLE
+                    holder.itemView.tv_attachment_file.text = attachment.url
+                    holder.itemView.iv_attachment_file.setImageDrawable(parent.context.resources.getDrawable(R.drawable.ic_link, null))
+                    holder.itemView.fl_attachment_file.setOnClickListener {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(attachment.url))
+                        parent.context.startActivity(browserIntent)
+                    }
+                }
             }
         } else {
             holder.itemView.iv_attachment_image.visibility = View.GONE

@@ -101,6 +101,35 @@
                     android:src="@drawable/ic_play"/>
             </FrameLayout>
 
+            <RelativeLayout
+                android:id="@+id/fl_attachment_file"
+                android:layout_below="@id/fl_attachment_video"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_attachment_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/attach_file"
+                    android:src="@drawable/ic_file"/>
+
+                <TextView
+                    android:id="@+id/tv_attachment_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/colorTextLink"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_toEndOf="@id/iv_attachment_file"
+                    tools:text="filename 12343543534"
+                    android:layout_marginEnd="@dimen/margin_large"/>
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_below="@id/tv_tags"
@@ -121,11 +150,9 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginBottom="@dimen/margin_small"
                 tools:text="#tag1 #tag2 #test123"
-                android:layout_below="@id/fl_attachment_video"
+                android:layout_below="@id/fl_attachment_file"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-          <!--style="?android:attr/buttonBarButtonStyle"-->
 
             <ImageButton
                 android:id="@+id/btn_comments"

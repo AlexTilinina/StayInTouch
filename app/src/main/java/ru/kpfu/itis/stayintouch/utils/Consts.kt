@@ -2,6 +2,7 @@ package ru.kpfu.itis.stayintouch.utils
 
 const val EMAIL_REGEX = "^((\\w[^\\W]+)[.\\-]?)+@(([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\" + ".[0-9]{1,3})|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
 const val PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&#])[A-Za-z\\d@\$!%*?&#]{8,}\$"
+const val LINK_REGEX = "^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#\\[\\]@!\\\$&'\\(\\)\\*\\+,;=.]+\$"
 
 const val NEWS_FRAGMENT_TAG = "NewsFragment"
 const val RECOMMENDATION_FRAGMENT_TAG = "RecommendFragment"
@@ -28,6 +29,7 @@ const val PROFILE_IMAGE_SIZE_MEDIUM = 96
 
 const val PICK_IMAGE_REQUEST = 1
 const val PICK_VIDEO_REQUEST = 2
+const val PICK_FILE_REQUEST = 3
 
 const val COUNT_OF_ELEMENTS = 10
 
