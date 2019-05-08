@@ -28,10 +28,23 @@ class CreatePostActivityPresenter : MvpPresenter<CreatePostActivityView>() {
     }
 
     fun addAttachment(attachment: AttachmentCreate) {
-        attachment.attach_to?.let { PostRepository
-            .addAttachment(attachment.file, attachment.label, it)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(viewState::returnToMainActivity, viewState::handleError)}
+        if (attachment.file != null) {
+            attachment.attach_to?.let { PostRepository
+                .addAttachment(attachment.file, attachment.label, it)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(viewState::returnToMainActivity, viewState::handleError)}
+        } else {
+            attachment.attach_to?.let {
+                attachment.url?.let { it1 ->
+                    PostRepository
+                        .addAttachmentLink(it1, attachment.label, it)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(viewState::returnToMainActivity, viewState::handleError)
+                }
+            }
+        }
+
     }
 }

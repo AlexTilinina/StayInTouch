@@ -87,41 +87,47 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
         iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_link, null))
         showAttachment()
         tv_attach.text = link
+        val label = RequestBody.create(MediaType.parse("multipart/form-data"), ATTACH_LABEL_LINK)
+        val url = RequestBody.create(MediaType.parse("multipart/form-data"), link)
+        attachment = AttachmentCreate(url=url, label=label)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && data != null && data.data != null) {
             showAttachment()
-            var labelName = ""
             when (requestCode) {
                 PICK_IMAGE_REQUEST -> {
-                    labelName = ATTACH_LABEL_IMAGE
                     iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_image, null))
+                    createAttachment(data, ATTACH_LABEL_IMAGE)
                 }
                 PICK_VIDEO_REQUEST -> {
-                    labelName = ATTACH_LABEL_VIDEO
                     iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_video, null))
+                    createAttachment(data, ATTACH_LABEL_VIDEO)
                 }
                 PICK_FILE_REQUEST -> {
-                    labelName = ATTACH_LABEL_FILE
                     iv_attach.setImageDrawable(resources.getDrawable(R.drawable.ic_file, null))
+                    createAttachment(data, ATTACH_LABEL_FILE)
                 }
             }
-            val path = FileHelper.getPathFromURI(data.data, this, labelName)
-            val fileToLoad = File(path)
-            if (path.isEmpty()) {
-                removeAttachment()
-                Toast.makeText(this, getString(R.string.error_upload_file), Toast.LENGTH_LONG).show()
-            }
-            val file = RequestBody.create(MediaType.parse("multipart/form-data"), fileToLoad)
-            val multipartFile = MultipartBody.Part.createFormData("file", fileToLoad.name, file)
 
-            val label = RequestBody.create(MediaType.parse("multipart/form-data"), labelName)
-            attachment = AttachmentCreate(multipartFile, label)
-
-            tv_attach.text = fileToLoad.name
         }
+    }
+
+    private fun createAttachment(data: Intent, labelName: String) {
+        val path = FileHelper.getPathFromURI(data.data, this, labelName)
+        val fileToLoad = File(path)
+        if (path.isEmpty()) {
+            removeAttachment()
+            Toast.makeText(this, getString(R.string.error_upload_file), Toast.LENGTH_LONG).show()
+        }
+        val file = RequestBody.create(MediaType.parse("multipart/form-data"), fileToLoad)
+        val multipartFile = MultipartBody.Part.createFormData("file", fileToLoad.name, file)
+
+        val label = RequestBody.create(MediaType.parse("multipart/form-data"), labelName)
+        attachment = AttachmentCreate(file=multipartFile, label=label)
+
+        tv_attach.text = fileToLoad.name
     }
 
     private fun initOnClickListeners() {

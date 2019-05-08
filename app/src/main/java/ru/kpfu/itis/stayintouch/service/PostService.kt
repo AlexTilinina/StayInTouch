@@ -38,4 +38,11 @@ interface PostService {
                       @Part file: MultipartBody.Part,
                       @Part("label") label: RequestBody,
                       @Part("attach_to") attach_to: RequestBody) : Single<Message>
+
+    @Multipart
+    @POST("api/attachments/")
+    fun addAttachmentLink(@Header("Authorization") token: String,
+                      @Part("url") link: RequestBody,
+                      @Part("label") label: RequestBody,
+                      @Part("attach_to") attach_to: RequestBody) : Single<Message>
 }

@@ -35,4 +35,10 @@ object PostRepository {
                       attach_to: RequestBody) : Single<Message> {
         return ServiceFactory.providePostService().addAttachment(AuthRepository.token, file, label, attach_to)
     }
+
+    fun addAttachmentLink(link: RequestBody,
+                          label: RequestBody,
+                          attach_to: RequestBody) : Single<Message> {
+        return ServiceFactory.providePostService().addAttachmentLink(AuthRepository.token, link, label, attach_to)
+    }
 }
