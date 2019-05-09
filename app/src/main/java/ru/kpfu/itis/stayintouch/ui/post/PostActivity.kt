@@ -55,6 +55,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initOnClickListeners()
         initComments()
+        initSwipeRefreshLayout()
     }
 
     override fun initPost(post: Post) {
@@ -70,11 +71,7 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
     override fun changeLoadingState(isLoading: Boolean) {
         this.isLoading = isLoading
-        if (isLoading) {
-            progress_bar.visibility = View.VISIBLE
-        } else {
-            progress_bar.visibility = View.GONE
-        }
+        swipe_refresh_layout.isRefreshing = isLoading
     }
 
     override fun loadMoreItems(items: List<Comment>) {
@@ -108,6 +105,12 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
     override fun addItem(comment: Comment) {
         adapter.add(comment)
+    }
+
+    private fun initSwipeRefreshLayout() {
+        swipe_refresh_layout.setOnRefreshListener {
+            presenter.initPost()
+        }
     }
 
     private fun initPost() {

@@ -61,7 +61,7 @@
     <string name="attachment_type">Attachment type</string>
     <string name="remove_attachment">Do not attach</string>
     <string name="play_button">Play button</string>
-    <string name="download_file">Download file</string>
+    <string name="download_file">Open file</string>
     <string name="link_placeholder" translatable="false">http://example.com/example</string>
 
     <string name="error_upload_file">Error uploading file</string>
