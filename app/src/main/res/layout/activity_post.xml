@@ -285,4 +285,24 @@
             android:src="@drawable/ic_send"
             android:background="@null"/>
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_attachment_image_full"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:background="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_attachment_image_full"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/attachment"
+            />
+    </FrameLayout>
+
 </RelativeLayout>

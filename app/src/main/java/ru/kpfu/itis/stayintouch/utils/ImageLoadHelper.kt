@@ -23,6 +23,12 @@ class ImageLoadHelper {
                 .into(into)
         }
 
+        fun loadImage(picture: String?, into: ImageView) {
+            Picasso.get()
+                .load(picture)
+                .into(into)
+        }
+
         fun loadImage(picture: String?, into: ImageView, size: Int) {
             if (!picture.isNullOrEmpty()) {
                 App.picassoWithCache

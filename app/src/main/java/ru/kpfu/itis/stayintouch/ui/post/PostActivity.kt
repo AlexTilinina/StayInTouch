@@ -25,6 +25,10 @@ import android.net.Uri
 import android.support.v4.content.ContextCompat
 import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.utils.*
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+import android.view.MotionEvent
+import android.graphics.Rect
 
 class PostActivity : MvpAppCompatActivity(), PostActivityView {
 
@@ -107,6 +111,15 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
         adapter.add(comment)
     }
 
+    override fun onBackPressed() {
+        if (fl_attachment_image_full.visibility == View.VISIBLE) {
+            fl_attachment_image_full.visibility = View.GONE
+            supportActionBar?.show()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun initSwipeRefreshLayout() {
         swipe_refresh_layout.setOnRefreshListener {
             presenter.initPost()
@@ -139,10 +152,51 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
             when (attachment.label) {
                 ATTACH_LABEL_IMAGE -> {
                     iv_attachment_image.visibility = View.VISIBLE
+                    iv_attachment_image.setOnClickListener {
+                        fl_attachment_image_full.visibility = View.VISIBLE
+                        var tracking = false
+                        var startY = 0.0f
+                        iv_attachment_image_full.setOnTouchListener { _, event ->
+                            when (event.action) {
+                                MotionEvent.ACTION_DOWN -> {
+                                    val hitRect = Rect()
+                                    iv_attachment_image_full.getHitRect(hitRect)
+                                    if (hitRect.contains(event.x.toInt(), event.y.toInt())) {
+                                        tracking = true
+                                    }
+                                    startY = event.y
+                                }
+                                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                                    tracking = false
+                                    fl_attachment_image_full.visibility = View.GONE
+                                    supportActionBar?.show()
+                                    startY = 0.0f
+                                    iv_attachment_image_full.translationY = startY
+                                }
+                                MotionEvent.ACTION_MOVE -> {
+                                    if (tracking) {
+                                        iv_attachment_image_full.translationY = event.y - startY
+                                    }
+                                }
+                            }
+                            true
+                        }
+                        supportActionBar?.hide()
+                        val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                        var view = this.currentFocus
+                        if (view == null) {
+                            view = View(this)
+                        }
+                        imm.hideSoftInputFromWindow(view.windowToken, 0)
+                    }
                     ImageLoadHelper.loadImage(
                         attachment.url,
                         iv_attachment_image,
                         ATTACH_IMAGE_SIZE_MEDIUM
+                    )
+                    ImageLoadHelper.loadImage(
+                        attachment.url,
+                        iv_attachment_image_full
                     )
                 }
                 ATTACH_LABEL_VIDEO -> {

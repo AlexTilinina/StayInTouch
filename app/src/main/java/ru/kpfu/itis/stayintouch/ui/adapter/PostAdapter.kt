@@ -1,6 +1,5 @@
 package ru.kpfu.itis.stayintouch.ui.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
