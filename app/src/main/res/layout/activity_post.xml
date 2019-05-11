@@ -82,6 +82,8 @@
                     android:layout_marginBottom="@dimen/margin_small"
                     android:textSize="@dimen/text_medium"
                     android:textColor="@color/colorTextDark"
+                    android:autoLink="web"
+                    android:textColorLink="@color/colorTextLink"
                     tools:text="test data for post sfdgdfgdfgdfsg dfgfd dfas fsdafsd fsafsdaf fdsafsdafsdf sdfsdafsdfsdf sdfsdfsdfsdfsadfsda sdfsdafsdafsdafas fasdfasdfas fasgadfgsdfhhgf"/>
 
                 <ImageView
