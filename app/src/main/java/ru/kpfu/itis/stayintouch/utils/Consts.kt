@@ -3,6 +3,7 @@ package ru.kpfu.itis.stayintouch.utils
 const val EMAIL_REGEX = "^((\\w[^\\W]+)[.\\-]?)+@(([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\" + ".[0-9]{1,3})|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
 const val PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&#])[A-Za-z\\d@\$!%*?&#]{8,}\$"
 const val LINK_REGEX = "^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#\\[\\]@!\\\$&'\\(\\)\\*\\+,;=.]+\$"
+const val LINK_IN_TEXT_REGEX = "(?:(?:https?|ftp):\\/\\/)?[\\w/\\-?=%.]+\\.[\\w/\\-?=%.]+"
 
 const val NEWS_FRAGMENT_TAG = "NewsFragment"
 const val RECOMMENDATION_FRAGMENT_TAG = "RecommendFragment"
