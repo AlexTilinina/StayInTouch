@@ -56,6 +56,9 @@ class PostAdapter(private val news: MutableList<Post>) :
         for (tag in post.tags) {
             tags += "${tag.name} "
         }
+        holder.itemView.iv_attachment_image.visibility = View.GONE
+        holder.itemView.fl_attachment_video.visibility = View.GONE
+        holder.itemView.fl_attachment_file.visibility = View.GONE
         if (post.attachments.isNotEmpty()) {
             val attachment = post.attachments[0]
             when (attachment.label) {
@@ -84,7 +87,10 @@ class PostAdapter(private val news: MutableList<Post>) :
                 }
                 ATTACH_LABEL_FILE -> {
                     holder.itemView.fl_attachment_file.visibility = View.VISIBLE
-                    holder.itemView.tv_attachment_file.text = parent.context.resources.getString(R.string.download_file)
+                    holder.itemView.tv_attachment_file.text = if (attachment.name != null) attachment.name
+                    else parent.context.resources.getString(R.string.download_file)
+                    holder.itemView.iv_attachment_file.setImageDrawable(
+                        parent.context.resources.getDrawable(R.drawable.ic_file, null))
                     holder.itemView.fl_attachment_file.setOnClickListener {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(attachment.url))
                         parent.context.startActivity(browserIntent)
@@ -93,16 +99,14 @@ class PostAdapter(private val news: MutableList<Post>) :
                 ATTACH_LABEL_LINK -> {
                     holder.itemView.fl_attachment_file.visibility = View.VISIBLE
                     holder.itemView.tv_attachment_file.text = attachment.url
-                    holder.itemView.iv_attachment_file.setImageDrawable(parent.context.resources.getDrawable(R.drawable.ic_link, null))
+                    holder.itemView.iv_attachment_file.setImageDrawable(
+                        parent.context.resources.getDrawable(R.drawable.ic_link, null))
                     holder.itemView.fl_attachment_file.setOnClickListener {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(attachment.url))
                         parent.context.startActivity(browserIntent)
                     }
                 }
             }
-        } else {
-            holder.itemView.iv_attachment_image.visibility = View.GONE
-            holder.itemView.fl_attachment_video.visibility = View.GONE
         }
         holder.itemView.tv_tags.text = tags
         holder.itemView.btn_comments.setOnClickListener {

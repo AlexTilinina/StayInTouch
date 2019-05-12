@@ -238,7 +238,7 @@ class CreatePostActivity : MvpAppCompatActivity(), CreatePostActivityView {
                 }
             }
             if (text.isNotEmpty()) {
-                if (LINK_IN_TEXT_REGEX.toRegex().containsMatchIn(text)) {
+                if (LINK_IN_TEXT_REGEX.toRegex().containsMatchIn(text) && attachment == null) {
                     LINK_IN_TEXT_REGEX.toRegex().find(text)?.value?.let { addLink(it) }
                 }
                 val post = PostCreate(text, tags)

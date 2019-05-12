@@ -216,7 +216,8 @@ class PostActivity : MvpAppCompatActivity(), PostActivityView {
                 }
                 ATTACH_LABEL_FILE -> {
                     fl_attachment_file.visibility = View.VISIBLE
-                    tv_attachment_file.text = resources.getString(R.string.download_file)
+                    tv_attachment_file.text = if (attachment.name != null) attachment.name
+                    else resources.getString(R.string.download_file)
                     fl_attachment_file.setOnClickListener {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(attachment.url))
                         startActivity(browserIntent)
