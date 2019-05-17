@@ -43,6 +43,7 @@ class MainActivity : MvpAppCompatActivity() {
     }
 
     private var isProfileEditing = false
+    private var type = NEWS_FRAGMENT_TAG
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,18 +65,13 @@ class MainActivity : MvpAppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var currentFrag = supportFragmentManager.findFragmentByTag(NEWS_FRAGMENT_TAG)
-        if (currentFrag != null && currentFrag.isVisible) {
-            menuInflater.inflate(R.menu.toolbar_create_post_menu, menu)
-        }
-        currentFrag = supportFragmentManager.findFragmentByTag(RECOMMENDATION_FRAGMENT_TAG)
-        if (currentFrag != null && currentFrag.isVisible) {
-            menuInflater.inflate(R.menu.toolbar_search_menu, menu)
-        }
-        currentFrag = supportFragmentManager.findFragmentByTag(PROFILE_FRAGMENT_TAG)
-        if (currentFrag != null && currentFrag.isVisible) {
-            menuInflater.inflate(R.menu.toolbar_edit_profile_menu, menu)
-            isProfileEditing = false
+        when (type) {
+            NEWS_FRAGMENT_TAG -> menuInflater.inflate(R.menu.toolbar_create_post_menu, menu)
+            RECOMMENDATION_FRAGMENT_TAG -> menuInflater.inflate(R.menu.toolbar_search_menu, menu)
+            PROFILE_FRAGMENT_TAG -> {
+                menuInflater.inflate(R.menu.toolbar_edit_profile_menu, menu)
+                isProfileEditing = false
+            }
         }
         return true
     }
@@ -142,15 +138,19 @@ class MainActivity : MvpAppCompatActivity() {
             when (it.itemId) {
                 nav_news -> {
                     setFragment(NewsFragment.newInstance(), NEWS_FRAGMENT_TAG)
+                    type = NEWS_FRAGMENT_TAG
                 }
                 nav_recommend -> {
                     setFragment(RecommendFragment.newInstance(), RECOMMENDATION_FRAGMENT_TAG)
+                    type = RECOMMENDATION_FRAGMENT_TAG
                 }
                 nav_answers -> {
                     setFragment(AnswersFragment.newInstance(), ANSWERS_FRAGMENT_TAG)
+                    type = ANSWERS_FRAGMENT_TAG
                 }
                 nav_profile -> {
                     setFragment(ProfileFragment.newInstance(), PROFILE_FRAGMENT_TAG)
+                    type = PROFILE_FRAGMENT_TAG
                 }
             }
             invalidateOptionsMenu()

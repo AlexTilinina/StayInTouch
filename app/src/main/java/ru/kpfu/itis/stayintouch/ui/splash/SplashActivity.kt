@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import retrofit2.HttpException
 import ru.kpfu.itis.stayintouch.R
 import ru.kpfu.itis.stayintouch.model.Token
 import ru.kpfu.itis.stayintouch.ui.auth.AuthActivity
@@ -37,7 +38,13 @@ class SplashActivity : MvpAppCompatActivity(), SplashActivityView {
     }
 
     override fun handleError(error: Throwable) {
-        AuthActivity.create(this, false)
-        error.printStackTrace()
+        if (error is HttpException) {
+            if (error.message().contains("timeout")){
+                presenter.refreshToken(PreferencesHelper.getStringPreference(this, TOKEN))
+            }
+        } else {
+            AuthActivity.create(this, false)
+            error.printStackTrace()
+        }
     }
 }

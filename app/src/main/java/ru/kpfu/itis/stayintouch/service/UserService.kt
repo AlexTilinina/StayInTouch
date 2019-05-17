@@ -10,10 +10,6 @@ import ru.kpfu.itis.stayintouch.model.UserPatch
 
 interface UserService {
 
-    @GET("api/users/{id}/")
-    fun getUserById(@Header("Authorization") token: String,
-                    @Path("id") id: String) : Single<User>
-
     @GET("auth/get-current-user/")
     fun getCurrentUser(@Header("Authorization") token: String): Single<User>
 
